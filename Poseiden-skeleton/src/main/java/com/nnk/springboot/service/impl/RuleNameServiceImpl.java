@@ -46,12 +46,13 @@ public class RuleNameServiceImpl implements IRuleNameService {
   public RuleName saveRuleName(RuleName ruleName) throws Exception {
     logger.debug("Creating ruleName with id : {}", ruleName.getId());
     // Checking if ruleName already exist
+    if (ruleName.getId() != null) {
     if (ruleNameRepository.findById(ruleName.getId()).isPresent()) {
       logger.error("This ruleName cannot be created because already exist");
       throw new Exception("This ruleName already exist");
-    } else {
-      logger.info("ruleName with id : {} created", ruleName.getId());
+    }} else {
       ruleNameRepository.save(ruleName);
+      logger.info("ruleName with id : {} created", ruleName.getId());
     }
     return ruleName;
   }

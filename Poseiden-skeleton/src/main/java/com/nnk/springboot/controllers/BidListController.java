@@ -2,6 +2,10 @@ package com.nnk.springboot.controllers;
 
 import javax.validation.Valid;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -12,45 +16,77 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.nnk.springboot.domain.BidList;
 
+import com.nnk.springboot.service.IBidListService;
 
-@Controller
+@Controller @RequestMapping("/bidList")
 public class BidListController {
-    // TODO: Inject Bid service
 
-    @RequestMapping("/bidList/list")
-    public String home(Model model)
-    {
-        // TODO: call service find all bids to show to the view
-        return "bidList/list";
-    }
+  final static Logger logger = LogManager.getLogger(BidListController.class);
 
-    @GetMapping("/bidList/add")
-    public String addBidForm(BidList bid) {
-        return "bidList/add";
-    }
+  @Autowired
+  IBidListService iBidListService;
 
-    @PostMapping("/bidList/validate")
-    public String validate(@Valid BidList bid, BindingResult result, Model model) {
-        // TODO: check data valid and save to db, after saving return bid list
-        return "bidList/add";
-    }
+  @GetMapping("/list")
+  public String home(Model model) {
+    logger.debug("Getting request bidList/list");
+    model.addAttribute("bidLists", iBidListService.getAllBidLists());
 
-    @GetMapping("/bidList/update/{id}")
-    public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
-        // TODO: get Bid by Id and to model then show to the form
-        return "bidList/update";
-    }
+    return "bidList/list";
+  }
 
-    @PostMapping("/bidList/update/{id}")
-    public String updateBid(@PathVariable("id") Integer id, @Valid BidList bidList,
-                             BindingResult result, Model model) {
-        // TODO: check required fields, if valid call service to update Bid and return list Bid
-        return "redirect:/bidList/list";
-    }
+  @GetMapping("/add")
+  public String addBidForm(BidList bid) {
+    logger.debug("Getting request bidList/add");
+    return "bidList/add";
+  }
 
-    @GetMapping("/bidList/delete/{id}")
-    public String deleteBid(@PathVariable("id") Integer id, Model model) {
-        // TODO: Find Bid by Id and delete the bid, return to Bid list
-        return "redirect:/bidList/list";
+  @PostMapping("/validate")
+  public String validate(@Valid BidList bid, BindingResult result, Model model) throws Exception {
+    logger.debug("Posting request bidList/validate for bid with id:{}", bid.getBidListId());
+    if (!result.hasErrors()) {
+      iBidListService.saveBidList(bid);
+      model.addAttribute("bidLists", iBidListService.getAllBidLists());
+      return "redirect:/bidList/list";
     }
+    logger.error("Error during saving bid : {}", result.getFieldError());
+    return "bidList/add";
+  }
+
+  @GetMapping("/update/{id}")
+  public String showUpdateForm(@PathVariable("id") Integer id, Model model) throws Exception {
+
+    logger.debug("Getting request bidList/update/{id} for bid with id:{}", id);
+    BidList newBidList = iBidListService.getBidListByBidListId(id);
+    model.addAttribute("bidList", newBidList);
+
+    return "bidList/update";
+
+  }
+
+  @PostMapping("/update/{id}")
+  public String updateBid(@PathVariable("id") Integer id, @Valid BidList bidList,
+      BindingResult result, Model model) throws Exception {
+    logger.debug("Posting request bidList/update/{id} for bid with id:{}", id);
+    if (result.hasErrors()) {
+      logger.error("Error during updating bid : {}", result.getFieldError());
+      return "bidList/update";
+    }
+    bidList.setBidListId(id);
+    iBidListService.updateBidList(bidList);
+    model.addAttribute("bidLists", iBidListService.getAllBidLists());
+
+    return "redirect:/bidList/list";
+
+  }
+
+  @GetMapping("/delete/{id}")
+  public String deleteBid(@PathVariable("id") Integer id, Model model) throws Exception {
+    logger.debug("Getting request bidList/delete/{id} for bid with id:{}", id);
+    BidList newBidList = iBidListService.getBidListByBidListId(id);
+    iBidListService.deleteBidList(newBidList);
+    model.addAttribute("bidLists", iBidListService.getAllBidLists());
+
+    return "redirect:/bidList/list";
+
+  }
 }

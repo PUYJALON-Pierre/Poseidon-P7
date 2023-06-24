@@ -13,9 +13,9 @@ import com.nnk.springboot.service.IRatingService;
 
 @Service
 public class RatingServiceImpl implements IRatingService {
- 
+
   final static Logger logger = LogManager.getLogger(RatingServiceImpl.class);
-  
+
   @Autowired
   RatingRepository ratingRepository;
 
@@ -32,7 +32,7 @@ public class RatingServiceImpl implements IRatingService {
 
   @Override
   public Rating getRatingById(int id) {
-  
+
     logger.debug("Finding rating with id : {}", id);
     if (ratingRepository.findById(id).isPresent()) {
       logger.info("Founded rating with id : {}", id);
@@ -45,29 +45,31 @@ public class RatingServiceImpl implements IRatingService {
 
   @Override
   public Rating saveRating(Rating rating) throws Exception {
-    
+
     logger.debug("Creating rating with id : {}", rating.getId());
     // Checking if rating already exist
-    if (ratingRepository.findById(rating.getId()).isPresent()) {
-      logger.error("This rating cannot be created because already exist");
-      throw new Exception("This rating already exist");
+    if (rating.getId() != null) {
+      if (ratingRepository.findById(rating.getId()).isPresent()) {
+        logger.error("This rating cannot be created because already exist");
+        throw new Exception("This rating already exist");
+      }
     } else {
-      logger.info("Rating with id : {} created", rating.getId());
+
       ratingRepository.save(rating);
+      logger.info("Rating with id : {} created", rating.getId());
     }
     return rating;
   }
 
   @Override
   public Rating updateRating(Rating rating) throws Exception {
-   
+
     logger.debug("Updating rating with id : {}", rating.getId());
     // Checking if rating already exist
     if (ratingRepository.findById(rating.getId()).isPresent()) {
       logger.info("Rating with id : {} updated", rating.getId());
       return ratingRepository.save(rating);
-    }
-    else {
+    } else {
       logger.error("This rating cannot be updated because not founded");
       throw new Exception("Rating to update not founded");
     }
@@ -75,7 +77,7 @@ public class RatingServiceImpl implements IRatingService {
 
   @Override
   public void deleteRating(Rating rating) throws Exception {
-   
+
     logger.debug("Deleting rating with id : {}", rating.getId());
 
     if (getRatingById(rating.getId()) != null) {
@@ -86,7 +88,5 @@ public class RatingServiceImpl implements IRatingService {
       throw new Exception("Rating to delete not founded");
     }
   }
-  
-  
-  
+
 }

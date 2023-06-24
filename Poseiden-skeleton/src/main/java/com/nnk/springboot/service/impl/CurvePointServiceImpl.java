@@ -47,12 +47,14 @@ public class CurvePointServiceImpl implements ICurvePointService {
 
     logger.debug("Creating curvePoint with id : {}", curvePoint.getId());
     // Checking if curvePoint already exist
-    if (curvePointRepository.findById(curvePoint.getId()).isPresent()) {
-      logger.error("This curvePoint cannot be created because already exist");
-      throw new Exception("This curvePoint already exist");
+    if (curvePoint.getId() != null) {
+      if (curvePointRepository.findById(curvePoint.getId()).isPresent()) {
+        logger.error("This curvePoint cannot be created because already exist");
+        throw new Exception("This curvePoint already exist");
+      }
     } else {
-      logger.info("CurvePoint with id : {} created", curvePoint.getId());
       curvePointRepository.save(curvePoint);
+      logger.info("CurvePoint with id : {} created", curvePoint.getId());
     }
     return curvePoint;
   }

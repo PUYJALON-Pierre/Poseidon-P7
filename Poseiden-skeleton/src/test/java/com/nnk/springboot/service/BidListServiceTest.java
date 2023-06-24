@@ -52,7 +52,7 @@ public class BidListServiceTest {
   }
 
   @Test
-  public void getBidListByBidListIdTest() {
+  public void getBidListByBidListIdTest() throws Exception {
 
     
     

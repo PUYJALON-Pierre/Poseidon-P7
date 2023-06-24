@@ -14,7 +14,7 @@ public interface IBidListService {
   
   public List<BidList> getAllBidLists();
   
-  public BidList getBidListByBidListId(int id) ;
+  public BidList getBidListByBidListId(int id) throws Exception ;
   
   public BidList saveBidList(BidList bidList) throws Exception ;
   

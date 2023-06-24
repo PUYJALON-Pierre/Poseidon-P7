@@ -47,12 +47,15 @@ public class TradeServiceImpl implements ITradeService {
   public Trade saveTrade(Trade trade) throws Exception {
     logger.debug("Creating trade with id : {}", trade.getTradeId());
     // Checking if trade already exist
-    if (tradeRepository.findById(trade.getTradeId()).isPresent()) {
-      logger.error("This trade cannot be created because already exist");
-      throw new Exception("This trade already exist");
+    if (trade.getTradeId() != null) {
+      if (tradeRepository.findById(trade.getTradeId()).isPresent()) {
+        logger.error("This trade cannot be created because already exist");
+        throw new Exception("This trade already exist");
+      }
     } else {
-      logger.info("Trade with id : {} created", trade.getTradeId());
+
       tradeRepository.save(trade);
+      logger.info("Trade with id : {} created", trade.getTradeId());
     }
     return trade;
   }

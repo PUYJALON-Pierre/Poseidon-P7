@@ -11,6 +11,7 @@ import com.nnk.springboot.domain.BidList;
 import com.nnk.springboot.repositories.BidListRepository;
 import com.nnk.springboot.service.IBidListService;
 
+
 @Service
 public class BidListServiceImpl implements IBidListService {
 
@@ -31,7 +32,7 @@ public class BidListServiceImpl implements IBidListService {
   }
 
   @Override
-  public BidList getBidListByBidListId(int id) {
+  public BidList getBidListByBidListId(int id) throws Exception {
 
     logger.debug("Finding BidList with id : {}", id);
     // vérifier
@@ -40,7 +41,7 @@ public class BidListServiceImpl implements IBidListService {
       return bidListRepository.findById(id).get();
     } else {
       logger.error("No BidList founded with id : {}", id);
-      return null;
+      throw new Exception("BidList cannot be founded with this id");
     }
 
   }
@@ -50,14 +51,20 @@ public class BidListServiceImpl implements IBidListService {
   public BidList saveBidList(BidList bidList) throws Exception {
     logger.debug("Creating BidList with id : {}", bidList.getBidListId());
     // Checking if BidList already exist
-    if (bidListRepository.findById(bidList.getBidListId()).isPresent()) {
-      logger.error("This bidList cannot be created because already exist");
-      throw new Exception("This bidList already exist");
-    } else {
-      logger.info("BidList with id : {} created", bidList.getBidListId());
+
+    if (bidList.getBidListId() != null) {
+      if (bidListRepository.findById(bidList.getBidListId()).isPresent()) {
+        logger.error("This bidList cannot be created because already exist");
+        throw new Exception("This bidList already exist");
+      }
+    }
+
+    else {
       bidListRepository.save(bidList);
+      logger.info("BidList with id : {} created", bidList.getBidListId());
     }
     return bidList;
+
 
   }
 

@@ -2,6 +2,9 @@ package com.nnk.springboot.controllers;
 
 import javax.validation.Valid;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -11,45 +14,74 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.nnk.springboot.domain.Trade;
+import com.nnk.springboot.service.ITradeService;
 
-@Controller
+@Controller @RequestMapping("/trade")
 public class TradeController {
-    // TODO: Inject Trade service
+  final static Logger logger = LogManager.getLogger(TradeController.class);
 
-    @RequestMapping("/trade/list")
-    public String home(Model model)
-    {
-        // TODO: find all Trade, add to model
-        return "trade/list";
-    }
+  @Autowired
+  ITradeService iTradeService;
 
-    @GetMapping("/trade/add")
-    public String addUser(Trade bid) {
-        return "trade/add";
-    }
+  @GetMapping("/list")
+  public String home(Model model) {
+    logger.debug("Getting request trade/list");
+    model.addAttribute("trades", iTradeService.getAllTrades());
+    return "trade/list";
+  }
 
-    @PostMapping("/trade/validate")
-    public String validate(@Valid Trade trade, BindingResult result, Model model) {
-        // TODO: check data valid and save to db, after saving return Trade list
-        return "trade/add";
-    }
+  @GetMapping("/add")
+  public String addUser(Trade bid) {
+    logger.debug("Getting request trade/add");
+    return "trade/add";
+  }
 
-    @GetMapping("/trade/update/{id}")
-    public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
-        // TODO: get Trade by Id and to model then show to the form
-        return "trade/update";
-    }
+  @PostMapping("/validate")
+  public String validate(@Valid Trade trade, BindingResult result, Model model) throws Exception {
 
-    @PostMapping("/trade/update/{id}")
-    public String updateTrade(@PathVariable("id") Integer id, @Valid Trade trade,
-                             BindingResult result, Model model) {
-        // TODO: check required fields, if valid call service to update Trade and return Trade list
-        return "redirect:/trade/list";
+    logger.debug("Posting request trade/validate for trade with id:{}", trade.getTradeId());
+    if (!result.hasErrors()) {
+      iTradeService.saveTrade(trade);
+      model.addAttribute("trades", iTradeService.getAllTrades());
+      return "redirect:/trade/list";
     }
+    logger.error("Error during saving trade : {}", result.getFieldError());
 
-    @GetMapping("/trade/delete/{id}")
-    public String deleteTrade(@PathVariable("id") Integer id, Model model) {
-        // TODO: Find Trade by Id and delete the Trade, return to Trade list
-        return "redirect:/trade/list";
+    return "trade/add";
+  }
+
+  @GetMapping("/update/{id}")
+  public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
+
+    logger.debug("Getting request trade/update/{id} for trade with id:{}", id);
+    Trade newTrade = iTradeService.getTradeById(id);
+    model.addAttribute("trade", newTrade);
+    return "trade/update";
+  }
+
+  @PostMapping("/update/{id}")
+  public String updateTrade(@PathVariable("id") Integer id, @Valid Trade trade,
+      BindingResult result, Model model) throws Exception {
+
+    logger.debug("Posting request trade/update/{id} for trade with id:{}", id);
+    if (result.hasErrors()) {
+      logger.error("Error during updating trade : {}", result.getFieldError());
+      return "trade/update";
     }
+    trade.setTradeId(id);
+    iTradeService.updateTrade(trade);
+    model.addAttribute("trades", iTradeService.getAllTrades());
+    return "redirect:/trade/list";
+  }
+
+  @GetMapping("/delete/{id}")
+  public String deleteTrade(@PathVariable("id") Integer id, Model model) throws Exception {
+
+    logger.debug("Getting request trade/delete/{id} for trade with id:{}", id);
+    Trade newTrade = iTradeService.getTradeById(id);
+    iTradeService.deleteTrade(newTrade);
+    model.addAttribute("trades", iTradeService.getAllTrades());
+
+    return "redirect:/trade/list";
+  }
 }
