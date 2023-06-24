@@ -43,4 +43,7 @@ public class TradeTests {
 		Optional<Trade> tradeList = tradeRepository.findById(id);
 		Assert.assertFalse(tradeList.isPresent());
 	}
+	
+	
+	
 }

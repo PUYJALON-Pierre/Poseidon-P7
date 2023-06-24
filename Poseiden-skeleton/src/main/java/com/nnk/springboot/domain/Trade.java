@@ -1,30 +1,35 @@
 package com.nnk.springboot.domain;
 
-import javax.persistence.*;
+import java.sql.Timestamp;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 import lombok.Data;
-
-import java.sql.Timestamp;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
 @Entity
 @Table(name = "trade")
 public class Trade {
     // DONE: Map columns in data table TRADE with corresponding java fields
   
-  
   @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @GeneratedValue(strategy = GenerationType.AUTO)
   @Column(name="TradeId")
   private Integer tradeId;
  
   @NotBlank(message = "Account is mandatory")
   @Size(max = 30, message = "Max of {max} characters")
-  @Column(name="TradeId")
+  @Column(name="account")
   String account;
-  
   
   @NotBlank(message = "Type is mandatory")
   @Size(max = 30, message = "Max of {max} characters")
@@ -99,7 +104,11 @@ public class Trade {
 
   
   
-  
+  public Trade(String account, String type) {
+    this.account = account;
+    this.type = type;
+
+}
   
   
   

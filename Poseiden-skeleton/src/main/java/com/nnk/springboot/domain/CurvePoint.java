@@ -1,21 +1,26 @@
 package com.nnk.springboot.domain;
 
-import org.hibernate.validator.constraints.Length;
-
-import lombok.Data;
-
-import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 @Data
+@NoArgsConstructor
 @Entity
 @Table(name = "curvepoint")
 public class CurvePoint {
 
+
   @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @GeneratedValue(strategy = GenerationType.AUTO)
   @Column(name="Id")
   private Integer id;
   
@@ -34,6 +39,11 @@ public class CurvePoint {
   @Column(name="creationDate")
   Timestamp creationDate;
 
-  
-  
+
+
+  public CurvePoint(int curveId, double term, double value) {
+    this.curveId = curveId;
+    this.term = term;
+    this.value = value;
+  }
 }

@@ -1,25 +1,27 @@
 package com.nnk.springboot.domain;
 
-import org.springframework.beans.factory.annotation.Required;
-import org.springframework.validation.annotation.Validated;
+import java.sql.Timestamp;
 
-import lombok.Data;
-
-import javax.persistence.*;
-import javax.validation.constraints.Digits;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
-import java.sql.Date;
-import java.sql.Timestamp;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
 @Entity
 @Table(name = "bidlist")
 public class BidList {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @GeneratedValue(strategy = GenerationType.AUTO)
   @Column(name="BidListId")
   private Integer bidListId;
   
@@ -104,7 +106,13 @@ public class BidList {
   private String side;
 
   
-  
+  public BidList(String account, String type, Double bidQuantity) {
+    this.account = account;
+    this.type = type;
+    this.bidQuantity = bidQuantity;
+}
+
+
   
   
   

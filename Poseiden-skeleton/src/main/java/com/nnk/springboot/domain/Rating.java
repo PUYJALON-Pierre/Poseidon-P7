@@ -1,21 +1,24 @@
 package com.nnk.springboot.domain;
 
-import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
 import lombok.Data;
-
-import java.sql.Timestamp;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
 @Entity
 @Table(name = "rating")
 public class Rating {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @GeneratedValue(strategy = GenerationType.AUTO)
   @Column(name="Id")
   private Integer id;
   
@@ -33,5 +36,12 @@ public class Rating {
  
   @Column(name="orderNumber")
   Integer orderNumber;
+  
+  public Rating(String moodysRating, String sandPRating, String fitchRating, Integer orderNumber) {
+    this.moodysRating = moodysRating;
+    this.sandPRating = sandPRating;
+    this.fitchRating = fitchRating;
+    this.orderNumber = orderNumber;
+}
   
 }

@@ -2,7 +2,6 @@ package com.nnk.springboot.service;
 
 import java.util.List;
 
-import com.nnk.springboot.domain.Rating;
 import com.nnk.springboot.domain.RuleName;
 
 public interface IRuleNameService {

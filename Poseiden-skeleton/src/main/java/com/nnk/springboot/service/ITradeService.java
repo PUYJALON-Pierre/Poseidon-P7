@@ -2,7 +2,6 @@ package com.nnk.springboot.service;
 
 import java.util.List;
 
-import com.nnk.springboot.domain.RuleName;
 import com.nnk.springboot.domain.Trade;
 
 public interface ITradeService {

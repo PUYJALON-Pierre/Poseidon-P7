@@ -2,7 +2,6 @@ package com.nnk.springboot.service;
 
 import java.util.List;
 
-import com.nnk.springboot.domain.BidList;
 import com.nnk.springboot.domain.CurvePoint;
 
 public interface ICurvePointService {
