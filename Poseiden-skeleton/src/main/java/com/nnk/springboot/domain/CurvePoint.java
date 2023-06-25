@@ -12,6 +12,11 @@ import javax.persistence.Table;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+
+/**
+ *  Model class for CurvePoint in Trading App UI (Poseidon inc)
+ *
+ */
 @Data
 @NoArgsConstructor
 @Entity

@@ -17,6 +17,12 @@ import org.springframework.stereotype.Service;
 import com.nnk.springboot.domain.User;
 import com.nnk.springboot.repositories.UserRepository;
 
+/**
+ * Service class to loads specific data for an User from a database
+ *
+ * @author PUYJALON Pierre
+ * @since 25/06/2023
+ */
 @Service
 public class MyUserDetailsService implements UserDetailsService {
 
@@ -25,7 +31,12 @@ public class MyUserDetailsService implements UserDetailsService {
   @Autowired
   UserRepository userRepository;
 
-  
+  /**
+   * Get authority from a specific user
+   * 
+   * @param user - User
+   * @return Collection of GrantedAuthority
+   */
   private Collection<GrantedAuthority> getAuthority(User user) {
     Collection<GrantedAuthority> authorities = new ArrayList<>(2);
     if (user.getRole().equals("ADMIN")) {

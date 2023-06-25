@@ -17,6 +17,12 @@ import com.nnk.springboot.domain.BidList;
 import com.nnk.springboot.domain.CurvePoint;
 import com.nnk.springboot.service.ICurvePointService;
 
+/**
+ * Controller class for Curvepoint view in Trading App UI (Poseidon inc)
+ *
+ * @author PUYJALON Pierre
+ * @since 25/06/2023
+ */
 @Controller @RequestMapping("/curvePoint")
 public class CurveController {
 
@@ -25,6 +31,13 @@ public class CurveController {
 
   final static Logger logger = LogManager.getLogger(CurveController.class);
 
+  
+  /**
+   * Get curvePoint/list page model
+   *
+   * @param model - Model
+   * @return list (html template)
+   */
   @GetMapping("/list")
   public String home(Model model) {
     logger.debug("Getting request curvePoint/list");
@@ -32,12 +45,28 @@ public class CurveController {
     return "curvePoint/list";
   }
 
+  
+ /**
+  * Get curvePoint/add page model
+  * 
+  * @param curvePoint - CurvePoint
+  * @return add (html template)
+  */
   @GetMapping("/add")
-  public String addBidForm(CurvePoint bid) {
+  public String addBidForm(CurvePoint curvePoint) {
     logger.debug("Getting request curvePoint/add");
     return "curvePoint/add";
   }
 
+  /**
+   * Creating a new CurvePoint
+   * 
+   * @param curvePoint - CurvePoint
+   * @param result - BindingResult
+   * @param model - Model
+   * @return redirect:/curvePoint/list or curvePoint/add
+   * @throws Exception
+   */
   @PostMapping("/validate")
   public String validate(@Valid CurvePoint curvePoint, BindingResult result, Model model)
       throws Exception {
@@ -52,6 +81,14 @@ public class CurveController {
     return "curvePoint/add";
   }
 
+  
+  /**
+   * Get curvePoint/update page model
+   * 
+   * @param id - int
+   * @param model - Model
+   * @return curvePoint/update
+   */
   @GetMapping("/update/{id}")
   public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
     logger.debug("Getting request curvePoint/update/{id} for curvePoint with id:{}", id);
@@ -60,6 +97,16 @@ public class CurveController {
     return "curvePoint/update";
   }
 
+  /**
+   * Post request for updating a curvePoint by his id
+   * 
+   * @param id - int
+   * @param curvePoint - CurvePoint
+   * @param result - BindingResult
+   * @param model - Model
+   * @return redirect:/curvePoint/list or curvePoint/update
+   * @throws Exception
+   */
   @PostMapping("/update/{id}")
   public String updateBid(@PathVariable("id") Integer id, @Valid CurvePoint curvePoint,
       BindingResult result, Model model) throws Exception {
@@ -75,6 +122,14 @@ public class CurveController {
     return "redirect:/curvePoint/list";
   }
 
+  /**
+   * Delete request for deleting a curvePoint by his id
+   * 
+   * @param id - int
+   * @param model - Model
+   * @return redirect:/curvePoint/list
+   * @throws Exception
+   */
   @GetMapping("/delete/{id}")
   public String deleteBid(@PathVariable("id") Integer id, Model model) throws Exception {
     logger.debug("Getting request curvePoint/delete/{id} for curvePoint with id:{}", id);

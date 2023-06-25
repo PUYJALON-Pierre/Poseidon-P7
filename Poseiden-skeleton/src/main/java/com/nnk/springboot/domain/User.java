@@ -7,7 +7,10 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 
-
+/**
+ *  Model class for User in Trading App UI (Poseidon inc)
+ *
+ */
 @Entity
 @Table(name = "users")
 public class User {

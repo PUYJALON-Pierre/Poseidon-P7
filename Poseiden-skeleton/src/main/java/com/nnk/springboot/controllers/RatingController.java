@@ -13,10 +13,15 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.nnk.springboot.domain.BidList;
 import com.nnk.springboot.domain.Rating;
 import com.nnk.springboot.service.IRatingService;
 
+/**
+ * Controller class for Rating view in Trading App UI (Poseidon inc)
+ *
+ * @author PUYJALON Pierre
+ * @since 25/06/2023
+ */
 @Controller @RequestMapping("/rating")
 public class RatingController {
   final static Logger logger = LogManager.getLogger(RatingController.class);
@@ -24,6 +29,12 @@ public class RatingController {
   @Autowired
   IRatingService iRatingService;
 
+  /**
+   * Get rating/list page model
+   * 
+   * @param model - Model
+   * @return list (html template)
+   */
   @GetMapping("/list")
   public String home(Model model) {
 
@@ -32,12 +43,27 @@ public class RatingController {
     return "rating/list";
   }
 
+  /**
+   * Get rating/add page model
+   * 
+   * @param rating - Rating
+   * @return add (html template)
+   */
   @GetMapping("/add")
   public String addRatingForm(Rating rating) {
     logger.debug("Getting request rating/add");
     return "rating/add";
   }
 
+  /**
+   * Creating a new Rating
+   * 
+   * @param rating - Rating
+   * @param result - BindingResult
+   * @param model - Model
+   * @return redirect:/rating/list or rating/add
+   * @throws Exception
+   */
   @PostMapping("/validate")
   public String validate(@Valid Rating rating, BindingResult result, Model model) throws Exception {
     logger.debug("Posting request rating/validate for rating with id:{}", rating.getId());
@@ -50,6 +76,13 @@ public class RatingController {
     return "rating/add";
   }
 
+  /**
+   * Get rating/update page model
+   * 
+   * @param id - int
+   * @param model - Model
+   * @return rating/update
+   */
   @GetMapping("/update/{id}")
   public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
     logger.debug("Getting request rating/update/{id} for rating with id:{}", id);
@@ -58,6 +91,16 @@ public class RatingController {
     return "rating/update";
   }
 
+  /**
+   * Post request for updating a Rating by his id
+   * 
+   * @param id - int
+   * @param rating - Rating
+   * @param result - BindingResult
+   * @param model - Model
+   * @return redirect:/rating/list or rating/update
+   * @throws Exception
+   */
   @PostMapping("/update/{id}")
   public String updateRating(@PathVariable("id") Integer id, @Valid Rating rating,
       BindingResult result, Model model) throws Exception {
@@ -73,6 +116,14 @@ public class RatingController {
     return "redirect:/rating/list";
   }
 
+  /**
+   * Delete request for deleting a CurvePoint by his id
+   * 
+   * @param id - int
+   * @param model - Model
+   * @return redirect:/rating/list
+   * @throws Exception
+   */
   @GetMapping("/delete/{id}")
   public String deleteRating(@PathVariable("id") Integer id, Model model) throws Exception {
 

@@ -11,6 +11,11 @@ import javax.validation.constraints.Size;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+
+/**
+ *  Model class for rating in Trading App UI (Poseidon inc)
+ *
+ */
 @Data
 @NoArgsConstructor
 @Entity

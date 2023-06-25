@@ -18,6 +18,12 @@ import com.nnk.springboot.domain.BidList;
 
 import com.nnk.springboot.service.IBidListService;
 
+/**
+ * Controller class for BidList view in Trading App UI (Poseidon inc)
+ *
+ * @author PUYJALON Pierre
+ * @since 25/06/2023
+ */
 @Controller @RequestMapping("/bidList")
 public class BidListController {
 
@@ -26,6 +32,12 @@ public class BidListController {
   @Autowired
   IBidListService iBidListService;
 
+  /**
+   * Get bidList/list page model
+   *
+   * @param model - Model
+   * @return list (html template)
+   */
   @GetMapping("/list")
   public String home(Model model) {
     logger.debug("Getting request bidList/list");
@@ -34,12 +46,27 @@ public class BidListController {
     return "bidList/list";
   }
 
+  /**
+   * Get bidList/add page model
+   * 
+   * @param bid - BidList
+   * @return list (html template)
+   */
   @GetMapping("/add")
   public String addBidForm(BidList bid) {
     logger.debug("Getting request bidList/add");
     return "bidList/add";
   }
 
+  /**
+   * Creating a new Bid
+   * 
+   * @param bid - BidList
+   * @param result - BindingResult
+   * @param model - Model
+   * @return redirect:/bidList/list or bidList/add
+   * @throws Exception
+   */
   @PostMapping("/validate")
   public String validate(@Valid BidList bid, BindingResult result, Model model) throws Exception {
     logger.debug("Posting request bidList/validate for bid with id:{}", bid.getBidListId());
@@ -52,6 +79,14 @@ public class BidListController {
     return "bidList/add";
   }
 
+  /**
+   * Get bidList/update page model
+   * 
+   * @param id - int
+   * @param model - Model
+   * @return udpate (html template)
+   * @throws Exception
+   */
   @GetMapping("/update/{id}")
   public String showUpdateForm(@PathVariable("id") Integer id, Model model) throws Exception {
 
@@ -63,6 +98,16 @@ public class BidListController {
 
   }
 
+  /**
+   * Post request for updating a bid by his id
+   *
+   * @param id _ int
+   * @param bidList - BidList
+   * @param result - BindingResult
+   * @param model - Model
+   * @return redirect:/bidList/list or bidList/update
+   * @throws Exception
+   */
   @PostMapping("/update/{id}")
   public String updateBid(@PathVariable("id") Integer id, @Valid BidList bidList,
       BindingResult result, Model model) throws Exception {
@@ -79,6 +124,14 @@ public class BidListController {
 
   }
 
+  /**
+   * Delete request for deleting a bid by his id
+   * 
+   * @param id - int
+   * @param model - Model
+   * @return redirect:/bidList/list
+   * @throws Exception
+   */
   @GetMapping("/delete/{id}")
   public String deleteBid(@PathVariable("id") Integer id, Model model) throws Exception {
     logger.debug("Getting request bidList/delete/{id} for bid with id:{}", id);

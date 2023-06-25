@@ -14,6 +14,13 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.nnk.springboot.service.MyUserDetailsService;
 
+
+/**
+ * Class to configure Spring Security for for Trading App UI (Poseidon inc)
+ *
+ * @author PUYJALON Pierre
+ * @since 25/06/2023
+ */
 @Configuration @EnableWebSecurity
 public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
