@@ -1,6 +1,7 @@
 package com.nnk.springboot.domain;
 
-import java.sql.Timestamp;
+
+import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,8 +9,14 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,8 +26,8 @@ import lombok.NoArgsConstructor;
  *  Model class for Trade in Trading App UI (Poseidon inc)
  *
  */
-@Data
 @NoArgsConstructor
+@Data
 @Entity
 @Table(name = "trade")
 public class Trade {
@@ -31,16 +38,21 @@ public class Trade {
   @Column(name="TradeId")
   private Integer tradeId;
  
+  @NotNull
   @NotBlank(message = "Account is mandatory")
   @Size(max = 30, message = "Max of {max} characters")
   @Column(name="account")
   String account;
   
+  @NotNull
   @NotBlank(message = "Type is mandatory")
   @Size(max = 30, message = "Max of {max} characters")
   @Column(name="type")
   String type;
   
+  @NotNull(message = "Buy quantity is mandatory")
+  @Digits(fraction = 2, integer = 20)
+  @Positive
   @Column(name="buyQuantity")
   Double buyQuantity;
   
@@ -54,7 +66,8 @@ public class Trade {
   Double sellPrice;
   
   @Column(name="tradeDate")
-  Timestamp tradeDate;
+  @DateTimeFormat(pattern = "yyyy-MM-dd")
+  LocalDateTime tradeDate;
   
   @Size(max = 125, message = "Max of {max} characters")
   @Column(name="security")
@@ -80,16 +93,17 @@ public class Trade {
   @Column(name="creationName")
   String creationName;
   
-
+  @DateTimeFormat(pattern = "yyyy-MM-dd")
   @Column(name="creationDate")
-  Timestamp creationDate;
+  LocalDateTime creationDate;
   
   @Size(max = 125, message = "Max of {max} characters")
   @Column(name="revisionName")
   String revisionName;
   
+  @DateTimeFormat(pattern = "yyyy-MM-dd")
   @Column(name="revisionDate")
-  Timestamp revisionDate;
+  LocalDateTime revisionDate;
   
   @Size(max = 125, message = "Max of {max} characters")
   @Column(name="dealName")

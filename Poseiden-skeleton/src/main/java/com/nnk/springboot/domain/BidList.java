@@ -1,6 +1,6 @@
 package com.nnk.springboot.domain;
 
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,19 +8,27 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.PositiveOrZero;
 import javax.validation.constraints.Size;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
 
 
 /**
  *  Model class for BidList in Trading App UI (Poseidon inc)
  *
  */
-@Data
 @NoArgsConstructor
+@Data
 @Entity
 @Table(name = "bidlist")
 public class BidList {
@@ -30,24 +38,28 @@ public class BidList {
   @Column(name="BidListId")
   private Integer bidListId;
   
+  @NotNull
   @NotBlank(message = "Account is mandatory")
   @Size(max = 30, message = "Max of {max} characters")
   @Column(name="account")
   private String account;
   
+  @NotNull
   @NotBlank(message = "Type is mandatory")
   @Size(max = 30, message = "Max of {max} characters")
   @Column(name="type")
   private String type;
   
-
+  @NotNull(message = "Bid quantity is mandatory")
+  @PositiveOrZero
+  @Digits(fraction = 2, integer = 20)
   @Column(name="bidQuantity")
   private Double bidQuantity;
   
   @Column(name="askQuantity")
   private Double askQuantity;
   
-  @Column(name="bid")
+  @Column(name="bidList")
   private Double bid;
   
   @Column(name="ask")
@@ -58,7 +70,8 @@ public class BidList {
   private String benchmark;
   
   @Column(name="bidListDate")
-  private Timestamp bidListDate;
+  @DateTimeFormat(pattern = "yyyy-MM-dd")
+  private LocalDateTime bidListDate;
   
   @Size(max = 125, message = "Max of {max} characters")
   @Column(name="commentary")
@@ -85,14 +98,16 @@ public class BidList {
   private String creationName;
   
   @Column(name="creationDate")
-  private Timestamp creationDate;
+  @DateTimeFormat(pattern = "yyyy-MM-dd")
+  private LocalDateTime creationDate;
   
   @Size(max = 125, message = "Max of {max} characters")
   @Column(name="revisionName")
   private String revisionName;
   
   @Column(name="revisionDate")
-  private  Timestamp revisionDate;
+  @DateTimeFormat(pattern = "yyyy-MM-dd")
+  private LocalDateTime revisionDate;
   
   @Size(max = 125, message = "Max of {max} characters")
   @Column(name="dealName")

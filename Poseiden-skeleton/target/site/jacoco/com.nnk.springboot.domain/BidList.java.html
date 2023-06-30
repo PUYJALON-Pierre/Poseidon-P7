@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BidList.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">spring-boot-skeleton</a> &gt; <a href="index.source.html" class="el_package">com.nnk.springboot.domain</a> &gt; <span class="el_source">BidList.java</span></div><h1>BidList.java</h1><pre class="source lang-java linenums">package com.nnk.springboot.domain;
+
+import java.time.LocalDateTime;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.validation.constraints.Digits;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.PositiveOrZero;
+import javax.validation.constraints.Size;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+
+
+/**
+ *  Model class for BidList in Trading App UI (Poseidon inc)
+ *
+ */
+<span class="fc" id="L30">@NoArgsConstructor</span>
+<span class="pc bnc" id="L31" title="All 182 branches missed.">@Data</span>
+@Entity
+@Table(name = &quot;bidlist&quot;)
+public class BidList {
+
+  @Id
+  @GeneratedValue(strategy = GenerationType.AUTO)
+  @Column(name=&quot;BidListId&quot;)
+  private Integer bidListId;
+  
+  @NotNull
+  @NotBlank(message = &quot;Account is mandatory&quot;)
+  @Size(max = 30, message = &quot;Max of {max} characters&quot;)
+  @Column(name=&quot;account&quot;)
+  private String account;
+  
+  @NotNull
+  @NotBlank(message = &quot;Type is mandatory&quot;)
+  @Size(max = 30, message = &quot;Max of {max} characters&quot;)
+  @Column(name=&quot;type&quot;)
+  private String type;
+  
+  @NotNull(message = &quot;Bid quantity is mandatory&quot;)
+  @PositiveOrZero
+  @Digits(fraction = 2, integer = 20)
+  @Column(name=&quot;bidQuantity&quot;)
+  private Double bidQuantity;
+  
+  @Column(name=&quot;askQuantity&quot;)
+  private Double askQuantity;
+  
+  @Column(name=&quot;bidList&quot;)
+  private Double bid;
+  
+  @Column(name=&quot;ask&quot;)
+  private Double ask;
+  
+  @Size(max = 125, message = &quot;Max of {max} characters&quot;)
+  @Column(name=&quot;benchmark&quot;)
+  private String benchmark;
+  
+  @Column(name=&quot;bidListDate&quot;)
+  @DateTimeFormat(pattern = &quot;yyyy-MM-dd&quot;)
+  private LocalDateTime bidListDate;
+  
+  @Size(max = 125, message = &quot;Max of {max} characters&quot;)
+  @Column(name=&quot;commentary&quot;)
+  private String commentary;
+  
+  @Size(max = 125, message = &quot;Max of {max} characters&quot;)
+  @Column(name=&quot;security&quot;)
+  private String security;
+  
+  @Size(max = 10, message = &quot;Max of {max} characters&quot;)
+  @Column(name=&quot;status&quot;)
+  private String status;
+  
+  @Size(max = 125, message = &quot;Max of {max} characters&quot;)
+  @Column(name=&quot;trader&quot;)
+  private String trader;
+  
+  @Size(max = 125, message = &quot;Max of {max} characters&quot;)
+  @Column(name=&quot;book&quot;)
+  private String book;
+  
+  @Size(max = 125, message = &quot;Max of {max} characters&quot;)
+  @Column(name=&quot;creationName&quot;)
+  private String creationName;
+  
+  @Column(name=&quot;creationDate&quot;)
+  @DateTimeFormat(pattern = &quot;yyyy-MM-dd&quot;)
+  private LocalDateTime creationDate;
+  
+  @Size(max = 125, message = &quot;Max of {max} characters&quot;)
+  @Column(name=&quot;revisionName&quot;)
+  private String revisionName;
+  
+  @Column(name=&quot;revisionDate&quot;)
+  @DateTimeFormat(pattern = &quot;yyyy-MM-dd&quot;)
+  private LocalDateTime revisionDate;
+  
+  @Size(max = 125, message = &quot;Max of {max} characters&quot;)
+  @Column(name=&quot;dealName&quot;)
+  private String dealName;
+  
+  @Size(max = 125, message = &quot;Max of {max} characters&quot;)
+  @Column(name=&quot;dealType&quot;)
+  private String dealType;
+  
+  @Size(max = 125, message = &quot;Max of {max} characters&quot;)
+  @Column(name=&quot;sourceListId&quot;)
+  private String sourceListId;
+  
+  @Size(max = 125, message = &quot;Max of {max} characters&quot;)
+  @Column(name=&quot;side&quot;)
+  private String side;
+
+  
+<span class="fc" id="L129">  public BidList(String account, String type, Double bidQuantity) {</span>
+<span class="fc" id="L130">    this.account = account;</span>
+<span class="fc" id="L131">    this.type = type;</span>
+<span class="fc" id="L132">    this.bidQuantity = bidQuantity;</span>
+<span class="fc" id="L133">}</span>
+
+
+  
+  
+  
+  
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Trade.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">spring-boot-skeleton</a> &gt; <a href="index.source.html" class="el_package">com.nnk.springboot.domain</a> &gt; <span class="el_source">Trade.java</span></div><h1>Trade.java</h1><pre class="source lang-java linenums">package com.nnk.springboot.domain;
+
+
+import java.time.LocalDateTime;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
+import javax.validation.constraints.Size;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
+
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+
+/**
+ *  Model class for Trade in Trading App UI (Poseidon inc)
+ *
+ */
+<span class="nc" id="L28">@NoArgsConstructor</span>
+<span class="nc bnc" id="L29" title="All 174 branches missed.">@Data</span>
+@Entity
+@Table(name = &quot;trade&quot;)
+public class Trade {
+    // DONE: Map columns in data table TRADE with corresponding java fields
+  
+  @Id
+  @GeneratedValue(strategy = GenerationType.AUTO)
+  @Column(name=&quot;TradeId&quot;)
+  private Integer tradeId;
+ 
+  @NotNull
+  @NotBlank(message = &quot;Account is mandatory&quot;)
+  @Size(max = 30, message = &quot;Max of {max} characters&quot;)
+  @Column(name=&quot;account&quot;)
+  String account;
+  
+  @NotNull
+  @NotBlank(message = &quot;Type is mandatory&quot;)
+  @Size(max = 30, message = &quot;Max of {max} characters&quot;)
+  @Column(name=&quot;type&quot;)
+  String type;
+  
+  @NotNull(message = &quot;Buy quantity is mandatory&quot;)
+  @Positive
+  @Column(name=&quot;buyQuantity&quot;)
+  Double buyQuantity;
+  
+  @Column(name=&quot;sellQuantity&quot;)
+  Double sellQuantity;
+  
+  @Column(name=&quot;buyPrice&quot;)
+  Double buyPrice;
+  
+  @Column(name=&quot;sellPrice&quot;)
+  Double sellPrice;
+  
+  @Column(name=&quot;tradeDate&quot;)
+  @DateTimeFormat(pattern = &quot;yyyy-MM-dd&quot;)
+  LocalDateTime tradeDate;
+  
+  @Size(max = 125, message = &quot;Max of {max} characters&quot;)
+  @Column(name=&quot;security&quot;)
+  String security;
+  
+  @Size(max = 10, message = &quot;Max of {max} characters&quot;)
+  @Column(name=&quot;status&quot;)
+  String status;
+  
+  @Size(max = 125, message = &quot;Max of {max} characters&quot;)
+  @Column(name=&quot;trader&quot;)
+  String trader;
+  
+  @Size(max = 125, message = &quot;Max of {max} characters&quot;)
+  @Column(name=&quot;benchmark&quot;)
+  String benchmark;
+  
+  @Size(max = 125, message = &quot;Max of {max} characters&quot;)
+  @Column(name=&quot;book&quot;)
+  String book;
+  
+  @Size(max = 125, message = &quot;Max of {max} characters&quot;)
+  @Column(name=&quot;creationName&quot;)
+  String creationName;
+  
+  @DateTimeFormat(pattern = &quot;yyyy-MM-dd&quot;)
+  @Column(name=&quot;creationDate&quot;)
+  LocalDateTime creationDate;
+  
+  @Size(max = 125, message = &quot;Max of {max} characters&quot;)
+  @Column(name=&quot;revisionName&quot;)
+  String revisionName;
+  
+  @DateTimeFormat(pattern = &quot;yyyy-MM-dd&quot;)
+  @Column(name=&quot;revisionDate&quot;)
+  LocalDateTime revisionDate;
+  
+  @Size(max = 125, message = &quot;Max of {max} characters&quot;)
+  @Column(name=&quot;dealName&quot;)
+  String dealName;
+  
+  @Size(max = 125, message = &quot;Max of {max} characters&quot;)
+  @Column(name=&quot;dealType&quot;)
+  String dealType;
+  
+  @Size(max = 125, message = &quot;Max of {max} characters&quot;)
+  @Column(name=&quot;sourceListId&quot;)
+  String sourceListId;
+  
+  @Size(max = 125, message = &quot;Max of {max} characters&quot;)
+  @Column(name=&quot;side&quot;)
+  String side;
+
+  
+  
+<span class="nc" id="L124">  public Trade(String account, String type) {</span>
+<span class="nc" id="L125">    this.account = account;</span>
+<span class="nc" id="L126">    this.type = type;</span>
+<span class="nc" id="L127"></span>
+}
+  
+  
+  
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

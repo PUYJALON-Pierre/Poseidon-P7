@@ -51,7 +51,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     .permitAll()
     .antMatchers("/bidList/**", "/rating/**", "/ruleName/**", "/trade/**", "/curvePoint/**").hasAnyAuthority("ADMIN", "USER")
         .anyRequest().authenticated().and()
-                .formLogin().and().logout().clearAuthentication(true)
+                .formLogin().defaultSuccessUrl("/bidList/list", true).and().logout().clearAuthentication(true)
         .invalidateHttpSession(true).logoutSuccessUrl("/");
 
   }

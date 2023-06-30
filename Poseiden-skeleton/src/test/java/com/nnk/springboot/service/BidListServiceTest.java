@@ -2,6 +2,9 @@ package com.nnk.springboot.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -14,7 +17,6 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import com.nnk.springboot.domain.BidList;
 import com.nnk.springboot.repositories.BidListRepository;
 
-
 @SpringBootTest @TestInstance(Lifecycle.PER_CLASS)
 public class BidListServiceTest {
 
@@ -26,13 +28,14 @@ public class BidListServiceTest {
 
   BidList bidList = new BidList();
 
+  
   @BeforeEach
   public void setup() {
 
     bidList.setAccount("Account Test");
     bidList.setType("Type Test");
     bidList.setBidQuantity(10d);
-    
+
     bidListRepository.save(bidList);
   }
 
@@ -44,6 +47,9 @@ public class BidListServiceTest {
   @Test
   public void getAllBidListsTest() {
 
+    List<BidList> listBidlist = new ArrayList<>();
+    listBidlist.add(bidList);
+    
     // when
     assertEquals(iBidListService.getAllBidLists().size(), 1);
     assertEquals(iBidListService.getAllBidLists().get(0).getAccount(), "Account Test");
@@ -54,15 +60,14 @@ public class BidListServiceTest {
   @Test
   public void getBidListByBidListIdTest() throws Exception {
 
-    
-    
     // when
-    assertEquals(iBidListService.getBidListByBidListId(bidList.getBidListId()).getAccount(), "Account Test");
-    assertEquals(iBidListService.getBidListByBidListId(bidList.getBidListId()).getAccount(), "Type Test");
+    assertEquals(iBidListService.getBidListByBidListId(bidList.getBidListId()).getAccount(),
+        "Account Test");
+    assertEquals(iBidListService.getBidListByBidListId(bidList.getBidListId()).getAccount(),
+        "Type Test");
 
   }
 
-  
   @Test
   public void saveBidListTest() throws Exception {
     BidList bidList2 = new BidList();
@@ -72,6 +77,7 @@ public class BidListServiceTest {
     bidList2.setBidQuantity(10d);
 
     // when
+    // when bidListRepository.save return
     iBidListService.saveBidList(bidList2);
 
     assertEquals(iBidListService.getAllBidLists().size(), 2);
@@ -109,32 +115,32 @@ public class BidListServiceTest {
   }
 
   @Test
-      public void updateBidListFailTest() throws Exception {
-        try {
-         
-          BidList bidListUpdate = new BidList();
-          bidListUpdate.setAccount("Account Test2");
-          bidListUpdate.setType("Type Test2");
-          bidListUpdate.setBidQuantity(11d);
-     
-          //when 
-          iBidListService.saveBidList(bidListUpdate);
+  public void updateBidListFailTest() throws Exception {
+    try {
 
-        } catch (Exception e) {
-          assertEquals(e.getMessage(), "BidList to update not founded");
-          assertEquals (iBidListService.getAllBidLists().size(), 1);
-          assertEquals (iBidListService.getAllBidLists().get(0).getAccount() , "Account Test");
-          assertEquals (iBidListService.getAllBidLists().get(0).getType() , "Type Test");
-        }
-        }
+      BidList bidListUpdate = new BidList();
+      bidListUpdate.setAccount("Account Test2");
+      bidListUpdate.setType("Type Test2");
+      bidListUpdate.setBidQuantity(11d);
+
+      // when
+      iBidListService.saveBidList(bidListUpdate);
+
+    } catch (Exception e) {
+      assertEquals(e.getMessage(), "BidList to update not founded");
+      assertEquals(iBidListService.getAllBidLists().size(), 1);
+      assertEquals(iBidListService.getAllBidLists().get(0).getAccount(), "Account Test");
+      assertEquals(iBidListService.getAllBidLists().get(0).getType(), "Type Test");
+    }
+  }
 
   @Test
   public void deleteBidListTest() throws Exception {
 
-      // when
-      iBidListService.deleteBidList(bidList);
+    // when
+    iBidListService.deleteBidList(bidList);
 
-      assertEquals(iBidListService.getAllBidLists().size(), 0);
+    assertEquals(iBidListService.getAllBidLists().size(), 0);
 
   }
 

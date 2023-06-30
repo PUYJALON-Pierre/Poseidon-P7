@@ -22,25 +22,25 @@ public class BidTests {
 	@Test
 	public void bidListTest() {
 	  
-    BidList bid = new BidList("Account Test", "Type Test", 10d);
+    BidList bidList = new BidList("Account Test", "Type Test", 10d);
 		// Save
-		bid = bidListRepository.save(bid);
-		Assert.assertNotNull(bid.getBidListId());
-		Assert.assertEquals(bid.getBidQuantity(), 10d, 10d);
+		bidList = bidListRepository.save(bidList);
+		Assert.assertNotNull(bidList.getBidListId());
+		Assert.assertEquals(bidList.getBidQuantity(), 10d, 10d);
 
 		// Update
-		bid.setBidQuantity(20d);
-		bid = bidListRepository.save(bid);
-		Assert.assertEquals(bid.getBidQuantity(), 20d, 20d);
+		bidList.setBidQuantity(20d);
+		bidList = bidListRepository.save(bidList);
+		Assert.assertEquals(bidList.getBidQuantity(), 20d, 20d);
 
 		// Find
 		List<BidList> listResult = bidListRepository.findAll();
 		Assert.assertTrue(listResult.size() > 0);
 
 		// Delete
-		Integer id = bid.getBidListId();
-		bidListRepository.delete(bid);
-		Optional<BidList> bidList = bidListRepository.findById(id);
-		Assert.assertFalse(bidList.isPresent());
+		Integer id = bidList.getBidListId();
+		bidListRepository.delete(bidList);
+		Optional<BidList> bidList1 = bidListRepository.findById(id);
+		Assert.assertFalse(bidList1.isPresent());
 	}
 }

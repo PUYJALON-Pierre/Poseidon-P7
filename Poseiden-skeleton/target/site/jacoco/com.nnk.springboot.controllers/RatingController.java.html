@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>RatingController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">spring-boot-skeleton</a> &gt; <a href="index.source.html" class="el_package">com.nnk.springboot.controllers</a> &gt; <span class="el_source">RatingController.java</span></div><h1>RatingController.java</h1><pre class="source lang-java linenums">package com.nnk.springboot.controllers;
+
+
+
+import javax.validation.Valid;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.nnk.springboot.domain.Rating;
+import com.nnk.springboot.service.IRatingService;
+
+
+
+/**
+ * Controller class for Rating view in Trading App UI (Poseidon inc)
+ *
+ * @author PUYJALON Pierre
+ * @since 25/06/2023
+ */
+@Controller @RequestMapping(&quot;/rating&quot;)
+<span class="nc" id="L30">public class RatingController {</span>
+<span class="nc" id="L31">  final static Logger logger = LogManager.getLogger(RatingController.class);</span>
+
+  @Autowired
+  IRatingService iRatingService;
+
+  /**
+   * Get rating/list page model
+   * 
+   * @param model - Model
+   * @return list (html template)
+   */
+  @GetMapping(&quot;/list&quot;)
+  public String home(Model model) {
+
+<span class="nc" id="L45">    logger.debug(&quot;Getting request rating/list&quot;);</span>
+<span class="nc" id="L46">    model.addAttribute(&quot;ratings&quot;, iRatingService.getAllRatings());</span>
+<span class="nc" id="L47">    return &quot;rating/list&quot;;</span>
+  }
+
+  /**
+   * Get rating/add page model
+   * 
+   * @param rating - Rating
+   * @return add (html template)
+   */
+  @GetMapping(&quot;/add&quot;)
+  public String addRatingForm(Rating rating) {
+<span class="nc" id="L58">    logger.debug(&quot;Getting request rating/add&quot;);</span>
+<span class="nc" id="L59">    return &quot;rating/add&quot;;</span>
+  }
+
+  /**
+   * Creating a new Rating
+   * 
+   * @param rating - Rating
+   * @param result - BindingResult
+   * @param model - Model
+   * @return redirect:/rating/list or rating/add
+   * @throws Exception
+   */
+  @PostMapping(&quot;/validate&quot;)
+  public String validate(@Valid Rating rating, BindingResult result, Model model) throws Exception {
+<span class="nc" id="L73">    logger.debug(&quot;Posting request rating/validate for rating with id:{}&quot;, rating.getId());</span>
+<span class="nc bnc" id="L74" title="All 2 branches missed.">    if (!result.hasErrors()) {</span>
+<span class="nc" id="L75">      iRatingService.saveRating(rating);</span>
+<span class="nc" id="L76">      model.addAttribute(&quot;ratings&quot;, iRatingService.getAllRatings());</span>
+<span class="nc" id="L77">      return &quot;redirect:/rating/list&quot;;</span>
+    }
+<span class="nc" id="L79">    logger.error(&quot;Error during saving rating : {}&quot;, result.getFieldError());</span>
+<span class="nc" id="L80">    return &quot;rating/add&quot;;</span>
+  }
+
+  /**
+   * Get rating/update page model
+   * 
+   * @param id - int
+   * @param model - Model
+   * @return rating/update
+   */
+  @GetMapping(&quot;/update/{id}&quot;)
+  public String showUpdateForm(@PathVariable(&quot;id&quot;) Integer id, Model model) {
+<span class="nc" id="L92">    logger.debug(&quot;Getting request rating/update/{id} for rating with id:{}&quot;, id);</span>
+<span class="nc" id="L93">    Rating newRating = iRatingService.getRatingById(id);</span>
+<span class="nc" id="L94">    model.addAttribute(&quot;rating&quot;, newRating);</span>
+<span class="nc" id="L95">    return &quot;rating/update&quot;;</span>
+  }
+
+  /**
+   * Post request for updating a Rating by his id
+   * 
+   * @param id - int
+   * @param rating - Rating
+   * @param result - BindingResult
+   * @param model - Model
+   * @return redirect:/rating/list or rating/update
+   * @throws Exception
+   */
+  @PostMapping(&quot;/update/{id}&quot;)
+  public String updateRating(@PathVariable(&quot;id&quot;) Integer id, @Valid Rating rating,
+      BindingResult result, Model model) throws Exception {
+<span class="nc" id="L111">    logger.debug(&quot;Posting request rating/update/{id} for rating with id:{}&quot;, id);</span>
+<span class="nc bnc" id="L112" title="All 2 branches missed.">    if (result.hasErrors()) {</span>
+<span class="nc" id="L113">      logger.error(&quot;Error during updating rating : {}&quot;, result.getFieldError());</span>
+<span class="nc" id="L114">      return &quot;rating/update&quot;;</span>
+    }
+<span class="nc" id="L116">    rating.setId(id);</span>
+<span class="nc" id="L117">    iRatingService.updateRating(rating);</span>
+<span class="nc" id="L118">    model.addAttribute(&quot;ratings&quot;, iRatingService.getAllRatings());</span>
+
+<span class="nc" id="L120">    return &quot;redirect:/rating/list&quot;;</span>
+  }
+
+  /**
+   * Delete request for deleting a CurvePoint by his id
+   * 
+   * @param id - int
+   * @param model - Model
+   * @return redirect:/rating/list
+   * @throws Exception
+   */
+  @GetMapping(&quot;/delete/{id}&quot;)
+  public String deleteRating(@PathVariable(&quot;id&quot;) Integer id, Model model) throws Exception {
+
+<span class="nc" id="L134">    logger.debug(&quot;Getting request rating/delete/{id} for rating with id:{}&quot;, id);</span>
+<span class="nc" id="L135">    Rating newRating = iRatingService.getRatingById(id);</span>
+<span class="nc" id="L136">    iRatingService.deleteRating(newRating);</span>
+<span class="nc" id="L137">    model.addAttribute(&quot;ratings&quot;, iRatingService.getAllRatings());</span>
+
+<span class="nc" id="L139">    return &quot;redirect:/rating/list&quot;;</span>
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

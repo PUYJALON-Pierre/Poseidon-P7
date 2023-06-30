@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CurvePoint.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">spring-boot-skeleton</a> &gt; <a href="index.source.html" class="el_package">com.nnk.springboot.domain</a> &gt; <span class="el_source">CurvePoint.java</span></div><h1>CurvePoint.java</h1><pre class="source lang-java linenums">package com.nnk.springboot.domain;
+
+import java.time.LocalDateTime;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.validation.constraints.Digits;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
+import javax.validation.constraints.PositiveOrZero;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
+
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+/**
+ * Model class for CurvePoint in Trading App UI (Poseidon inc)
+ *
+ */
+<span class="nc bnc" id="L27" title="All 54 branches missed.">@NoArgsConstructor @Data @Entity @Table(name = &quot;curvepoint&quot;)</span>
+public class CurvePoint {
+
+  @Id @GeneratedValue(strategy = GenerationType.AUTO) @Column(name = &quot;Id&quot;)
+  private Integer id;
+
+  @NotNull(message = &quot;Curve Id is mandatory&quot;)
+  @Positive
+  @Digits(fraction =0, integer = 3)
+  @Column(name = &quot;CurveId&quot;)
+  Integer curveId;
+
+  @Column(name = &quot;asOfDate&quot;) @DateTimeFormat(pattern = &quot;yyyy-MM-dd&quot;)
+  LocalDateTime asOfDate;
+
+  @NotNull(message = &quot;Term is mandatory&quot;)
+  @Digits(fraction = 2, integer = 20)
+  @Positive
+  @Column(name = &quot;term&quot;)
+  Double term;
+
+  @NotNull(message = &quot;Value is mandatory&quot;)
+  @Digits(fraction = 2, integer = 20)
+  @Positive
+  @Column(name = &quot;value&quot;)
+  Double value;
+
+  @Column(name = &quot;creationDate&quot;) @DateTimeFormat(pattern = &quot;yyyy-MM-dd&quot;)
+  LocalDateTime creationDate;
+
+<span class="nc" id="L57">  public CurvePoint(int curveId, double term, double value) {</span>
+<span class="nc" id="L58">    this.curveId = curveId;</span>
+<span class="nc" id="L59">    this.term = term;</span>
+<span class="nc" id="L60">    this.value = value;</span>
+<span class="nc" id="L61">  }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

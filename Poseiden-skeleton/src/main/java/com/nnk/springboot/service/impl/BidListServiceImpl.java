@@ -35,7 +35,7 @@ public class BidListServiceImpl implements IBidListService {
   public BidList getBidListByBidListId(int id) throws Exception {
 
     logger.debug("Finding BidList with id : {}", id);
-    // vérifier
+
     if (bidListRepository.findById(id).isPresent()) {
       logger.info("Founded BidList with id : {}", id);
       return bidListRepository.findById(id).get();

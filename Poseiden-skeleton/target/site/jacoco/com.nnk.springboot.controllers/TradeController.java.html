@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>TradeController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">spring-boot-skeleton</a> &gt; <a href="index.source.html" class="el_package">com.nnk.springboot.controllers</a> &gt; <span class="el_source">TradeController.java</span></div><h1>TradeController.java</h1><pre class="source lang-java linenums">package com.nnk.springboot.controllers;
+
+
+import javax.validation.Valid;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.nnk.springboot.domain.Trade;
+import com.nnk.springboot.service.ITradeService;
+
+
+
+/**
+ * Controller class for Trade view in Trading App UI (Poseidon inc)
+ *
+ * @author PUYJALON Pierre
+ * @since 25/06/2023
+ */
+@Controller @RequestMapping(&quot;/trade&quot;)
+<span class="nc" id="L29">public class TradeController {</span>
+<span class="nc" id="L30">  final static Logger logger = LogManager.getLogger(TradeController.class);</span>
+
+  @Autowired
+  ITradeService iTradeService;
+
+  /**
+   * Get trade/list page model
+   * 
+   * @param model - Model
+   * @return list (html template)
+   */
+  @GetMapping(&quot;/list&quot;)
+  public String home(Model model) {
+<span class="nc" id="L43">    logger.debug(&quot;Getting request trade/list&quot;);</span>
+<span class="nc" id="L44">    model.addAttribute(&quot;trades&quot;, iTradeService.getAllTrades());</span>
+<span class="nc" id="L45">    return &quot;trade/list&quot;;</span>
+  }
+
+  /**
+   * Get trade/add page model
+   * 
+   * @param bidList
+   * @return add (html template)
+   */
+  @GetMapping(&quot;/add&quot;)
+  public String addUser(Trade bid) {
+<span class="nc" id="L56">    logger.debug(&quot;Getting request trade/add&quot;);</span>
+<span class="nc" id="L57">    return &quot;trade/add&quot;;</span>
+  }
+
+  /**
+   * Creating a new Trade
+   * 
+   * @param trade - Trade
+   * @param result - BindingResult
+   * @param model - Model
+   * @return redirect:/trade/list or trade/add
+   * @throws Exception
+   */
+  @PostMapping(&quot;/validate&quot;)
+  public String validate(@Valid Trade trade, BindingResult result, Model model) throws Exception {
+
+<span class="nc" id="L72">    logger.debug(&quot;Posting request trade/validate for trade with id:{}&quot;, trade.getTradeId());</span>
+<span class="nc bnc" id="L73" title="All 2 branches missed.">    if (!result.hasErrors()) {</span>
+<span class="nc" id="L74">      iTradeService.saveTrade(trade);</span>
+<span class="nc" id="L75">      model.addAttribute(&quot;trades&quot;, iTradeService.getAllTrades());</span>
+<span class="nc" id="L76">      return &quot;redirect:/trade/list&quot;;</span>
+    }
+<span class="nc" id="L78">    logger.error(&quot;Error during saving trade : {}&quot;, result.getFieldError());</span>
+
+<span class="nc" id="L80">    return &quot;trade/add&quot;;</span>
+  }
+
+  /**
+   * Get trade/update page model
+   * 
+   * @param id - int
+   * @param model - Model
+   * @return trade/update
+   */
+  @GetMapping(&quot;/update/{id}&quot;)
+  public String showUpdateForm(@PathVariable(&quot;id&quot;) Integer id, Model model) {
+
+<span class="nc" id="L93">    logger.debug(&quot;Getting request trade/update/{id} for trade with id:{}&quot;, id);</span>
+<span class="nc" id="L94">    Trade newTrade = iTradeService.getTradeById(id);</span>
+<span class="nc" id="L95">    model.addAttribute(&quot;trade&quot;, newTrade);</span>
+<span class="nc" id="L96">    return &quot;trade/update&quot;;</span>
+  }
+
+  /**
+   * Post request for updating a trade by his id
+   * 
+   * @param id - int
+   * @param trade - Trade
+   * @param result - BindingResult
+   * @param model - Model
+   * @return redirect:/trade/list or trade/update
+   * @throws Exception
+   */
+  @PostMapping(&quot;/update/{id}&quot;)
+  public String updateTrade(@PathVariable(&quot;id&quot;) Integer id, @Valid Trade trade,
+      BindingResult result, Model model) throws Exception {
+
+<span class="nc" id="L113">    logger.debug(&quot;Posting request trade/update/{id} for trade with id:{}&quot;, id);</span>
+<span class="nc bnc" id="L114" title="All 2 branches missed.">    if (result.hasErrors()) {</span>
+<span class="nc" id="L115">      logger.error(&quot;Error during updating trade : {}&quot;, result.getFieldError());</span>
+<span class="nc" id="L116">      return &quot;trade/update&quot;;</span>
+    }
+<span class="nc" id="L118">    trade.setTradeId(id);</span>
+<span class="nc" id="L119">    iTradeService.updateTrade(trade);</span>
+<span class="nc" id="L120">    model.addAttribute(&quot;trades&quot;, iTradeService.getAllTrades());</span>
+<span class="nc" id="L121">    return &quot;redirect:/trade/list&quot;;</span>
+  }
+
+  /**
+   * Delete request for deleting a Trade by his id
+   * 
+   * @param id - int
+   * @param model - Model
+   * @return redirect:/trade/list
+   * @throws Exception
+   */
+  @GetMapping(&quot;/delete/{id}&quot;)
+  public String deleteTrade(@PathVariable(&quot;id&quot;) Integer id, Model model) throws Exception {
+
+<span class="nc" id="L135">    logger.debug(&quot;Getting request trade/delete/{id} for trade with id:{}&quot;, id);</span>
+<span class="nc" id="L136">    Trade newTrade = iTradeService.getTradeById(id);</span>
+<span class="nc" id="L137">    iTradeService.deleteTrade(newTrade);</span>
+<span class="nc" id="L138">    model.addAttribute(&quot;trades&quot;, iTradeService.getAllTrades());</span>
+
+<span class="nc" id="L140">    return &quot;redirect:/trade/list&quot;;</span>
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

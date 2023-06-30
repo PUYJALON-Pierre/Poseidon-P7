@@ -1,6 +1,6 @@
 package com.nnk.springboot.domain;
 
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,43 +8,51 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.Digits;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
+import javax.validation.constraints.PositiveOrZero;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-
 /**
- *  Model class for CurvePoint in Trading App UI (Poseidon inc)
+ * Model class for CurvePoint in Trading App UI (Poseidon inc)
  *
  */
-@Data
-@NoArgsConstructor
-@Entity
-@Table(name = "curvepoint")
+@NoArgsConstructor @Data @Entity @Table(name = "curvepoint")
 public class CurvePoint {
 
-
-  @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
-  @Column(name="Id")
+  @Id @GeneratedValue(strategy = GenerationType.AUTO) @Column(name = "Id")
   private Integer id;
-  
-  @Column(name="CurveId")
+
+  @NotNull(message = "Curve Id is mandatory")
+  @Positive
+  @Digits(fraction =0, integer = 3)
+  @Column(name = "CurveId")
   Integer curveId;
-  
-  @Column(name="asOfDate")
-  Timestamp asOfDate;
-  
-  @Column(name="term")
+
+  @Column(name = "asOfDate") @DateTimeFormat(pattern = "yyyy-MM-dd")
+  LocalDateTime asOfDate;
+
+  @NotNull(message = "Term is mandatory")
+  @Digits(fraction = 2, integer = 20)
+  @Positive
+  @Column(name = "term")
   Double term;
-  
-  @Column(name="value")
+
+  @NotNull(message = "Value is mandatory")
+  @Digits(fraction = 2, integer = 20)
+  @Positive
+  @Column(name = "value")
   Double value;
-  
-  @Column(name="creationDate")
-  Timestamp creationDate;
 
-
+  @Column(name = "creationDate") @DateTimeFormat(pattern = "yyyy-MM-dd")
+  LocalDateTime creationDate;
 
   public CurvePoint(int curveId, double term, double value) {
     this.curveId = curveId;

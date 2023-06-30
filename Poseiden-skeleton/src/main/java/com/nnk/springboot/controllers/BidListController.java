@@ -1,5 +1,6 @@
 package com.nnk.springboot.controllers;
 
+
 import javax.validation.Valid;
 
 import org.apache.logging.log4j.LogManager;
@@ -17,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.nnk.springboot.domain.BidList;
 
 import com.nnk.springboot.service.IBidListService;
+
+
 
 /**
  * Controller class for BidList view in Trading App UI (Poseidon inc)
@@ -49,33 +52,33 @@ public class BidListController {
   /**
    * Get bidList/add page model
    * 
-   * @param bid - BidList
+   * @param bidList - BidList
    * @return list (html template)
    */
   @GetMapping("/add")
-  public String addBidForm(BidList bid) {
+  public String addBidForm(BidList bidList) {
     logger.debug("Getting request bidList/add");
     return "bidList/add";
   }
 
   /**
-   * Creating a new Bid
+   * Creating a new BidList
    * 
-   * @param bid - BidList
+   * @param bidList - BidList
    * @param result - BindingResult
    * @param model - Model
    * @return redirect:/bidList/list or bidList/add
    * @throws Exception
    */
   @PostMapping("/validate")
-  public String validate(@Valid BidList bid, BindingResult result, Model model) throws Exception {
-    logger.debug("Posting request bidList/validate for bid with id:{}", bid.getBidListId());
+  public String validate(@Valid BidList bidList, BindingResult result, Model model) throws Exception {
+    logger.debug("Posting request bidList/validate for bidList with id:{}", bidList.getBidListId());
     if (!result.hasErrors()) {
-      iBidListService.saveBidList(bid);
+      iBidListService.saveBidList(bidList);
       model.addAttribute("bidLists", iBidListService.getAllBidLists());
       return "redirect:/bidList/list";
     }
-    logger.error("Error during saving bid : {}", result.getFieldError());
+    logger.error("Error during saving bidList : {}", result.getFieldError());
     return "bidList/add";
   }
 
@@ -90,7 +93,7 @@ public class BidListController {
   @GetMapping("/update/{id}")
   public String showUpdateForm(@PathVariable("id") Integer id, Model model) throws Exception {
 
-    logger.debug("Getting request bidList/update/{id} for bid with id:{}", id);
+    logger.debug("Getting request bidList/update/{id} for bidList with id:{}", id);
     BidList newBidList = iBidListService.getBidListByBidListId(id);
     model.addAttribute("bidList", newBidList);
 
@@ -99,7 +102,7 @@ public class BidListController {
   }
 
   /**
-   * Post request for updating a bid by his id
+   * Post request for updating a bidList by his id
    *
    * @param id _ int
    * @param bidList - BidList
@@ -111,9 +114,9 @@ public class BidListController {
   @PostMapping("/update/{id}")
   public String updateBid(@PathVariable("id") Integer id, @Valid BidList bidList,
       BindingResult result, Model model) throws Exception {
-    logger.debug("Posting request bidList/update/{id} for bid with id:{}", id);
+    logger.debug("Posting request bidList/update/{id} for bidList with id:{}", id);
     if (result.hasErrors()) {
-      logger.error("Error during updating bid : {}", result.getFieldError());
+      logger.error("Error during updating bidList : {}", result.getFieldError());
       return "bidList/update";
     }
     bidList.setBidListId(id);
@@ -125,7 +128,7 @@ public class BidListController {
   }
 
   /**
-   * Delete request for deleting a bid by his id
+   * Delete request for deleting a bidList by his id
    * 
    * @param id - int
    * @param model - Model
@@ -134,7 +137,7 @@ public class BidListController {
    */
   @GetMapping("/delete/{id}")
   public String deleteBid(@PathVariable("id") Integer id, Model model) throws Exception {
-    logger.debug("Getting request bidList/delete/{id} for bid with id:{}", id);
+    logger.debug("Getting request bidList/delete/{id} for bidList with id:{}", id);
     BidList newBidList = iBidListService.getBidListByBidListId(id);
     iBidListService.deleteBidList(newBidList);
     model.addAttribute("bidLists", iBidListService.getAllBidLists());

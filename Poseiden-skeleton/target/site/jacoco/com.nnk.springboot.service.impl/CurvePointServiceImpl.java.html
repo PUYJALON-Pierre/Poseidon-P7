@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CurvePointServiceImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">spring-boot-skeleton</a> &gt; <a href="index.source.html" class="el_package">com.nnk.springboot.service.impl</a> &gt; <span class="el_source">CurvePointServiceImpl.java</span></div><h1>CurvePointServiceImpl.java</h1><pre class="source lang-java linenums">package com.nnk.springboot.service.impl;
+
+import java.util.List;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.nnk.springboot.domain.CurvePoint;
+import com.nnk.springboot.repositories.CurvePointRepository;
+import com.nnk.springboot.service.ICurvePointService;
+
+@Service
+<span class="nc" id="L15">public class CurvePointServiceImpl implements ICurvePointService {</span>
+
+<span class="nc" id="L17">  final static Logger logger = LogManager.getLogger(CurvePointServiceImpl.class);</span>
+
+  @Autowired
+  CurvePointRepository curvePointRepository;
+
+  @Override
+  public List&lt;CurvePoint&gt; getCurvePoints() {
+<span class="nc" id="L24">    logger.debug(&quot;Start finding all curvePoints&quot;);</span>
+<span class="nc" id="L25">    logger.info(&quot;Getting all curvePoints&quot;);</span>
+
+<span class="nc bnc" id="L27" title="All 2 branches missed.">    if (curvePointRepository.findAll().isEmpty()) {</span>
+<span class="nc" id="L28">      logger.error(&quot;No curvePoints founded&quot;);</span>
+    }
+<span class="nc" id="L30">    return curvePointRepository.findAll();</span>
+  }
+
+  @Override
+  public CurvePoint getCurvePointById(int id) {
+<span class="nc" id="L35">    logger.debug(&quot;Finding curvePoint with id : {}&quot;, id);</span>
+<span class="nc bnc" id="L36" title="All 2 branches missed.">    if (curvePointRepository.findById(id).isPresent()) {</span>
+<span class="nc" id="L37">      logger.info(&quot;Founded curvePoint with id : {}&quot;, id);</span>
+<span class="nc" id="L38">      return curvePointRepository.findById(id).get();</span>
+    } else {
+<span class="nc" id="L40">      logger.error(&quot;No curvePoint founded with id : {}&quot;, id);</span>
+<span class="nc" id="L41">      return null;</span>
+    }
+  }
+
+  @Override
+  public CurvePoint saveCurvePoint(CurvePoint curvePoint) throws Exception {
+
+<span class="nc" id="L48">    logger.debug(&quot;Creating curvePoint with id : {}&quot;, curvePoint.getId());</span>
+    // Checking if curvePoint already exist
+<span class="nc bnc" id="L50" title="All 2 branches missed.">    if (curvePoint.getId() != null) {</span>
+<span class="nc bnc" id="L51" title="All 2 branches missed.">      if (curvePointRepository.findById(curvePoint.getId()).isPresent()) {</span>
+<span class="nc" id="L52">        logger.error(&quot;This curvePoint cannot be created because already exist&quot;);</span>
+<span class="nc" id="L53">        throw new Exception(&quot;This curvePoint already exist&quot;);</span>
+      }
+    } else {
+<span class="nc" id="L56">      curvePointRepository.save(curvePoint);</span>
+<span class="nc" id="L57">      logger.info(&quot;CurvePoint with id : {} created&quot;, curvePoint.getId());</span>
+    }
+<span class="nc" id="L59">    return curvePoint;</span>
+  }
+
+  @Override
+  public CurvePoint updateCurvePoint(CurvePoint curvePoint) throws Exception {
+
+<span class="nc" id="L65">    logger.debug(&quot;Updating curvePoint with id : {}&quot;, curvePoint.getId());</span>
+    // Checking if curvePoint already exist
+<span class="nc bnc" id="L67" title="All 2 branches missed.">    if (curvePointRepository.findById(curvePoint.getId()).isPresent()) {</span>
+<span class="nc" id="L68">      logger.info(&quot;CurvePoint with id : {} updated&quot;, curvePoint.getId());</span>
+<span class="nc" id="L69">      return curvePointRepository.save(curvePoint);</span>
+    }
+
+    else {
+<span class="nc" id="L73">      logger.error(&quot;This curvePoint cannot be updated because not founded&quot;);</span>
+<span class="nc" id="L74">      throw new Exception(&quot;curvePoint to update not founded&quot;);</span>
+    }
+  }
+
+  @Override
+  public void deleteCurvePoint(CurvePoint curvePoint) throws Exception {
+
+<span class="nc" id="L81">    logger.debug(&quot;Deleting curvePoint with id : {}&quot;, curvePoint.getId());</span>
+
+<span class="nc bnc" id="L83" title="All 2 branches missed.">    if (getCurvePointById(curvePoint.getId()) != null) {</span>
+<span class="nc" id="L84">      logger.info(&quot;CurvePoint with id : {} deleted&quot;, curvePoint.getId());</span>
+<span class="nc" id="L85">      curvePointRepository.delete(curvePoint);</span>
+<span class="nc" id="L86">    } else {</span>
+<span class="nc" id="L87">      logger.error(&quot;This curvePoint cannot be deleted because not founded&quot;);</span>
+<span class="nc" id="L88">      throw new Exception(&quot;curvePoint to delete not founded&quot;);</span>
+    }
+
+<span class="nc" id="L91">  }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

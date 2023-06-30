@@ -1,5 +1,6 @@
 package com.nnk.springboot.controllers;
 
+
 import javax.validation.Valid;
 
 import org.apache.logging.log4j.LogManager;
@@ -15,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.nnk.springboot.domain.Trade;
 import com.nnk.springboot.service.ITradeService;
+
+
 
 /**
  * Controller class for Trade view in Trading App UI (Poseidon inc)
@@ -45,7 +48,7 @@ public class TradeController {
   /**
    * Get trade/add page model
    * 
-   * @param bid
+   * @param bidList
    * @return add (html template)
    */
   @GetMapping("/add")
