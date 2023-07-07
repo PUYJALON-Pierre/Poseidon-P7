@@ -2,9 +2,11 @@ package com.nnk.springboot.service.impl;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Service;
 
 import com.nnk.springboot.domain.BidList;
@@ -17,8 +19,13 @@ public class BidListServiceImpl implements IBidListService {
 
   final static Logger logger = LogManager.getLogger(BidListServiceImpl.class);
 
-  @Autowired
+ 
   BidListRepository bidListRepository;
+
+  public BidListServiceImpl(BidListRepository bidListRepository) {
+    super();
+    this.bidListRepository = bidListRepository;
+  }
 
   @Override
   public List<BidList> getAllBidLists() {
@@ -46,29 +53,20 @@ public class BidListServiceImpl implements IBidListService {
 
   }
 
-  // @transactionnal???
+
   @Override
+  @Transactional
   public BidList saveBidList(BidList bidList) throws Exception {
-    logger.debug("Creating BidList with id : {}", bidList.getBidListId());
-    // Checking if BidList already exist
-
-    if (bidList.getBidListId() != null) {
-      if (bidListRepository.findById(bidList.getBidListId()).isPresent()) {
-        logger.error("This bidList cannot be created because already exist");
-        throw new Exception("This bidList already exist");
-      }
-    }
-
-    else {
-      bidListRepository.save(bidList);
-      logger.info("BidList with id : {} created", bidList.getBidListId());
-    }
-    return bidList;
+    logger.debug("Creating BidList");
+    
+    return bidListRepository.save(bidList);
 
 
   }
 
+  
   @Override
+  @Transactional
   public BidList updateBidList(BidList bidList) throws Exception {
     logger.debug("Updating BidList with id : {}", bidList.getBidListId());
     // Checking if BidList already exist
@@ -85,6 +83,7 @@ public class BidListServiceImpl implements IBidListService {
   }
 
   @Override
+  @Transactional
   public void deleteBidList(BidList bidList) throws Exception {
     logger.debug("Deleting BidList with id : {}", bidList.getBidListId());
 

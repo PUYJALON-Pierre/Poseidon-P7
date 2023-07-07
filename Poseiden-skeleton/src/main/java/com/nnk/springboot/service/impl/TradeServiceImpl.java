@@ -2,9 +2,11 @@ package com.nnk.springboot.service.impl;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Service;
 
 import com.nnk.springboot.domain.Trade;
@@ -16,8 +18,13 @@ public class TradeServiceImpl implements ITradeService {
 
   final static Logger logger = LogManager.getLogger(TradeServiceImpl.class);
 
-  @Autowired
+
   TradeRepository tradeRepository;
+
+  public TradeServiceImpl(TradeRepository tradeRepository) {
+    super();
+    this.tradeRepository = tradeRepository;
+  }
 
   @Override
   public List<Trade> getAllTrades() {
@@ -32,7 +39,6 @@ public class TradeServiceImpl implements ITradeService {
 
   @Override
   public Trade getTradeById(int id) {
-    // vérifier
     logger.debug("Finding trade with id : {}", id);
     if (tradeRepository.findById(id).isPresent()) {
       logger.info("Founded trade with id : {}", id);
@@ -43,24 +49,14 @@ public class TradeServiceImpl implements ITradeService {
     }
   }
 
-  @Override
+  @Override @Transactional
   public Trade saveTrade(Trade trade) throws Exception {
-    logger.debug("Creating trade with id : {}", trade.getTradeId());
-    // Checking if trade already exist
-    if (trade.getTradeId() != null) {
-      if (tradeRepository.findById(trade.getTradeId()).isPresent()) {
-        logger.error("This trade cannot be created because already exist");
-        throw new Exception("This trade already exist");
-      }
-    } else {
-
-      tradeRepository.save(trade);
-      logger.info("Trade with id : {} created", trade.getTradeId());
-    }
-    return trade;
+    logger.debug("Creating trade");
+ 
+    return tradeRepository.save(trade);
   }
 
-  @Override
+  @Override @Transactional
   public Trade updateTrade(Trade trade) throws Exception {
     logger.debug("Updating curvePoint with id : {}", trade.getTradeId());
     // Checking if trade already exist
@@ -75,7 +71,7 @@ public class TradeServiceImpl implements ITradeService {
     }
   }
 
-  @Override
+  @Override @Transactional
   public void deleteTrade(Trade trade) throws Exception {
 
     logger.debug("Deleting trade with id : {}", trade.getTradeId());

@@ -59,7 +59,7 @@ public class BidList {
   @Column(name="askQuantity")
   private Double askQuantity;
   
-  @Column(name="bidList")
+  @Column(name="bid")
   private Double bid;
   
   @Column(name="ask")

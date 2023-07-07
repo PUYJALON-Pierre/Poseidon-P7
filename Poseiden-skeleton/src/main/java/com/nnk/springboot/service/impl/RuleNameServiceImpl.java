@@ -2,6 +2,8 @@ package com.nnk.springboot.service.impl;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,8 +18,12 @@ public class RuleNameServiceImpl implements IRuleNameService {
 
   final static Logger logger = LogManager.getLogger(RuleNameServiceImpl.class);
 
-  @Autowired
   RuleNameRepository ruleNameRepository;
+
+  public RuleNameServiceImpl(RuleNameRepository ruleNameRepository) {
+    super();
+    this.ruleNameRepository = ruleNameRepository;
+  }
 
   @Override
   public List<RuleName> getAllRuleNames() {
@@ -42,24 +48,16 @@ public class RuleNameServiceImpl implements IRuleNameService {
     }
   }
 
-  @Override
+  @Override @Transactional
   public RuleName saveRuleName(RuleName ruleName) throws Exception {
-    logger.debug("Creating ruleName with id : {}", ruleName.getId());
-    // Checking if ruleName already exist
-    if (ruleName.getId() != null) {
-    if (ruleNameRepository.findById(ruleName.getId()).isPresent()) {
-      logger.error("This ruleName cannot be created because already exist");
-      throw new Exception("This ruleName already exist");
-    }} else {
-      ruleNameRepository.save(ruleName);
-      logger.info("ruleName with id : {} created", ruleName.getId());
-    }
-    return ruleName;
+
+    logger.debug("Creating ruleName");
+    return ruleNameRepository.save(ruleName);
   }
 
-  @Override
+  @Override @Transactional
   public RuleName updateRuleName(RuleName ruleName) throws Exception {
-    
+
     logger.debug("Updating ruleName with id : {}", ruleName.getId());
     // Checking if ruleName already exist
     if (ruleNameRepository.findById(ruleName.getId()).isPresent()) {
@@ -73,7 +71,7 @@ public class RuleNameServiceImpl implements IRuleNameService {
     }
   }
 
-  @Override
+  @Override @Transactional
   public void deleteRuleName(RuleName ruleName) throws Exception {
     logger.debug("Deleting ruleName with id : {}", ruleName.getId());
 

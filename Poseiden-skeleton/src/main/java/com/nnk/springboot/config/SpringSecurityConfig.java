@@ -49,10 +49,10 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     http.csrf().disable().authorizeRequests().antMatchers("/css/**").permitAll()
     .antMatchers("/")
     .permitAll()
-    .antMatchers("/bidList/**", "/rating/**", "/ruleName/**", "/trade/**", "/curvePoint/**").hasAnyAuthority("ADMIN", "USER")
+    .antMatchers("/bidList/**", "/rating/**", "/ruleName/**", "/trade/**", "/curvePoint/**").hasAnyAuthority("ADMIN", "USER","ROLE_USER")
         .anyRequest().authenticated().and()
-                .formLogin().defaultSuccessUrl("/bidList/list", true).and().logout().clearAuthentication(true)
-        .invalidateHttpSession(true).logoutSuccessUrl("/");
+       .oauth2Login().defaultSuccessUrl("/bidList/list", true).and().formLogin().defaultSuccessUrl("/bidList/list", true).and().logout().logoutUrl("/app-logout")
+        .invalidateHttpSession(true).deleteCookies("JSESSIONID");
 
   }
 

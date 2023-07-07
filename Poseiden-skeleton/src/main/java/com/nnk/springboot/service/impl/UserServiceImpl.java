@@ -2,6 +2,8 @@ package com.nnk.springboot.service.impl;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,21 +44,14 @@ public class UserServiceImpl implements IUserService {
     }
   }
 
-  @Override
+  @Override @Transactional
   public User saveUser(User user) throws Exception {
-    logger.debug("Creating user with id : {}", user.getId());
-    // Checking if user already exist
-    if (userRepository.findById(user.getId()).isPresent()) {
-      logger.error("This user cannot be created because already exist");
-      throw new Exception("This user already exist");
-    } else {
-      logger.info("User with id : {} created", user.getId());
-      userRepository.save(user);
-    }
-    return user;
+
+    logger.debug("Creating user");
+    return userRepository.save(user);
   }
 
-  @Override
+  @Override @Transactional
   public User updateUser(User user) throws Exception {
     logger.debug("Updating user with id : {}", user.getId());
     // Checking if user already exist
@@ -71,7 +66,7 @@ public class UserServiceImpl implements IUserService {
     }
   }
 
-  @Override
+  @Override @Transactional
   public void deleteUser(User user) throws Exception {
     logger.debug("Deleting user with id : {}", user.getId());
 

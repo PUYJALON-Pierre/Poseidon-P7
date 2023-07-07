@@ -2,9 +2,11 @@ package com.nnk.springboot.service.impl;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Service;
 
 import com.nnk.springboot.domain.CurvePoint;
@@ -16,8 +18,12 @@ public class CurvePointServiceImpl implements ICurvePointService {
 
   final static Logger logger = LogManager.getLogger(CurvePointServiceImpl.class);
 
-  @Autowired
   CurvePointRepository curvePointRepository;
+
+  public CurvePointServiceImpl(CurvePointRepository curvePointRepository) {
+    super();
+    this.curvePointRepository = curvePointRepository;
+  }
 
   @Override
   public List<CurvePoint> getCurvePoints() {
@@ -42,24 +48,15 @@ public class CurvePointServiceImpl implements ICurvePointService {
     }
   }
 
-  @Override
+  @Override @Transactional
   public CurvePoint saveCurvePoint(CurvePoint curvePoint) throws Exception {
 
-    logger.debug("Creating curvePoint with id : {}", curvePoint.getId());
-    // Checking if curvePoint already exist
-    if (curvePoint.getId() != null) {
-      if (curvePointRepository.findById(curvePoint.getId()).isPresent()) {
-        logger.error("This curvePoint cannot be created because already exist");
-        throw new Exception("This curvePoint already exist");
-      }
-    } else {
-      curvePointRepository.save(curvePoint);
-      logger.info("CurvePoint with id : {} created", curvePoint.getId());
-    }
-    return curvePoint;
+    logger.debug("Creating curvePoint");
+
+    return curvePointRepository.save(curvePoint);
   }
 
-  @Override
+  @Override @Transactional
   public CurvePoint updateCurvePoint(CurvePoint curvePoint) throws Exception {
 
     logger.debug("Updating curvePoint with id : {}", curvePoint.getId());
@@ -75,7 +72,7 @@ public class CurvePointServiceImpl implements ICurvePointService {
     }
   }
 
-  @Override
+  @Override @Transactional
   public void deleteCurvePoint(CurvePoint curvePoint) throws Exception {
 
     logger.debug("Deleting curvePoint with id : {}", curvePoint.getId());

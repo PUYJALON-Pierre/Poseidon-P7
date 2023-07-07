@@ -2,6 +2,8 @@ package com.nnk.springboot.service.impl;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,8 +18,12 @@ public class RatingServiceImpl implements IRatingService {
 
   final static Logger logger = LogManager.getLogger(RatingServiceImpl.class);
 
-  @Autowired
   RatingRepository ratingRepository;
+
+  public RatingServiceImpl(RatingRepository ratingRepository) {
+    super();
+    this.ratingRepository = ratingRepository;
+  }
 
   @Override
   public List<Rating> getAllRatings() {
@@ -43,25 +49,14 @@ public class RatingServiceImpl implements IRatingService {
     }
   }
 
-  @Override
+  @Override @Transactional
   public Rating saveRating(Rating rating) throws Exception {
 
-    logger.debug("Creating rating with id : {}", rating.getId());
-    // Checking if rating already exist
-    if (rating.getId() != null) {
-      if (ratingRepository.findById(rating.getId()).isPresent()) {
-        logger.error("This rating cannot be created because already exist");
-        throw new Exception("This rating already exist");
-      }
-    } else {
-
-      ratingRepository.save(rating);
-      logger.info("Rating with id : {} created", rating.getId());
-    }
-    return rating;
+    logger.debug("Creating rating");
+    return ratingRepository.save(rating);
   }
 
-  @Override
+  @Override @Transactional
   public Rating updateRating(Rating rating) throws Exception {
 
     logger.debug("Updating rating with id : {}", rating.getId());
@@ -75,7 +70,7 @@ public class RatingServiceImpl implements IRatingService {
     }
   }
 
-  @Override
+  @Override @Transactional
   public void deleteRating(Rating rating) throws Exception {
 
     logger.debug("Deleting rating with id : {}", rating.getId());
