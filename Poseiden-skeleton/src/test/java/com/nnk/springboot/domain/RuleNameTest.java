@@ -1,5 +1,7 @@
 package com.nnk.springboot.domain;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -16,11 +18,11 @@ import com.jparams.verifier.tostring.ToStringVerifier;
 public class RuleNameTest {
 
   
+  RuleName rule1 = new RuleName("Rule Name", "Description", "Json", "Template", "SQL", "SQL Part");
+  RuleName rule2 = new RuleName("Rule Name", "Description", "Json", "Template", "SQL", "SQL Part");
+  
   @Test
   public void ruleNameHashCodeTest() {
-
-    RuleName rule1 = new RuleName("Rule Name", "Description", "Json", "Template", "SQL", "SQL Part");
-    RuleName rule2 = new RuleName("Rule Name", "Description", "Json", "Template", "SQL", "SQL Part");
    
     assertNotSame( rule1,  rule2);
     assertEquals( rule1.hashCode(),  rule2.hashCode());
@@ -33,5 +35,10 @@ public class RuleNameTest {
   }
 
   
+  @Test
+  public void testEqualsSameObj() {
+    assertThat(rule1).isEqualTo(rule2);
+    assertFalse(rule1.equals(null));
+  }
   
 }

@@ -1,5 +1,7 @@
 package com.nnk.springboot.domain;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -15,12 +17,11 @@ import com.jparams.verifier.tostring.ToStringVerifier;
 @SpringBootTest
 public class CurvePointTest {
 
+  CurvePoint curvePoint1 = new CurvePoint(10, 10d, 30d);
+  CurvePoint curvePoint2 = new CurvePoint(10, 10d, 30d);
   
   @Test
   public void curvePointHashCodeTest() {
-
-    CurvePoint curvePoint1 = new CurvePoint(10, 10d, 30d);
-    CurvePoint curvePoint2 = new CurvePoint(10, 10d, 30d);
    
     assertNotSame( curvePoint1,  curvePoint2);
     assertEquals( curvePoint1.hashCode(),  curvePoint2.hashCode());
@@ -32,6 +33,10 @@ public class CurvePointTest {
     ToStringVerifier.forClass(CurvePoint.class).verify();
   }
 
-  
+  @Test
+  public void testEqualsSameObj() {
+    assertThat(curvePoint1).isEqualTo(curvePoint2);
+    assertFalse(curvePoint1.equals(null));
+  }
   
 }
