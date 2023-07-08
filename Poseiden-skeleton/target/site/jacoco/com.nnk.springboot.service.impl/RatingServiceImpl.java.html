@@ -2,9 +2,10 @@
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.nnk.springboot.domain.Rating;
@@ -12,82 +13,75 @@ import com.nnk.springboot.repositories.RatingRepository;
 import com.nnk.springboot.service.IRatingService;
 
 @Service
-<span class="nc" id="L15">public class RatingServiceImpl implements IRatingService {</span>
+public class RatingServiceImpl implements IRatingService {
 
-<span class="nc" id="L17">  final static Logger logger = LogManager.getLogger(RatingServiceImpl.class);</span>
+<span class="fc" id="L18">  final static Logger logger = LogManager.getLogger(RatingServiceImpl.class);</span>
 
-  @Autowired
   RatingRepository ratingRepository;
+
+  public RatingServiceImpl(RatingRepository ratingRepository) {
+<span class="fc" id="L23">    super();</span>
+<span class="fc" id="L24">    this.ratingRepository = ratingRepository;</span>
+<span class="fc" id="L25">  }</span>
 
   @Override
   public List&lt;Rating&gt; getAllRatings() {
-<span class="nc" id="L24">    logger.debug(&quot;Start finding all ratings&quot;);</span>
-<span class="nc" id="L25">    logger.info(&quot;Getting all ratings&quot;);</span>
+<span class="fc" id="L29">    logger.debug(&quot;Start finding all ratings&quot;);</span>
+<span class="fc" id="L30">    logger.info(&quot;Getting all ratings&quot;);</span>
 
-<span class="nc bnc" id="L27" title="All 2 branches missed.">    if (ratingRepository.findAll().isEmpty()) {</span>
-<span class="nc" id="L28">      logger.error(&quot;No ratings founded&quot;);</span>
+<span class="pc bpc" id="L32" title="1 of 2 branches missed.">    if (ratingRepository.findAll().isEmpty()) {</span>
+<span class="nc" id="L33">      logger.error(&quot;No ratings founded&quot;);</span>
     }
-<span class="nc" id="L30">    return ratingRepository.findAll();</span>
+<span class="fc" id="L35">    return ratingRepository.findAll();</span>
   }
 
   @Override
   public Rating getRatingById(int id) {
 
-<span class="nc" id="L36">    logger.debug(&quot;Finding rating with id : {}&quot;, id);</span>
-<span class="nc bnc" id="L37" title="All 2 branches missed.">    if (ratingRepository.findById(id).isPresent()) {</span>
-<span class="nc" id="L38">      logger.info(&quot;Founded rating with id : {}&quot;, id);</span>
-<span class="nc" id="L39">      return ratingRepository.findById(id).get();</span>
+<span class="fc" id="L41">    logger.debug(&quot;Finding rating with id : {}&quot;, id);</span>
+<span class="fc bfc" id="L42" title="All 2 branches covered.">    if (ratingRepository.findById(id).isPresent()) {</span>
+<span class="fc" id="L43">      logger.info(&quot;Founded rating with id : {}&quot;, id);</span>
+<span class="fc" id="L44">      return ratingRepository.findById(id).get();</span>
     } else {
-<span class="nc" id="L41">      logger.error(&quot;No rating founded with id : {}&quot;, id);</span>
-<span class="nc" id="L42">      return null;</span>
+<span class="fc" id="L46">      logger.error(&quot;No rating founded with id : {}&quot;, id);</span>
+<span class="fc" id="L47">      return null;</span>
     }
   }
 
-  @Override
+  @Override @Transactional
   public Rating saveRating(Rating rating) throws Exception {
 
-<span class="nc" id="L49">    logger.debug(&quot;Creating rating with id : {}&quot;, rating.getId());</span>
-    // Checking if rating already exist
-<span class="nc bnc" id="L51" title="All 2 branches missed.">    if (rating.getId() != null) {</span>
-<span class="nc bnc" id="L52" title="All 2 branches missed.">      if (ratingRepository.findById(rating.getId()).isPresent()) {</span>
-<span class="nc" id="L53">        logger.error(&quot;This rating cannot be created because already exist&quot;);</span>
-<span class="nc" id="L54">        throw new Exception(&quot;This rating already exist&quot;);</span>
-      }
-    } else {
-
-<span class="nc" id="L58">      ratingRepository.save(rating);</span>
-<span class="nc" id="L59">      logger.info(&quot;Rating with id : {} created&quot;, rating.getId());</span>
-    }
-<span class="nc" id="L61">    return rating;</span>
+<span class="fc" id="L54">    logger.debug(&quot;Creating rating&quot;);</span>
+<span class="fc" id="L55">    return ratingRepository.save(rating);</span>
   }
 
-  @Override
+  @Override @Transactional
   public Rating updateRating(Rating rating) throws Exception {
 
-<span class="nc" id="L67">    logger.debug(&quot;Updating rating with id : {}&quot;, rating.getId());</span>
+<span class="fc" id="L61">    logger.debug(&quot;Updating rating with id : {}&quot;, rating.getId());</span>
     // Checking if rating already exist
-<span class="nc bnc" id="L69" title="All 2 branches missed.">    if (ratingRepository.findById(rating.getId()).isPresent()) {</span>
-<span class="nc" id="L70">      logger.info(&quot;Rating with id : {} updated&quot;, rating.getId());</span>
-<span class="nc" id="L71">      return ratingRepository.save(rating);</span>
+<span class="pc bpc" id="L63" title="1 of 2 branches missed.">    if (ratingRepository.findById(rating.getId()).isPresent()) {</span>
+<span class="nc" id="L64">      logger.info(&quot;Rating with id : {} updated&quot;, rating.getId());</span>
+<span class="nc" id="L65">      return ratingRepository.save(rating);</span>
     } else {
-<span class="nc" id="L73">      logger.error(&quot;This rating cannot be updated because not founded&quot;);</span>
-<span class="nc" id="L74">      throw new Exception(&quot;Rating to update not founded&quot;);</span>
+<span class="fc" id="L67">      logger.error(&quot;This rating cannot be updated because not founded&quot;);</span>
+<span class="fc" id="L68">      throw new Exception(&quot;Rating to update not founded&quot;);</span>
     }
   }
 
-  @Override
+  @Override @Transactional
   public void deleteRating(Rating rating) throws Exception {
 
-<span class="nc" id="L81">    logger.debug(&quot;Deleting rating with id : {}&quot;, rating.getId());</span>
+<span class="fc" id="L75">    logger.debug(&quot;Deleting rating with id : {}&quot;, rating.getId());</span>
 
-<span class="nc bnc" id="L83" title="All 2 branches missed.">    if (getRatingById(rating.getId()) != null) {</span>
-<span class="nc" id="L84">      logger.info(&quot;Rating with id : {} deleted&quot;, rating.getId());</span>
-<span class="nc" id="L85">      ratingRepository.delete(rating);</span>
-<span class="nc" id="L86">    } else {</span>
-<span class="nc" id="L87">      logger.error(&quot;This rating cannot be deleted because not founded&quot;);</span>
-<span class="nc" id="L88">      throw new Exception(&quot;Rating to delete not founded&quot;);</span>
+<span class="fc bfc" id="L77" title="All 2 branches covered.">    if (getRatingById(rating.getId()) != null) {</span>
+<span class="fc" id="L78">      logger.info(&quot;Rating with id : {} deleted&quot;, rating.getId());</span>
+<span class="fc" id="L79">      ratingRepository.delete(rating);</span>
+<span class="fc" id="L80">    } else {</span>
+<span class="fc" id="L81">      logger.error(&quot;This rating cannot be deleted because not founded&quot;);</span>
+<span class="fc" id="L82">      throw new Exception(&quot;Rating to delete not founded&quot;);</span>
     }
-<span class="nc" id="L90">  }</span>
+<span class="fc" id="L84">  }</span>
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

@@ -17,7 +17,6 @@ import javax.validation.constraints.Size;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -123,9 +122,10 @@ public class Trade {
 
   
   
-  public Trade(String account, String type) {
+  public Trade(String account, String type, double buyQuantity) {
     this.account = account;
     this.type = type;
+    this.buyQuantity= buyQuantity;
 
 }
   

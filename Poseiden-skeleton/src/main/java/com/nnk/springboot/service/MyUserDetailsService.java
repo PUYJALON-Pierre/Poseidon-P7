@@ -2,7 +2,7 @@ package com.nnk.springboot.service;
 
 import java.util.ArrayList;
 import java.util.Collection;
-
+import java.util.Optional;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -37,11 +37,11 @@ public class MyUserDetailsService implements UserDetailsService {
    * @param user - User
    * @return Collection of GrantedAuthority
    */
-  private Collection<GrantedAuthority> getAuthority(User user) {
+  private Collection<GrantedAuthority> getAuthority(Optional<User> user) {
     Collection<GrantedAuthority> authorities = new ArrayList<>(2);
-    if (user.getRole().equals("ADMIN")) {
+    if (user.get().getRole().equals("ADMIN")) {
       authorities.add(new SimpleGrantedAuthority("ADMIN"));
-    } else if (user.getRole().equals("USER")) {
+    } else if (user.get().getRole().equals("USER")) {
       authorities.add(new SimpleGrantedAuthority("USER"));
     }
     return authorities;
@@ -52,17 +52,17 @@ public class MyUserDetailsService implements UserDetailsService {
     logger.debug("Searching user with username : {}", username);
 
     // Search user by mail
-    User user = userRepository.findByUsername(username).get();
+    Optional<User> user = userRepository.findByUsername(username);
 
-    if (user == null) {
+    if (user.isPresent()!= true) {
       logger.error("username : {} not founded", username);
       throw new UsernameNotFoundException("Cannot find user from username : " + username);
     }
 
     logger.info("username : {} founded", username);
 
-    return new org.springframework.security.core.userdetails.User(user.getUsername(),
-        user.getPassword(), true, true, true, true, getAuthority(user));
+    return new org.springframework.security.core.userdetails.User(user.get().getUsername(),
+        user.get().getPassword(), true, true, true, true, getAuthority(user));
   }
 
 }

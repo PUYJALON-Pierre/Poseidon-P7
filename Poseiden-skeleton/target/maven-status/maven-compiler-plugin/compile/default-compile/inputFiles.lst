@@ -11,13 +11,13 @@ C:\Users\p-tit\eclipse-workspace\Poseidon-P7\JavaDA_PROJECT7_RESTAPI\Poseiden-sk
 C:\Users\p-tit\eclipse-workspace\Poseidon-P7\JavaDA_PROJECT7_RESTAPI\Poseiden-skeleton\src\main\java\com\nnk\springboot\domain\BidList.java
 C:\Users\p-tit\eclipse-workspace\Poseidon-P7\JavaDA_PROJECT7_RESTAPI\Poseiden-skeleton\src\main\java\com\nnk\springboot\service\IRuleNameService.java
 C:\Users\p-tit\eclipse-workspace\Poseidon-P7\JavaDA_PROJECT7_RESTAPI\Poseiden-skeleton\src\main\java\com\nnk\springboot\controllers\UserController.java
+C:\Users\p-tit\eclipse-workspace\Poseidon-P7\JavaDA_PROJECT7_RESTAPI\Poseiden-skeleton\src\main\java\com\nnk\springboot\controllers\CurvePointController.java
 C:\Users\p-tit\eclipse-workspace\Poseidon-P7\JavaDA_PROJECT7_RESTAPI\Poseiden-skeleton\src\main\java\com\nnk\springboot\repositories\RuleNameRepository.java
 C:\Users\p-tit\eclipse-workspace\Poseidon-P7\JavaDA_PROJECT7_RESTAPI\Poseiden-skeleton\src\main\java\com\nnk\springboot\domain\Trade.java
 C:\Users\p-tit\eclipse-workspace\Poseidon-P7\JavaDA_PROJECT7_RESTAPI\Poseiden-skeleton\src\main\java\com\nnk\springboot\domain\Rating.java
 C:\Users\p-tit\eclipse-workspace\Poseidon-P7\JavaDA_PROJECT7_RESTAPI\Poseiden-skeleton\src\main\java\com\nnk\springboot\repositories\TradeRepository.java
 C:\Users\p-tit\eclipse-workspace\Poseidon-P7\JavaDA_PROJECT7_RESTAPI\Poseiden-skeleton\src\main\java\com\nnk\springboot\Application.java
 C:\Users\p-tit\eclipse-workspace\Poseidon-P7\JavaDA_PROJECT7_RESTAPI\Poseiden-skeleton\src\main\java\com\nnk\springboot\controllers\HomeController.java
-C:\Users\p-tit\eclipse-workspace\Poseidon-P7\JavaDA_PROJECT7_RESTAPI\Poseiden-skeleton\src\main\java\com\nnk\springboot\controllers\CurveController.java
 C:\Users\p-tit\eclipse-workspace\Poseidon-P7\JavaDA_PROJECT7_RESTAPI\Poseiden-skeleton\src\main\java\com\nnk\springboot\service\impl\BidListServiceImpl.java
 C:\Users\p-tit\eclipse-workspace\Poseidon-P7\JavaDA_PROJECT7_RESTAPI\Poseiden-skeleton\src\main\java\com\nnk\springboot\domain\RuleName.java
 C:\Users\p-tit\eclipse-workspace\Poseidon-P7\JavaDA_PROJECT7_RESTAPI\Poseiden-skeleton\src\main\java\com\nnk\springboot\service\IRatingService.java

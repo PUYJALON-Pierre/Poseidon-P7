@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-
 import com.nnk.springboot.domain.CurvePoint;
 import com.nnk.springboot.service.ICurvePointService;
 
@@ -28,12 +27,12 @@ import com.nnk.springboot.service.ICurvePointService;
  * @since 25/06/2023
  */
 @Controller @RequestMapping("/curvePoint")
-public class CurveController {
+public class CurvePointController {
 
   @Autowired
   ICurvePointService iCurvePointService;
 
-  final static Logger logger = LogManager.getLogger(CurveController.class);
+  final static Logger logger = LogManager.getLogger(CurvePointController.class);
 
   
   /**

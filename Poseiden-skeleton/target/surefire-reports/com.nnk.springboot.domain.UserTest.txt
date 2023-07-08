@@ -1,0 +1,26 @@
+-------------------------------------------------------------------------------
+Test set: com.nnk.springboot.domain.UserTest
+-------------------------------------------------------------------------------
+Tests run: 2, Failures: 2, Errors: 0, Skipped: 0, Time elapsed: 0.133 s <<< FAILURE! - in com.nnk.springboot.domain.UserTest
+userToStringTest  Time elapsed: 0.05 s  <<< FAILURE!
+java.lang.AssertionError: 
+
+
+Failed verification:
+com.nnk.springboot.domain.User
+
+Expected auto generated toString:
+com.nnk.springboot.domain.User@96cf5ad
+
+To contain fields with values:
+  - id: -2101918721
+  - username: 77529935-4ec6-420c-8159-abe73db5b443
+  - password: 8d16d6d3-2e2f-4c62-9e86-995693f60c70
+  - fullname: 1ddad7fe-ac1a-446e-8ee3-94d176dde1e6
+  - role: 48d3cb09-e715-4fae-95c4-d2c6bb7e6be4
+	at com.nnk.springboot.domain.UserTest.userToStringTest(UserTest.java:44)
+
+userHashCodeTest  Time elapsed: 0.015 s  <<< FAILURE!
+org.opentest4j.AssertionFailedError: expected: <86019582> but was: <663564779>
+	at com.nnk.springboot.domain.UserTest.userHashCodeTest(UserTest.java:38)
+

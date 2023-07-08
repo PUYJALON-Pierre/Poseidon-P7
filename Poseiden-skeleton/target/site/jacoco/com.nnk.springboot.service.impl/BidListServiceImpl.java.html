@@ -2,9 +2,10 @@
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.nnk.springboot.domain.BidList;
@@ -13,90 +14,87 @@ import com.nnk.springboot.service.IBidListService;
 
 
 @Service
-<span class="nc" id="L16">public class BidListServiceImpl implements IBidListService {</span>
+public class BidListServiceImpl implements IBidListService {
 
-<span class="nc" id="L18">  final static Logger logger = LogManager.getLogger(BidListServiceImpl.class);</span>
+<span class="fc" id="L19">  final static Logger logger = LogManager.getLogger(BidListServiceImpl.class);</span>
 
-  @Autowired
+ 
   BidListRepository bidListRepository;
+
+  public BidListServiceImpl(BidListRepository bidListRepository) {
+<span class="fc" id="L25">    super();</span>
+<span class="fc" id="L26">    this.bidListRepository = bidListRepository;</span>
+<span class="fc" id="L27">  }</span>
 
   @Override
   public List&lt;BidList&gt; getAllBidLists() {
-<span class="nc" id="L25">    logger.debug(&quot;Start finding all bidLists&quot;);</span>
-<span class="nc" id="L26">    logger.info(&quot;Getting all bidLists&quot;);</span>
+<span class="fc" id="L31">    logger.debug(&quot;Start finding all bidLists&quot;);</span>
+<span class="fc" id="L32">    logger.info(&quot;Getting all bidLists&quot;);</span>
 
-<span class="nc bnc" id="L28" title="All 2 branches missed.">    if (bidListRepository.findAll().isEmpty()) {</span>
-<span class="nc" id="L29">      logger.error(&quot;No bidLists founded&quot;);</span>
+<span class="pc bpc" id="L34" title="1 of 2 branches missed.">    if (bidListRepository.findAll().isEmpty()) {</span>
+<span class="nc" id="L35">      logger.error(&quot;No bidLists founded&quot;);</span>
     }
-<span class="nc" id="L31">    return bidListRepository.findAll();</span>
+<span class="fc" id="L37">    return bidListRepository.findAll();</span>
   }
 
   @Override
   public BidList getBidListByBidListId(int id) throws Exception {
 
-<span class="nc" id="L37">    logger.debug(&quot;Finding BidList with id : {}&quot;, id);</span>
+<span class="fc" id="L43">    logger.debug(&quot;Finding BidList with id : {}&quot;, id);</span>
 
-<span class="nc bnc" id="L39" title="All 2 branches missed.">    if (bidListRepository.findById(id).isPresent()) {</span>
-<span class="nc" id="L40">      logger.info(&quot;Founded BidList with id : {}&quot;, id);</span>
-<span class="nc" id="L41">      return bidListRepository.findById(id).get();</span>
+<span class="fc bfc" id="L45" title="All 2 branches covered.">    if (bidListRepository.findById(id).isPresent()) {</span>
+<span class="fc" id="L46">      logger.info(&quot;Founded BidList with id : {}&quot;, id);</span>
+<span class="fc" id="L47">      return bidListRepository.findById(id).get();</span>
     } else {
-<span class="nc" id="L43">      logger.error(&quot;No BidList founded with id : {}&quot;, id);</span>
-<span class="nc" id="L44">      throw new Exception(&quot;BidList cannot be founded with this id&quot;);</span>
+<span class="fc" id="L49">      logger.error(&quot;No BidList founded with id : {}&quot;, id);</span>
+<span class="fc" id="L50">      throw new Exception(&quot;BidList cannot be founded with this id&quot;);</span>
     }
 
   }
 
-  // @transactionnal???
+
   @Override
+  @Transactional
   public BidList saveBidList(BidList bidList) throws Exception {
-<span class="nc" id="L52">    logger.debug(&quot;Creating BidList with id : {}&quot;, bidList.getBidListId());</span>
-    // Checking if BidList already exist
-
-<span class="nc bnc" id="L55" title="All 2 branches missed.">    if (bidList.getBidListId() != null) {</span>
-<span class="nc bnc" id="L56" title="All 2 branches missed.">      if (bidListRepository.findById(bidList.getBidListId()).isPresent()) {</span>
-<span class="nc" id="L57">        logger.error(&quot;This bidList cannot be created because already exist&quot;);</span>
-<span class="nc" id="L58">        throw new Exception(&quot;This bidList already exist&quot;);</span>
-      }
-    }
-
-    else {
-<span class="nc" id="L63">      bidListRepository.save(bidList);</span>
-<span class="nc" id="L64">      logger.info(&quot;BidList with id : {} created&quot;, bidList.getBidListId());</span>
-    }
-<span class="nc" id="L66">    return bidList;</span>
+<span class="fc" id="L59">    logger.debug(&quot;Creating BidList&quot;);</span>
+    
+<span class="fc" id="L61">    return bidListRepository.save(bidList);</span>
 
 
   }
 
+  
   @Override
+  @Transactional
   public BidList updateBidList(BidList bidList) throws Exception {
-<span class="nc" id="L73">    logger.debug(&quot;Updating BidList with id : {}&quot;, bidList.getBidListId());</span>
+<span class="fc" id="L70">    logger.debug(&quot;Updating BidList with id : {}&quot;, bidList.getBidListId());</span>
     // Checking if BidList already exist
-<span class="nc bnc" id="L75" title="All 2 branches missed.">    if (bidListRepository.findById(bidList.getBidListId()).isPresent()) {</span>
-<span class="nc" id="L76">      logger.info(&quot;BidList with id : {} updated&quot;, bidList.getBidListId());</span>
-<span class="nc" id="L77">      return bidListRepository.save(bidList);</span>
+<span class="fc bfc" id="L72" title="All 2 branches covered.">    if (bidListRepository.findById(bidList.getBidListId()).isPresent()) {</span>
+<span class="fc" id="L73">      logger.info(&quot;BidList with id : {} updated&quot;, bidList.getBidListId());</span>
+<span class="fc" id="L74">      return bidListRepository.save(bidList);</span>
     }
 
     else {
-<span class="nc" id="L81">      logger.error(&quot;This bidList cannot be updated because not founded&quot;);</span>
-<span class="nc" id="L82">      throw new Exception(&quot;BidList to update not founded&quot;);</span>
+<span class="fc" id="L78">      logger.error(&quot;This bidList cannot be updated because not founded&quot;);</span>
+<span class="fc" id="L79">      throw new Exception(&quot;BidList to update not founded&quot;);</span>
     }
 
   }
 
   @Override
+  @Transactional
   public void deleteBidList(BidList bidList) throws Exception {
-<span class="nc" id="L89">    logger.debug(&quot;Deleting BidList with id : {}&quot;, bidList.getBidListId());</span>
+<span class="fc" id="L87">    logger.debug(&quot;Deleting BidList with id : {}&quot;, bidList.getBidListId());</span>
 
-<span class="nc bnc" id="L91" title="All 2 branches missed.">    if (getBidListByBidListId(bidList.getBidListId()) != null) {</span>
-<span class="nc" id="L92">      logger.info(&quot;BidList with id : {} deleted&quot;, bidList.getBidListId());</span>
-<span class="nc" id="L93">      bidListRepository.delete(bidList);</span>
-<span class="nc" id="L94">    } else {</span>
-<span class="nc" id="L95">      logger.error(&quot;This bidList cannot be deleted because not founded&quot;);</span>
-<span class="nc" id="L96">      throw new Exception(&quot;BidList to delete not founded&quot;);</span>
+<span class="pc bpc" id="L89" title="1 of 2 branches missed.">    if (getBidListByBidListId(bidList.getBidListId()) != null) {</span>
+<span class="fc" id="L90">      logger.info(&quot;BidList with id : {} deleted&quot;, bidList.getBidListId());</span>
+<span class="fc" id="L91">      bidListRepository.delete(bidList);</span>
+<span class="fc" id="L92">    } else {</span>
+<span class="nc" id="L93">      logger.error(&quot;This bidList cannot be deleted because not founded&quot;);</span>
+<span class="nc" id="L94">      throw new Exception(&quot;BidList to delete not founded&quot;);</span>
     }
 
-<span class="nc" id="L99">  }</span>
+<span class="fc" id="L97">  }</span>
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

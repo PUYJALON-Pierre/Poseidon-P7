@@ -27,9 +27,9 @@ import com.nnk.springboot.service.IRuleNameService;
  * @since 25/06/2023
  */
 @Controller @RequestMapping(&quot;/ruleName&quot;)
-<span class="nc" id="L30">public class RuleNameController {</span>
+<span class="fc" id="L30">public class RuleNameController {</span>
 
-<span class="nc" id="L32">  final static Logger logger = LogManager.getLogger(RuleNameController.class);</span>
+<span class="fc" id="L32">  final static Logger logger = LogManager.getLogger(RuleNameController.class);</span>
 
   @Autowired
   IRuleNameService iRuleNameService;
@@ -42,9 +42,9 @@ import com.nnk.springboot.service.IRuleNameService;
    */
   @GetMapping(&quot;/list&quot;)
   public String home(Model model) {
-<span class="nc" id="L45">    logger.debug(&quot;Getting request ruleName/list&quot;);</span>
-<span class="nc" id="L46">    model.addAttribute(&quot;ruleNames&quot;, iRuleNameService.getAllRuleNames());</span>
-<span class="nc" id="L47">    return &quot;ruleName/list&quot;;</span>
+<span class="fc" id="L45">    logger.debug(&quot;Getting request ruleName/list&quot;);</span>
+<span class="fc" id="L46">    model.addAttribute(&quot;ruleNames&quot;, iRuleNameService.getAllRuleNames());</span>
+<span class="fc" id="L47">    return &quot;ruleName/list&quot;;</span>
   }
 
   /**
@@ -55,8 +55,8 @@ import com.nnk.springboot.service.IRuleNameService;
    */
   @GetMapping(&quot;/add&quot;)
   public String addRuleForm(RuleName ruleName) {
-<span class="nc" id="L58">    logger.debug(&quot;Getting request ruleName/add&quot;);</span>
-<span class="nc" id="L59">    return &quot;ruleName/add&quot;;</span>
+<span class="fc" id="L58">    logger.debug(&quot;Getting request ruleName/add&quot;);</span>
+<span class="fc" id="L59">    return &quot;ruleName/add&quot;;</span>
   }
 
   /**
@@ -72,11 +72,11 @@ import com.nnk.springboot.service.IRuleNameService;
   public String validate(@Valid RuleName ruleName, BindingResult result, Model model)
       throws Exception {
 
-<span class="nc" id="L75">    logger.debug(&quot;Posting request ruleName/validate for ruleName with id:{}&quot;, ruleName.getId());</span>
-<span class="nc bnc" id="L76" title="All 2 branches missed.">    if (!result.hasErrors()) {</span>
-<span class="nc" id="L77">      iRuleNameService.saveRuleName(ruleName);</span>
-<span class="nc" id="L78">      model.addAttribute(&quot;ruleNames&quot;, iRuleNameService.getAllRuleNames());</span>
-<span class="nc" id="L79">      return &quot;redirect:/ruleName/list&quot;;</span>
+<span class="fc" id="L75">    logger.debug(&quot;Posting request ruleName/validate for ruleName with id:{}&quot;, ruleName.getId());</span>
+<span class="pc bpc" id="L76" title="1 of 2 branches missed.">    if (!result.hasErrors()) {</span>
+<span class="fc" id="L77">      iRuleNameService.saveRuleName(ruleName);</span>
+<span class="fc" id="L78">      model.addAttribute(&quot;ruleNames&quot;, iRuleNameService.getAllRuleNames());</span>
+<span class="fc" id="L79">      return &quot;redirect:/ruleName/list&quot;;</span>
     }
 <span class="nc" id="L81">    logger.error(&quot;Error during saving ruleName : {}&quot;, result.getFieldError());</span>
 
@@ -93,10 +93,10 @@ import com.nnk.springboot.service.IRuleNameService;
   @GetMapping(&quot;/update/{id}&quot;)
   public String showUpdateForm(@PathVariable(&quot;id&quot;) Integer id, Model model) {
 
-<span class="nc" id="L96">    logger.debug(&quot;Getting request ruleName/update/{id} for ruleName with id:{}&quot;, id);</span>
-<span class="nc" id="L97">    RuleName newRuleName = iRuleNameService.getRuleNameById(id);</span>
-<span class="nc" id="L98">    model.addAttribute(&quot;ruleName&quot;, newRuleName);</span>
-<span class="nc" id="L99">    return &quot;ruleName/update&quot;;</span>
+<span class="fc" id="L96">    logger.debug(&quot;Getting request ruleName/update/{id} for ruleName with id:{}&quot;, id);</span>
+<span class="fc" id="L97">    RuleName newRuleName = iRuleNameService.getRuleNameById(id);</span>
+<span class="fc" id="L98">    model.addAttribute(&quot;ruleName&quot;, newRuleName);</span>
+<span class="fc" id="L99">    return &quot;ruleName/update&quot;;</span>
   }
 
   /**
@@ -113,15 +113,15 @@ import com.nnk.springboot.service.IRuleNameService;
   public String updateRuleName(@PathVariable(&quot;id&quot;) Integer id, @Valid RuleName ruleName,
       BindingResult result, Model model) throws Exception {
 
-<span class="nc" id="L116">    logger.debug(&quot;Posting request ruleName/update/{id} for ruleName with id:{}&quot;, id);</span>
-<span class="nc bnc" id="L117" title="All 2 branches missed.">    if (result.hasErrors()) {</span>
+<span class="fc" id="L116">    logger.debug(&quot;Posting request ruleName/update/{id} for ruleName with id:{}&quot;, id);</span>
+<span class="pc bpc" id="L117" title="1 of 2 branches missed.">    if (result.hasErrors()) {</span>
 <span class="nc" id="L118">      logger.error(&quot;Error during updating ruleName : {}&quot;, result.getFieldError());</span>
 <span class="nc" id="L119">      return &quot;ruleName/update&quot;;</span>
     }
-<span class="nc" id="L121">    ruleName.setId(id);</span>
-<span class="nc" id="L122">    iRuleNameService.updateRuleName(ruleName);</span>
-<span class="nc" id="L123">    model.addAttribute(&quot;ruleNames&quot;, iRuleNameService.getAllRuleNames());</span>
-<span class="nc" id="L124">    return &quot;redirect:/ruleName/list&quot;;</span>
+<span class="fc" id="L121">    ruleName.setId(id);</span>
+<span class="fc" id="L122">    iRuleNameService.updateRuleName(ruleName);</span>
+<span class="fc" id="L123">    model.addAttribute(&quot;ruleNames&quot;, iRuleNameService.getAllRuleNames());</span>
+<span class="fc" id="L124">    return &quot;redirect:/ruleName/list&quot;;</span>
   }
 
   /**
@@ -135,11 +135,11 @@ import com.nnk.springboot.service.IRuleNameService;
   @GetMapping(&quot;/delete/{id}&quot;)
   public String deleteRuleName(@PathVariable(&quot;id&quot;) Integer id, Model model) throws Exception {
 
-<span class="nc" id="L138">    logger.debug(&quot;Getting request ruleName/delete/{id} for ruleName with id:{}&quot;, id);</span>
-<span class="nc" id="L139">    RuleName newRuleName = iRuleNameService.getRuleNameById(id);</span>
-<span class="nc" id="L140">    iRuleNameService.deleteRuleName(newRuleName);</span>
-<span class="nc" id="L141">    model.addAttribute(&quot;ruleNames&quot;, iRuleNameService.getAllRuleNames());</span>
-<span class="nc" id="L142">    return &quot;redirect:/ruleName/list&quot;;</span>
+<span class="fc" id="L138">    logger.debug(&quot;Getting request ruleName/delete/{id} for ruleName with id:{}&quot;, id);</span>
+<span class="fc" id="L139">    RuleName newRuleName = iRuleNameService.getRuleNameById(id);</span>
+<span class="fc" id="L140">    iRuleNameService.deleteRuleName(newRuleName);</span>
+<span class="fc" id="L141">    model.addAttribute(&quot;ruleNames&quot;, iRuleNameService.getAllRuleNames());</span>
+<span class="fc" id="L142">    return &quot;redirect:/ruleName/list&quot;;</span>
   }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

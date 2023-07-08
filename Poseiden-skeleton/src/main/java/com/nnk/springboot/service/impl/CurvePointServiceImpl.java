@@ -6,7 +6,6 @@ import javax.transaction.Transactional;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
 import org.springframework.stereotype.Service;
 
 import com.nnk.springboot.domain.CurvePoint;
@@ -68,7 +67,7 @@ public class CurvePointServiceImpl implements ICurvePointService {
 
     else {
       logger.error("This curvePoint cannot be updated because not founded");
-      throw new Exception("curvePoint to update not founded");
+      throw new Exception("CurvePoint to update not founded");
     }
   }
 
@@ -82,7 +81,7 @@ public class CurvePointServiceImpl implements ICurvePointService {
       curvePointRepository.delete(curvePoint);
     } else {
       logger.error("This curvePoint cannot be deleted because not founded");
-      throw new Exception("curvePoint to delete not founded");
+      throw new Exception("CurvePoint to delete not founded");
     }
 
   }

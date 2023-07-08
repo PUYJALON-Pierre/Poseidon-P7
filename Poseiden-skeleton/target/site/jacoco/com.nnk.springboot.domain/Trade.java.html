@@ -9,13 +9,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
 
 import org.springframework.format.annotation.DateTimeFormat;
-
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -25,8 +25,8 @@ import lombok.NoArgsConstructor;
  *  Model class for Trade in Trading App UI (Poseidon inc)
  *
  */
-<span class="nc" id="L28">@NoArgsConstructor</span>
-<span class="nc bnc" id="L29" title="All 174 branches missed.">@Data</span>
+<span class="fc" id="L28">@NoArgsConstructor</span>
+<span class="pc bpc" id="L29" title="147 of 174 branches missed.">@Data</span>
 @Entity
 @Table(name = &quot;trade&quot;)
 public class Trade {
@@ -50,6 +50,7 @@ public class Trade {
   String type;
   
   @NotNull(message = &quot;Buy quantity is mandatory&quot;)
+  @Digits(fraction = 2, integer = 20)
   @Positive
   @Column(name=&quot;buyQuantity&quot;)
   Double buyQuantity;
@@ -121,10 +122,11 @@ public class Trade {
 
   
   
-<span class="nc" id="L124">  public Trade(String account, String type) {</span>
-<span class="nc" id="L125">    this.account = account;</span>
-<span class="nc" id="L126">    this.type = type;</span>
-<span class="nc" id="L127"></span>
+<span class="fc" id="L125">  public Trade(String account, String type, double buyQuantity) {</span>
+<span class="fc" id="L126">    this.account = account;</span>
+<span class="fc" id="L127">    this.type = type;</span>
+<span class="fc" id="L128">    this.buyQuantity= buyQuantity;</span>
+<span class="fc" id="L129"></span>
 }
   
   

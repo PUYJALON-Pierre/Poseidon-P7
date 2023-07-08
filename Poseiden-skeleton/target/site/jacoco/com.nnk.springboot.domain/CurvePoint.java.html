@@ -9,13 +9,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.Digits;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
-import javax.validation.constraints.PositiveOrZero;
 
 import org.springframework.format.annotation.DateTimeFormat;
-
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -24,7 +21,7 @@ import lombok.NoArgsConstructor;
  * Model class for CurvePoint in Trading App UI (Poseidon inc)
  *
  */
-<span class="nc bnc" id="L27" title="All 54 branches missed.">@NoArgsConstructor @Data @Entity @Table(name = &quot;curvepoint&quot;)</span>
+<span class="pc bpc" id="L24" title="42 of 54 branches missed.">@NoArgsConstructor @Data @Entity @Table(name = &quot;curvepoint&quot;)</span>
 public class CurvePoint {
 
   @Id @GeneratedValue(strategy = GenerationType.AUTO) @Column(name = &quot;Id&quot;)
@@ -54,10 +51,10 @@ public class CurvePoint {
   @Column(name = &quot;creationDate&quot;) @DateTimeFormat(pattern = &quot;yyyy-MM-dd&quot;)
   LocalDateTime creationDate;
 
-<span class="nc" id="L57">  public CurvePoint(int curveId, double term, double value) {</span>
-<span class="nc" id="L58">    this.curveId = curveId;</span>
-<span class="nc" id="L59">    this.term = term;</span>
-<span class="nc" id="L60">    this.value = value;</span>
-<span class="nc" id="L61">  }</span>
+<span class="fc" id="L54">  public CurvePoint(int curveId, double term, double value) {</span>
+<span class="fc" id="L55">    this.curveId = curveId;</span>
+<span class="fc" id="L56">    this.term = term;</span>
+<span class="fc" id="L57">    this.value = value;</span>
+<span class="fc" id="L58">  }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

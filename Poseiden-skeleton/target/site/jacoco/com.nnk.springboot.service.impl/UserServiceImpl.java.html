@@ -2,6 +2,8 @@
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,77 +14,70 @@ import com.nnk.springboot.repositories.UserRepository;
 import com.nnk.springboot.service.IUserService;
 
 @Service
-<span class="nc" id="L15">public class UserServiceImpl implements IUserService {</span>
+<span class="fc" id="L17">public class UserServiceImpl implements IUserService {</span>
 
-<span class="nc" id="L17">  final static Logger logger = LogManager.getLogger(UserServiceImpl.class);</span>
+<span class="fc" id="L19">  final static Logger logger = LogManager.getLogger(UserServiceImpl.class);</span>
 
   @Autowired
   UserRepository userRepository;
 
   @Override
   public List&lt;User&gt; getAllUsers() {
-<span class="nc" id="L24">    logger.debug(&quot;Start finding all users&quot;);</span>
-<span class="nc" id="L25">    logger.info(&quot;Getting all users&quot;);</span>
+<span class="fc" id="L26">    logger.debug(&quot;Start finding all users&quot;);</span>
+<span class="fc" id="L27">    logger.info(&quot;Getting all users&quot;);</span>
 
-<span class="nc bnc" id="L27" title="All 2 branches missed.">    if (userRepository.findAll().isEmpty()) {</span>
-<span class="nc" id="L28">      logger.error(&quot;No users founded&quot;);</span>
+<span class="pc bpc" id="L29" title="1 of 2 branches missed.">    if (userRepository.findAll().isEmpty()) {</span>
+<span class="nc" id="L30">      logger.error(&quot;No users founded&quot;);</span>
     }
-<span class="nc" id="L30">    return userRepository.findAll();</span>
+<span class="fc" id="L32">    return userRepository.findAll();</span>
   }
 
   @Override
   public User getUserById(int id) {
-<span class="nc" id="L35">    logger.debug(&quot;Finding user with id : {}&quot;, id);</span>
-<span class="nc bnc" id="L36" title="All 2 branches missed.">    if (userRepository.findById(id).isPresent()) {</span>
-<span class="nc" id="L37">      logger.info(&quot;Founded user with id : {}&quot;, id);</span>
-<span class="nc" id="L38">      return userRepository.findById(id).get();</span>
+<span class="fc" id="L37">    logger.debug(&quot;Finding user with id : {}&quot;, id);</span>
+<span class="fc bfc" id="L38" title="All 2 branches covered.">    if (userRepository.findById(id).isPresent()) {</span>
+<span class="fc" id="L39">      logger.info(&quot;Founded user with id : {}&quot;, id);</span>
+<span class="fc" id="L40">      return userRepository.findById(id).get();</span>
     } else {
-<span class="nc" id="L40">      logger.error(&quot;No user founded with id : {}&quot;, id);</span>
-<span class="nc" id="L41">      return null;</span>
+<span class="fc" id="L42">      logger.error(&quot;No user founded with id : {}&quot;, id);</span>
+<span class="fc" id="L43">      return null;</span>
     }
   }
 
-  @Override
+  @Override @Transactional
   public User saveUser(User user) throws Exception {
-<span class="nc" id="L47">    logger.debug(&quot;Creating user with id : {}&quot;, user.getId());</span>
-    // Checking if user already exist
-<span class="nc bnc" id="L49" title="All 2 branches missed.">    if (userRepository.findById(user.getId()).isPresent()) {</span>
-<span class="nc" id="L50">      logger.error(&quot;This user cannot be created because already exist&quot;);</span>
-<span class="nc" id="L51">      throw new Exception(&quot;This user already exist&quot;);</span>
-    } else {
-<span class="nc" id="L53">      logger.info(&quot;User with id : {} created&quot;, user.getId());</span>
-<span class="nc" id="L54">      userRepository.save(user);</span>
-    }
-<span class="nc" id="L56">    return user;</span>
+
+<span class="fc" id="L50">    logger.debug(&quot;Creating user&quot;);</span>
+<span class="fc" id="L51">    return userRepository.save(user);</span>
   }
 
-  @Override
+  @Override @Transactional
   public User updateUser(User user) throws Exception {
-<span class="nc" id="L61">    logger.debug(&quot;Updating user with id : {}&quot;, user.getId());</span>
+<span class="fc" id="L56">    logger.debug(&quot;Updating user with id : {}&quot;, user.getId());</span>
     // Checking if user already exist
-<span class="nc bnc" id="L63" title="All 2 branches missed.">    if (userRepository.findById(user.getId()).isPresent()) {</span>
-<span class="nc" id="L64">      logger.info(&quot;User with id : {} updated&quot;, user.getId());</span>
-<span class="nc" id="L65">      return userRepository.save(user);</span>
+<span class="fc bfc" id="L58" title="All 2 branches covered.">    if (userRepository.findById(user.getId()).isPresent()) {</span>
+<span class="fc" id="L59">      logger.info(&quot;User with id : {} updated&quot;, user.getId());</span>
+<span class="fc" id="L60">      return userRepository.save(user);</span>
     }
 
     else {
-<span class="nc" id="L69">      logger.error(&quot;This user cannot be updated because not founded&quot;);</span>
-<span class="nc" id="L70">      throw new Exception(&quot;User to update not founded&quot;);</span>
+<span class="fc" id="L64">      logger.error(&quot;This user cannot be updated because not founded&quot;);</span>
+<span class="fc" id="L65">      throw new Exception(&quot;User to update not founded&quot;);</span>
     }
   }
 
-  @Override
+  @Override @Transactional
   public void deleteUser(User user) throws Exception {
-<span class="nc" id="L76">    logger.debug(&quot;Deleting user with id : {}&quot;, user.getId());</span>
+<span class="fc" id="L71">    logger.debug(&quot;Deleting user with id : {}&quot;, user.getId());</span>
 
-<span class="nc bnc" id="L78" title="All 2 branches missed.">    if (getUserById(user.getId()) != null) {</span>
-<span class="nc" id="L79">      logger.info(&quot;User with id : {} deleted&quot;, user.getId());</span>
-<span class="nc" id="L80">      userRepository.delete(user);</span>
-    } else {
-<span class="nc" id="L82">      logger.error(&quot;This user cannot be deleted because not founded&quot;);</span>
-<span class="nc" id="L83">      throw new Exception(&quot;User to delete not founded&quot;);</span>
+<span class="fc bfc" id="L73" title="All 2 branches covered.">    if (getUserById(user.getId()) != null) {</span>
+<span class="fc" id="L74">      logger.info(&quot;User with id : {} deleted&quot;, user.getId());</span>
+<span class="fc" id="L75">      userRepository.delete(user);</span>
+<span class="fc" id="L76">    } else {</span>
+<span class="fc" id="L77">      logger.error(&quot;This user cannot be deleted because not founded&quot;);</span>
+<span class="fc" id="L78">      throw new Exception(&quot;User to delete not founded&quot;);</span>
     }
-<span class="nc" id="L85">  }</span>
+<span class="fc" id="L80">  }</span>
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

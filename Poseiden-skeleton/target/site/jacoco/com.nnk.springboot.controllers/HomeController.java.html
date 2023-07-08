@@ -7,19 +7,19 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-<span class="nc" id="L10">public class HomeController {</span>
-<span class="nc" id="L11">  final static Logger logger = LogManager.getLogger(HomeController.class);</span>
+<span class="fc" id="L10">public class HomeController {</span>
+<span class="fc" id="L11">  final static Logger logger = LogManager.getLogger(HomeController.class);</span>
 
   @RequestMapping(&quot;/&quot;)
   public String home(Model model) {
-<span class="nc" id="L15">    logger.debug(&quot;Getting request / &quot;);</span>
-<span class="nc" id="L16">    return &quot;home&quot;;</span>
+<span class="fc" id="L15">    logger.debug(&quot;Getting request / &quot;);</span>
+<span class="fc" id="L16">    return &quot;home&quot;;</span>
   }
 
   @RequestMapping(&quot;/admin/home&quot;)
   public String adminHome(Model model) {
-<span class="nc" id="L21">    logger.debug(&quot;Getting request /admin/home&quot;);</span>
-<span class="nc" id="L22">    return &quot;redirect:/bidList/list&quot;;</span>
+<span class="fc" id="L21">    logger.debug(&quot;Getting request /admin/home&quot;);</span>
+<span class="fc" id="L22">    return &quot;redirect:/bidList/list&quot;;</span>
   }
 
 }
