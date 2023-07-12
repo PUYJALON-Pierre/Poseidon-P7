@@ -78,7 +78,7 @@ public class TradeServiceImpl implements ITradeService {
 <span class="fc bfc" id="L78" title="All 2 branches covered.">    if (getTradeById(trade.getTradeId()) != null) {</span>
 <span class="fc" id="L79">      logger.info(&quot;Trade with id : {} deleted&quot;, trade.getTradeId());</span>
 <span class="fc" id="L80">      tradeRepository.delete(trade);</span>
-<span class="fc" id="L81">    } else {</span>
+    } else {
 <span class="fc" id="L82">      logger.error(&quot;This trade cannot be deleted because not founded&quot;);</span>
 <span class="fc" id="L83">      throw new Exception(&quot;Trade to delete not founded&quot;);</span>
     }

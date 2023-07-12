@@ -77,7 +77,7 @@ public class RuleNameServiceImpl implements IRuleNameService {
 <span class="fc bfc" id="L77" title="All 2 branches covered.">    if (getRuleNameById(ruleName.getId()) != null) {</span>
 <span class="fc" id="L78">      logger.info(&quot;RuleName with id : {} deleted&quot;, ruleName.getId());</span>
 <span class="fc" id="L79">      ruleNameRepository.delete(ruleName);</span>
-<span class="fc" id="L80">    } else {</span>
+    } else {
 <span class="fc" id="L81">      logger.error(&quot;This ruleName cannot be deleted because not founded&quot;);</span>
 <span class="fc" id="L82">      throw new Exception(&quot;RuleName to delete not founded&quot;);</span>
     }

@@ -22,7 +22,9 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import com.nnk.springboot.domain.User;
 import com.nnk.springboot.repositories.UserRepository;
 
-@ExtendWith(SpringExtension.class) @SpringBootTest @TestInstance(Lifecycle.PER_CLASS)
+@ExtendWith(SpringExtension.class)
+@SpringBootTest
+@TestInstance(Lifecycle.PER_CLASS)
 public class UserServiceTest {
 
   @Autowired

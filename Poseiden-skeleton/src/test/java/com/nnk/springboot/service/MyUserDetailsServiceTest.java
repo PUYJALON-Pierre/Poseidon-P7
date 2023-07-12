@@ -22,7 +22,9 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import com.nnk.springboot.domain.User;
 import com.nnk.springboot.repositories.UserRepository;
 
-@ExtendWith(SpringExtension.class) @SpringBootTest @TestInstance(Lifecycle.PER_CLASS)
+@ExtendWith(SpringExtension.class)
+@SpringBootTest
+@TestInstance(Lifecycle.PER_CLASS)
 public class MyUserDetailsServiceTest {
 
   @Autowired
@@ -46,9 +48,9 @@ public class MyUserDetailsServiceTest {
   @Test
   public void loadUserByUsernameTest() {
     String username = "admin";
-    
+
     when(userRepository.findByUsername(username)).thenReturn(Optional.of(connectedUser));
-    
+
     UserDetails userToRetrieve = myUserDetailsService.loadUserByUsername(username);
 
     assertEquals("admin", userToRetrieve.getUsername());
@@ -66,15 +68,12 @@ public class MyUserDetailsServiceTest {
     try {
       when(userRepository.findByUsername(username)).thenReturn(Optional.empty());
       // when
-   myUserDetailsService.loadUserByUsername(username);
+      myUserDetailsService.loadUserByUsername(username);
 
     } catch (UsernameNotFoundException e) {
       assertEquals(e.getMessage(), "Cannot find user from username : " + username);
       verify(userRepository, times(1)).findByUsername(username);
     }
-    }
-
-  
- 
+  }
 
 }

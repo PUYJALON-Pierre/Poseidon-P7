@@ -30,61 +30,48 @@ import com.nnk.springboot.domain.BidList;
 import com.nnk.springboot.repositories.BidListRepository;
 import com.nnk.springboot.service.IBidListService;
 
-@ExtendWith(SpringExtension.class)
-@WebMvcTest(controllers = BidListController.class)
-@TestInstance(Lifecycle.PER_CLASS)
+@ExtendWith(SpringExtension.class) @WebMvcTest(controllers = BidListController.class) @TestInstance(Lifecycle.PER_CLASS)
 public class BidListControllerTest {
-  
-  
+
   @Autowired
   MockMvc mockMvc;
-  
+
   @MockBean
   IBidListService iBidListService;
-  
+
   @MockBean
   BidListRepository bidListRepository;
-  
-  private BidList  bid;
+
+  private BidList bid;
   private List<BidList> bidList = new ArrayList<>();
-  
+
   @BeforeEach
   public void setup() {
     bid = new BidList("account", "type", 10d);
 
     bidList.add(bid);
-    
+
     when(iBidListService.getAllBidLists()).thenReturn(bidList);
   }
-  
-  
-  @Test
-  @WithMockUser(roles = "ADMIN")
+
+  @Test @WithMockUser(roles = "ADMIN")
   public void getViewBidlistPageModelTest() throws Exception {
     mockMvc.perform(get("/bidList/list")).andExpect(status().isOk());
   }
-  
-  @Test
-  @WithMockUser(roles = "ADMIN")
+
+  @Test @WithMockUser(roles = "ADMIN")
   public void getViewAddBidlistPageModelTest() throws Exception {
     mockMvc.perform(get("/bidList/add")).andExpect(status().isOk());
   }
-  
-  
-  @Test
-  @WithMockUser(roles = "ADMIN")
+
+  @Test @WithMockUser(roles = "ADMIN")
   public void postBidlistTest() throws Exception {
-    mockMvc.perform(post("/bidList/validate")
-        .with(csrf().asHeader())   //not working without
-        .param("account", "account")
-        .param("type", "type")
-        .param("bidQuantity", "10d"))
+    mockMvc.perform(post("/bidList/validate").with(csrf().asHeader()) // not working without
+        .param("account", "account").param("type", "type").param("bidQuantity", "10d"))
         .andExpect(redirectedUrl("/bidList/list")).andExpect(status().is3xxRedirection());
 
   }
-  
 
-  
   @Test
   @WithMockUser(roles = "ADMIN")
   public void getViewUpdateBidlistPageModelTest() throws Exception {
@@ -94,7 +81,6 @@ public class BidListControllerTest {
     
     mockMvc.perform(get("/bidList/update/{id}", "6")).andExpect(status().isOk());}
 
-  
   @Test
   @WithMockUser(roles = "ADMIN")
   public void updateBidlistTest() throws Exception {
@@ -110,8 +96,7 @@ public class BidListControllerTest {
         .andExpect(redirectedUrl("/bidList/list")).andExpect(status().is3xxRedirection());
 
   }
-  
-  
+
   @Test
   @WithMockUser(roles = "ADMIN")
   public void deleteBidlistTest() throws Exception {
@@ -126,9 +111,5 @@ public class BidListControllerTest {
         .andExpect(redirectedUrl("/bidList/list")).andExpect(status().is3xxRedirection());
 
   }
-  
- 
-  
-  
-  
+
 }

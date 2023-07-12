@@ -13,17 +13,13 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import com.jparams.verifier.tostring.ToStringVerifier;
 
-
-
-
-
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
 public class BidListTest {
 
   BidList bid1 = new BidList("account", "type", 10d);
   BidList bid2 = new BidList("account", "type", 10d);
-  
+
   @Test
   public void bidListHashCodeTest() {
 
@@ -42,7 +38,5 @@ public class BidListTest {
     assertThat(bid1).isEqualTo(bid2);
     assertFalse(bid1.equals(null));
   }
-  
-  
-  
+
 }

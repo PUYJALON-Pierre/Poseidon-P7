@@ -1,7 +1,5 @@
 package com.nnk.springboot.controllers;
 
-
-
 import javax.validation.Valid;
 
 import org.apache.logging.log4j.LogManager;
@@ -18,8 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.nnk.springboot.domain.CurvePoint;
 import com.nnk.springboot.service.ICurvePointService;
 
-
-
 /**
  * Controller class for Curvepoint view in Trading App UI (Poseidon inc)
  *
@@ -34,7 +30,6 @@ public class CurvePointController {
 
   final static Logger logger = LogManager.getLogger(CurvePointController.class);
 
-  
   /**
    * Get curvePoint/list page model
    *
@@ -48,13 +43,12 @@ public class CurvePointController {
     return "curvePoint/list";
   }
 
-  
- /**
-  * Get curvePoint/add page model
-  * 
-  * @param curvePoint - CurvePoint
-  * @return add (html template)
-  */
+  /**
+   * Get curvePoint/add page model
+   * 
+   * @param curvePoint - CurvePoint
+   * @return add (html template)
+   */
   @GetMapping("/add")
   public String addBidForm(CurvePoint curvePoint) {
     logger.debug("Getting request curvePoint/add");
@@ -84,7 +78,6 @@ public class CurvePointController {
     return "curvePoint/add";
   }
 
-  
   /**
    * Get curvePoint/update page model
    * 

@@ -16,27 +16,22 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import com.nnk.springboot.controllers.HomeController;
 
-@ExtendWith(SpringExtension.class)
-@WebMvcTest(controllers = HomeController.class)
-@TestInstance(Lifecycle.PER_CLASS)
+@ExtendWith(SpringExtension.class) @WebMvcTest(controllers = HomeController.class) @TestInstance(Lifecycle.PER_CLASS)
 public class HomeControllerTest {
 
   @Autowired
   MockMvc mockMvc;
-  
-  
-  @Test
-  @WithMockUser
+
+  @Test @WithMockUser
   public void getViewHomePageModelTest() throws Exception {
     mockMvc.perform(get("/")).andExpect(status().isOk());
-       
-  }  
-  
-  @Test
-  @WithMockUser
+
+  }
+
+  @Test @WithMockUser
   public void getViewAdminHomePageModelTest() throws Exception {
     mockMvc.perform(get("/admin/home")).andExpect(redirectedUrl("/bidList/list"))
-    .andExpect(status().is3xxRedirection());
-  }  
-  
+        .andExpect(status().is3xxRedirection());
+  }
+
 }

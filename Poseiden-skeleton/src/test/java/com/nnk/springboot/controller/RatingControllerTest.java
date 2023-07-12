@@ -38,7 +38,9 @@ import com.nnk.springboot.service.IBidListService;
 import com.nnk.springboot.service.ICurvePointService;
 import com.nnk.springboot.service.IRatingService;
 
-@ExtendWith(SpringExtension.class) @WebMvcTest(controllers = RatingController.class) @TestInstance(Lifecycle.PER_CLASS)
+@ExtendWith(SpringExtension.class)
+@WebMvcTest(controllers = RatingController.class)
+@TestInstance(Lifecycle.PER_CLASS)
 public class RatingControllerTest {
 
   @Autowired

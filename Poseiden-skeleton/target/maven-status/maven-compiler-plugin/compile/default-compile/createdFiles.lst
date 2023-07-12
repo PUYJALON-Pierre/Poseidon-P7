@@ -1,5 +1,6 @@
 com\nnk\springboot\repositories\RatingRepository.class
 com\nnk\springboot\service\impl\UserServiceImpl.class
+com\nnk\springboot\controllers\CurvePointController.class
 com\nnk\springboot\Application.class
 com\nnk\springboot\service\impl\RuleNameServiceImpl.class
 com\nnk\springboot\service\IRuleNameService.class

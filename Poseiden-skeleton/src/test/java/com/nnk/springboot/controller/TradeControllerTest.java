@@ -46,7 +46,9 @@ import com.nnk.springboot.service.IRatingService;
 import com.nnk.springboot.service.IRuleNameService;
 import com.nnk.springboot.service.ITradeService;
 
-@ExtendWith(SpringExtension.class) @WebMvcTest(controllers = TradeController.class) @TestInstance(Lifecycle.PER_CLASS)
+@ExtendWith(SpringExtension.class)
+@WebMvcTest(controllers = TradeController.class)
+@TestInstance(Lifecycle.PER_CLASS)
 public class TradeControllerTest {
 
   @Autowired
@@ -84,10 +86,8 @@ public class TradeControllerTest {
   @Test @WithMockUser(roles = "ADMIN")
   public void postTradeTest() throws Exception {
     mockMvc
-        .perform(post("/trade/validate")
-            .with(csrf().asHeader())
-            .param("account", trade.getAccount())
-            .param("type", trade.getType())
+        .perform(post("/trade/validate").with(csrf().asHeader())
+            .param("account", trade.getAccount()).param("type", trade.getType())
             .param("buyQuantity", trade.getBuyQuantity().toString()))
         .andExpect(redirectedUrl("/trade/list")).andExpect(status().is3xxRedirection());
 

@@ -8,9 +8,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.DecimalMax;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
+import javax.validation.constraints.Size;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -30,6 +32,7 @@ public class CurvePoint {
   @NotNull(message = "Curve Id is mandatory")
   @Positive
   @Digits(fraction =0, integer = 3)
+  @DecimalMax(value = "127", message = "Out of range")
   @Column(name = "CurveId")
   Integer curveId;
 

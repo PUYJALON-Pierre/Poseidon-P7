@@ -77,7 +77,7 @@ public class RatingServiceImpl implements IRatingService {
 <span class="fc bfc" id="L77" title="All 2 branches covered.">    if (getRatingById(rating.getId()) != null) {</span>
 <span class="fc" id="L78">      logger.info(&quot;Rating with id : {} deleted&quot;, rating.getId());</span>
 <span class="fc" id="L79">      ratingRepository.delete(rating);</span>
-<span class="fc" id="L80">    } else {</span>
+    } else {
 <span class="fc" id="L81">      logger.error(&quot;This rating cannot be deleted because not founded&quot;);</span>
 <span class="fc" id="L82">      throw new Exception(&quot;Rating to delete not founded&quot;);</span>
     }

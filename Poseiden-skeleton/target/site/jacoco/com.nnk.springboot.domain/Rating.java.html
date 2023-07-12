@@ -30,28 +30,28 @@ public class Rating {
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   @Column(name=&quot;Id&quot;)
-  private Integer id;
+<span class="fc" id="L33">  private Integer id;</span>
   
   @NotBlank(message = &quot;Moody's rating is mandatory&quot;)
   @Column(name=&quot;moodysRating&quot;)
   @Size(max = 125, message = &quot;Max of {max} characters&quot;)
-  String moodysRating;
+<span class="fc" id="L38">  String moodysRating;</span>
  
   @NotBlank(message = &quot;SandPRating rating is mandatory&quot;)
   @Column(name=&quot;sandPRating&quot;)
   @Size(max = 125, message = &quot;Max of {max} characters&quot;)
-  String sandPRating;
+<span class="fc" id="L43">  String sandPRating;</span>
 
   @NotBlank(message = &quot;FitchRating rating is mandatory&quot;)
   @Column(name=&quot;fitchRating&quot;)
   @Size(max = 125, message = &quot;Max of {max} characters&quot;)
-  String fitchRating;
+<span class="fc" id="L48">  String fitchRating;</span>
  
   @NotNull(message = &quot;Order Number rating is mandatory&quot;)
   @Positive
   @Digits(integer = 3, fraction = 0)
   @Column(name=&quot;orderNumber&quot;)
-  Integer orderNumber;
+<span class="fc" id="L54">  Integer orderNumber;</span>
   
 <span class="fc" id="L56">  public Rating(String moodysRating, String sandPRating, String fitchRating, Integer orderNumber) {</span>
 <span class="fc" id="L57">    this.moodysRating = moodysRating;</span>

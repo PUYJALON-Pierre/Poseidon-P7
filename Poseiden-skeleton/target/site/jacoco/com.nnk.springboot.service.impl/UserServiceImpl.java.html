@@ -73,7 +73,7 @@ import com.nnk.springboot.service.IUserService;
 <span class="fc bfc" id="L73" title="All 2 branches covered.">    if (getUserById(user.getId()) != null) {</span>
 <span class="fc" id="L74">      logger.info(&quot;User with id : {} deleted&quot;, user.getId());</span>
 <span class="fc" id="L75">      userRepository.delete(user);</span>
-<span class="fc" id="L76">    } else {</span>
+    } else {
 <span class="fc" id="L77">      logger.error(&quot;This user cannot be deleted because not founded&quot;);</span>
 <span class="fc" id="L78">      throw new Exception(&quot;User to delete not founded&quot;);</span>
     }

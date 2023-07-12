@@ -22,14 +22,16 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import com.nnk.springboot.domain.Rating;
 import com.nnk.springboot.repositories.RatingRepository;
 
-@ExtendWith(SpringExtension.class) @SpringBootTest @TestInstance(Lifecycle.PER_CLASS)
+@ExtendWith(SpringExtension.class)
+@SpringBootTest
+@TestInstance(Lifecycle.PER_CLASS)
 public class RatingServiceTest {
 
   @Autowired
   IRatingService iRatingService;
 
   @MockBean
- RatingRepository ratingRepository;
+  RatingRepository ratingRepository;
 
   Rating rating = new Rating();
 
@@ -43,7 +45,7 @@ public class RatingServiceTest {
     rating.setSandPRating("Sand PRating");
     rating.setFitchRating("Fitch Rating");
     rating.setOrderNumber(10);
-    
+
   }
 
   @Test
@@ -60,7 +62,7 @@ public class RatingServiceTest {
     assertEquals(iRatingService.getAllRatings().get(0).getMoodysRating(), "Moodys Rating");
     assertEquals(iRatingService.getAllRatings().get(0).getSandPRating(), "Sand PRating");
     assertEquals(iRatingService.getAllRatings().get(0).getFitchRating(), "Fitch Rating");
-    assertEquals((int)iRatingService.getAllRatings().get(0).getOrderNumber(), 10);
+    assertEquals((int) iRatingService.getAllRatings().get(0).getOrderNumber(), 10);
 
   }
 

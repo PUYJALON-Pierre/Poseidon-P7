@@ -22,14 +22,16 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import com.nnk.springboot.domain.Trade;
 import com.nnk.springboot.repositories.TradeRepository;
 
-@ExtendWith(SpringExtension.class) @SpringBootTest @TestInstance(Lifecycle.PER_CLASS)
+@ExtendWith(SpringExtension.class)
+@SpringBootTest
+@TestInstance(Lifecycle.PER_CLASS)
 public class TradeServiceTest {
 
   @Autowired
   ITradeService iTradeService;
 
   @MockBean
-TradeRepository tradeRepository;
+  TradeRepository tradeRepository;
 
   Trade trade = new Trade();
 
@@ -38,13 +40,12 @@ TradeRepository tradeRepository;
   @BeforeEach
   public void setup() {
 
- trade.setTradeId(1);
- trade.setAccount("Trade Account");
- trade.setType("Type");
- trade.setBuyQuantity(10.0);
+    trade.setTradeId(1);
+    trade.setAccount("Trade Account");
+    trade.setType("Type");
+    trade.setBuyQuantity(10.0);
   }
 
-  
   @Test
   public void getTradesTest() {
 
@@ -55,13 +56,12 @@ TradeRepository tradeRepository;
 
     assertEquals(iTradeService.getAllTrades().size(), 1);
 
-    assertEquals((int)iTradeService.getAllTrades().get(0).getTradeId(), 1);
+    assertEquals((int) iTradeService.getAllTrades().get(0).getTradeId(), 1);
     assertEquals(iTradeService.getAllTrades().get(0).getAccount(), "Trade Account");
     assertEquals(iTradeService.getAllTrades().get(0).getType(), "Type");
-    assertEquals((double)iTradeService.getAllTrades().get(0).getBuyQuantity(), 10.0);
+    assertEquals((double) iTradeService.getAllTrades().get(0).getBuyQuantity(), 10.0);
   }
 
-  
   @Test
   public void getTradeByIdTest() throws Exception {
 
@@ -113,7 +113,6 @@ TradeRepository tradeRepository;
 
   }
 
- 
   @Test
   public void updateTradeFailTest() throws Exception {
     try {
@@ -125,7 +124,7 @@ TradeRepository tradeRepository;
       when(tradeRepository.findById(trade.getTradeId())).thenReturn(Optional.empty());
 
       // when
-  iTradeService.updateTrade(trade);
+      iTradeService.updateTrade(trade);
 
     } catch (Exception e) {
       assertEquals(e.getMessage(), "Trade to update not founded");

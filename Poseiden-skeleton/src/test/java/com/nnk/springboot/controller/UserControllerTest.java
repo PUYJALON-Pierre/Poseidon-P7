@@ -50,7 +50,9 @@ import com.nnk.springboot.service.IRuleNameService;
 import com.nnk.springboot.service.ITradeService;
 import com.nnk.springboot.service.IUserService;
 
-@ExtendWith(SpringExtension.class) @WebMvcTest(controllers = UserController.class) @TestInstance(Lifecycle.PER_CLASS)
+@ExtendWith(SpringExtension.class)
+@WebMvcTest(controllers = UserController.class)
+@TestInstance(Lifecycle.PER_CLASS)
 public class UserControllerTest {
 
   @Autowired

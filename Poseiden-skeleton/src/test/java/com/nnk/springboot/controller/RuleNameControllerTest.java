@@ -42,7 +42,9 @@ import com.nnk.springboot.service.ICurvePointService;
 import com.nnk.springboot.service.IRatingService;
 import com.nnk.springboot.service.IRuleNameService;
 
-@ExtendWith(SpringExtension.class) @WebMvcTest(controllers = RuleNameController.class) @TestInstance(Lifecycle.PER_CLASS)
+@ExtendWith(SpringExtension.class)
+@WebMvcTest(controllers = RuleNameController.class)
+@TestInstance(Lifecycle.PER_CLASS)
 public class RuleNameControllerTest {
 
   @Autowired
@@ -79,14 +81,10 @@ public class RuleNameControllerTest {
 
   @Test @WithMockUser(roles = "ADMIN")
   public void postRuleNameTest() throws Exception {
-    mockMvc.perform(post("/ruleName/validate")
-        .with(csrf().asHeader())
-        .param("name", "Rule Name")
-        .param("description", "Description")
-        .param("json", "Json")
-        .param("template", "Template")
-        .param("sqlStr", "SQL")
-        .param("sqlPart", "SQL Part"))
+    mockMvc
+        .perform(post("/ruleName/validate").with(csrf().asHeader()).param("name", "Rule Name")
+            .param("description", "Description").param("json", "Json").param("template", "Template")
+            .param("sqlStr", "SQL").param("sqlPart", "SQL Part"))
         .andExpect(redirectedUrl("/ruleName/list")).andExpect(status().is3xxRedirection());
 
   }

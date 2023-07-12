@@ -1,6 +1,5 @@
 package com.nnk.springboot.controllers;
 
-
 import javax.validation.Valid;
 
 import org.apache.logging.log4j.LogManager;
@@ -16,8 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.nnk.springboot.domain.BidList;
 import com.nnk.springboot.service.IBidListService;
-
-
 
 /**
  * Controller class for BidList view in Trading App UI (Poseidon inc)
@@ -69,7 +66,8 @@ public class BidListController {
    * @throws Exception
    */
   @PostMapping("/validate")
-  public String validate(@Valid BidList bidList, BindingResult result, Model model) throws Exception {
+  public String validate(@Valid BidList bidList, BindingResult result, Model model)
+      throws Exception {
     logger.debug("Posting request bidList/validate for bidList with id:{}", bidList.getBidListId());
     if (!result.hasErrors()) {
       iBidListService.saveBidList(bidList);

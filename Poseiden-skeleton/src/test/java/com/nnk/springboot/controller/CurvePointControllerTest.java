@@ -34,55 +34,45 @@ import com.nnk.springboot.repositories.CurvePointRepository;
 import com.nnk.springboot.service.IBidListService;
 import com.nnk.springboot.service.ICurvePointService;
 
-@ExtendWith(SpringExtension.class)
-@WebMvcTest(controllers = CurvePointController.class)
-@TestInstance(Lifecycle.PER_CLASS)
+@ExtendWith(SpringExtension.class) @WebMvcTest(controllers = CurvePointController.class) @TestInstance(Lifecycle.PER_CLASS)
 public class CurvePointControllerTest {
-  
-  
+
   @Autowired
   MockMvc mockMvc;
-  
+
   @MockBean
   ICurvePointService iCurvePointService;
-  
+
   @MockBean
   CurvePointRepository curvePointRepository;
-  
+
   private CurvePoint curvePoint;
   private List<CurvePoint> curvePoints = new ArrayList<>();
-  
+
   @BeforeEach
   public void setup() {
     curvePoint = new CurvePoint(1, 5d, 10d);
 
     curvePoints.add(curvePoint);
-    
+
     when(iCurvePointService.getCurvePoints()).thenReturn(curvePoints);
   }
-  
-  
-  @Test
-  @WithMockUser(roles = "ADMIN")
+
+  @Test @WithMockUser(roles = "ADMIN")
   public void getViewCurvePointPageModelTest() throws Exception {
     mockMvc.perform(get("/curvePoint/list")).andExpect(status().isOk());
   }
-  
-  @Test
-  @WithMockUser(roles = "ADMIN")
+
+  @Test @WithMockUser(roles = "ADMIN")
   public void getViewAddCurvePointPageModelTest() throws Exception {
     mockMvc.perform(get("/curvePoint/add")).andExpect(status().isOk());
   }
-  
-  
-  @Test
-  @WithMockUser(roles = "ADMIN")
+
+  @Test @WithMockUser(roles = "ADMIN")
   public void postCurvePointTest() throws Exception {
-    mockMvc.perform(post("/curvePoint/validate")
-        .with(csrf().asHeader())
-        .param("curveId", "1")
-        .param("term", "5d")
-        .param("value", "10d"))
+    mockMvc
+        .perform(post("/curvePoint/validate").with(csrf().asHeader()).param("curveId", "1")
+            .param("term", "5d").param("value", "10d"))
         .andExpect(redirectedUrl("/curvePoint/list")).andExpect(status().is3xxRedirection());
 
   }
@@ -96,7 +86,6 @@ public class CurvePointControllerTest {
     
     mockMvc.perform(get("/curvePoint/update/{id}", "6")).andExpect(status().isOk());}
 
-  
   @Test
   @WithMockUser(roles = "ADMIN")
   public void updateCurvePointTest() throws Exception {
@@ -112,8 +101,7 @@ public class CurvePointControllerTest {
         .andExpect(redirectedUrl("/curvePoint/list")).andExpect(status().is3xxRedirection());
 
   }
-  
-  
+
   @Test
   @WithMockUser(roles = "ADMIN")
   public void deleteCurvePointTest() throws Exception {
@@ -129,8 +117,5 @@ public class CurvePointControllerTest {
         .andExpect(redirectedUrl("/curvePoint/list")).andExpect(status().is3xxRedirection());
 
   }
-  
 
-  
-  
 }

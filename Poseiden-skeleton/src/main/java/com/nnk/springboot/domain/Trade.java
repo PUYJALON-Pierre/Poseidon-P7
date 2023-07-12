@@ -30,7 +30,6 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "trade")
 public class Trade {
-    // DONE: Map columns in data table TRADE with corresponding java fields
   
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
@@ -129,6 +128,5 @@ public class Trade {
 
 }
   
-  
-  
+ 
 }

@@ -34,94 +34,94 @@ public class BidList {
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   @Column(name=&quot;BidListId&quot;)
-  private Integer bidListId;
+<span class="fc" id="L37">  private Integer bidListId;</span>
   
   @NotNull
   @NotBlank(message = &quot;Account is mandatory&quot;)
   @Size(max = 30, message = &quot;Max of {max} characters&quot;)
   @Column(name=&quot;account&quot;)
-  private String account;
+<span class="fc" id="L43">  private String account;</span>
   
   @NotNull
   @NotBlank(message = &quot;Type is mandatory&quot;)
   @Size(max = 30, message = &quot;Max of {max} characters&quot;)
   @Column(name=&quot;type&quot;)
-  private String type;
+<span class="fc" id="L49">  private String type;</span>
   
   @NotNull(message = &quot;Bid quantity is mandatory&quot;)
   @PositiveOrZero
   @Digits(fraction = 2, integer = 20)
   @Column(name=&quot;bidQuantity&quot;)
-  private Double bidQuantity;
+<span class="fc" id="L55">  private Double bidQuantity;</span>
   
   @Column(name=&quot;askQuantity&quot;)
-  private Double askQuantity;
+<span class="fc" id="L58">  private Double askQuantity;</span>
   
   @Column(name=&quot;bid&quot;)
-  private Double bid;
+<span class="fc" id="L61">  private Double bid;</span>
   
   @Column(name=&quot;ask&quot;)
-  private Double ask;
+<span class="fc" id="L64">  private Double ask;</span>
   
   @Size(max = 125, message = &quot;Max of {max} characters&quot;)
   @Column(name=&quot;benchmark&quot;)
-  private String benchmark;
+<span class="fc" id="L68">  private String benchmark;</span>
   
   @Column(name=&quot;bidListDate&quot;)
   @DateTimeFormat(pattern = &quot;yyyy-MM-dd&quot;)
-  private LocalDateTime bidListDate;
+<span class="fc" id="L72">  private LocalDateTime bidListDate;</span>
   
   @Size(max = 125, message = &quot;Max of {max} characters&quot;)
   @Column(name=&quot;commentary&quot;)
-  private String commentary;
+<span class="fc" id="L76">  private String commentary;</span>
   
   @Size(max = 125, message = &quot;Max of {max} characters&quot;)
   @Column(name=&quot;security&quot;)
-  private String security;
+<span class="fc" id="L80">  private String security;</span>
   
   @Size(max = 10, message = &quot;Max of {max} characters&quot;)
   @Column(name=&quot;status&quot;)
-  private String status;
+<span class="fc" id="L84">  private String status;</span>
   
   @Size(max = 125, message = &quot;Max of {max} characters&quot;)
   @Column(name=&quot;trader&quot;)
-  private String trader;
+<span class="fc" id="L88">  private String trader;</span>
   
   @Size(max = 125, message = &quot;Max of {max} characters&quot;)
   @Column(name=&quot;book&quot;)
-  private String book;
+<span class="fc" id="L92">  private String book;</span>
   
   @Size(max = 125, message = &quot;Max of {max} characters&quot;)
   @Column(name=&quot;creationName&quot;)
-  private String creationName;
+<span class="fc" id="L96">  private String creationName;</span>
   
   @Column(name=&quot;creationDate&quot;)
   @DateTimeFormat(pattern = &quot;yyyy-MM-dd&quot;)
-  private LocalDateTime creationDate;
+<span class="fc" id="L100">  private LocalDateTime creationDate;</span>
   
   @Size(max = 125, message = &quot;Max of {max} characters&quot;)
   @Column(name=&quot;revisionName&quot;)
-  private String revisionName;
+<span class="fc" id="L104">  private String revisionName;</span>
   
   @Column(name=&quot;revisionDate&quot;)
   @DateTimeFormat(pattern = &quot;yyyy-MM-dd&quot;)
-  private LocalDateTime revisionDate;
+<span class="fc" id="L108">  private LocalDateTime revisionDate;</span>
   
   @Size(max = 125, message = &quot;Max of {max} characters&quot;)
   @Column(name=&quot;dealName&quot;)
-  private String dealName;
+<span class="fc" id="L112">  private String dealName;</span>
   
   @Size(max = 125, message = &quot;Max of {max} characters&quot;)
   @Column(name=&quot;dealType&quot;)
-  private String dealType;
+<span class="fc" id="L116">  private String dealType;</span>
   
   @Size(max = 125, message = &quot;Max of {max} characters&quot;)
   @Column(name=&quot;sourceListId&quot;)
-  private String sourceListId;
+<span class="fc" id="L120">  private String sourceListId;</span>
   
   @Size(max = 125, message = &quot;Max of {max} characters&quot;)
   @Column(name=&quot;side&quot;)
-  private String side;
+<span class="fc" id="L124">  private String side;</span>
 
   
 <span class="fc" id="L127">  public BidList(String account, String type, Double bidQuantity) {</span>

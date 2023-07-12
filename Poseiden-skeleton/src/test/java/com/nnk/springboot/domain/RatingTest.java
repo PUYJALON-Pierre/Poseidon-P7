@@ -12,21 +12,18 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import com.jparams.verifier.tostring.ToStringVerifier;
 
-
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
 public class RatingTest {
 
   Rating rating1 = new Rating("Moodys Rating", "Sand PRating", "Fitch Rating", 10);
   Rating rating2 = new Rating("Moodys Rating", "Sand PRating", "Fitch Rating", 10);
-  
+
   @Test
   public void ratingHashCodeTest() {
 
-
-   
-    assertNotSame( rating1,  rating2);
-    assertEquals( rating1.hashCode(),  rating2.hashCode());
+    assertNotSame(rating1, rating2);
+    assertEquals(rating1.hashCode(), rating2.hashCode());
   }
 
   @Test
@@ -40,5 +37,5 @@ public class RatingTest {
     assertThat(rating1).isEqualTo(rating2);
     assertFalse(rating1.equals(null));
   }
-  
+
 }

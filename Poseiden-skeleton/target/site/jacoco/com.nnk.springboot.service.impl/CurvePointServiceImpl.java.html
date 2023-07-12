@@ -79,7 +79,7 @@ public class CurvePointServiceImpl implements ICurvePointService {
 <span class="fc bfc" id="L79" title="All 2 branches covered.">    if (getCurvePointById(curvePoint.getId()) != null) {</span>
 <span class="fc" id="L80">      logger.info(&quot;CurvePoint with id : {} deleted&quot;, curvePoint.getId());</span>
 <span class="fc" id="L81">      curvePointRepository.delete(curvePoint);</span>
-<span class="fc" id="L82">    } else {</span>
+    } else {
 <span class="fc" id="L83">      logger.error(&quot;This curvePoint cannot be deleted because not founded&quot;);</span>
 <span class="fc" id="L84">      throw new Exception(&quot;CurvePoint to delete not founded&quot;);</span>
     }

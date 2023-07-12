@@ -5,27 +5,25 @@
 2. Java 8
 3. Thymeleaf
 4. Bootstrap v.4.3.1
+5. BCRYPT to encode password in database
 
 
-## Setup with Intellij IDE
-1. Create project from Initializr: File > New > project > Spring Initializr
-2. Add lib repository into pom.xml
-3. Add folders
-    - Source root: src/main/java
-    - View: src/main/resources
-    - Static: src/main/resource/static
-4. Create database with name "demo" as configuration in application.properties
-5. Run sql script to create table doc/data.sql
+## Getting Started
 
-## Implement a Feature
-1. Create mapping domain class and place in package com.nnk.springboot.domain
-2. Create repository class and place in package com.nnk.springboot.repositories
-3. Create controller class and place in package com.nnk.springboot.controllers
-4. Create view files and place in src/main/resource/templates
+Install Maven
+Install Java
+Install My SQL
 
-## Write Unit Test
-1. Create unit test and place in package com.nnk.springboot in folder test > java
+1. Copy project from Github on your local machine
+2. Create a MySQL server on your local machine with a user (username=pierredb + password=a627a158-1cd5-4ab1-a439-0d4873785246) and give credentials
+3. Create database with name "demo" as configuration in application.properties
+4. Run sql script in doc/data.sql to create table
+5. Go to the root of the application and execute mvn spring-boot:run
+6. Server port is 8080 (http://localhost:8080)
+7. You can add a user directly from database in order to connect (id = "3", username="pierre", encoded password = "$2a$10$EKk78nNZehTd08Iguvvw6Ow.kdTgUyw4KcEhMb4505pN4lShVd.y2", fullname = "pierre" and role ="ADMIN")
+8. Then you can connect easily with username :"pierre" and password "pierre"
+9. Tests can be run with Maven
 
-## Security
-1. Create user service to load user from  database and place in package com.nnk.springboot.services
-2. Add configuration class and place in package com.nnk.springboot.config
+
+
+

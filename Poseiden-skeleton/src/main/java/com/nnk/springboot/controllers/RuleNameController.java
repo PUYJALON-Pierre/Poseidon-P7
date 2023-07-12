@@ -1,7 +1,5 @@
 package com.nnk.springboot.controllers;
 
-
-
 import javax.validation.Valid;
 
 import org.apache.logging.log4j.LogManager;
@@ -17,8 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.nnk.springboot.domain.RuleName;
 import com.nnk.springboot.service.IRuleNameService;
-
-
 
 /**
  * Controller class for RuleName view in Trading App UI (Poseidon inc)

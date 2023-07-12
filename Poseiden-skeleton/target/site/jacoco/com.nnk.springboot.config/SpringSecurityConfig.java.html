@@ -46,15 +46,17 @@ import com.nnk.springboot.service.MyUserDetailsService;
   @Override
   protected void configure(HttpSecurity http) throws Exception {
 
-<span class="fc" id="L49">    http.csrf().disable().authorizeRequests().antMatchers(&quot;/css/**&quot;).permitAll()</span>
-<span class="fc" id="L50">    .antMatchers(&quot;/&quot;)</span>
-<span class="fc" id="L51">    .permitAll()</span>
+<span class="fc" id="L49">    http.csrf().disable().authorizeRequests()</span>
+<span class="fc" id="L50">    .antMatchers(&quot;/css/**&quot;,&quot;/&quot;, &quot;/error&quot;).permitAll()</span>
+<span class="fc" id="L51">    .antMatchers(&quot;/user/**&quot;).hasAuthority(&quot;ADMIN&quot;)</span>
 <span class="fc" id="L52">    .antMatchers(&quot;/bidList/**&quot;, &quot;/rating/**&quot;, &quot;/ruleName/**&quot;, &quot;/trade/**&quot;, &quot;/curvePoint/**&quot;).hasAnyAuthority(&quot;ADMIN&quot;, &quot;USER&quot;,&quot;ROLE_USER&quot;)</span>
-<span class="fc" id="L53">        .anyRequest().authenticated().and()</span>
-<span class="fc" id="L54">       .oauth2Login().defaultSuccessUrl(&quot;/bidList/list&quot;, true).and().formLogin().defaultSuccessUrl(&quot;/bidList/list&quot;, true).and().logout().logoutUrl(&quot;/app-logout&quot;)</span>
-<span class="fc" id="L55">        .invalidateHttpSession(true).deleteCookies(&quot;JSESSIONID&quot;);</span>
+<span class="fc" id="L53">    .anyRequest().authenticated().and()</span>
+<span class="fc" id="L54">    .oauth2Login().defaultSuccessUrl(&quot;/bidList/list&quot;, true).and()</span>
+<span class="fc" id="L55">    .formLogin().defaultSuccessUrl(&quot;/bidList/list&quot;, true).and()</span>
+<span class="fc" id="L56">    .logout().logoutUrl(&quot;/app-logout&quot;)</span>
+<span class="fc" id="L57">     .invalidateHttpSession(true).deleteCookies(&quot;JSESSIONID&quot;);</span>
 
-<span class="fc" id="L57">  }</span>
+<span class="fc" id="L59">  }</span>
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

@@ -41,7 +41,7 @@ import com.nnk.springboot.repositories.UserRepository;
 <span class="fc" id="L41">    ModelAndView mav = new ModelAndView();</span>
 <span class="fc" id="L42">    String errorMessage = &quot;You are not authorized for the requested data.&quot;;</span>
 <span class="fc" id="L43">    mav.addObject(&quot;errorMsg&quot;, errorMessage);</span>
-<span class="fc" id="L44">    mav.setViewName(&quot;403&quot;);</span>
+<span class="fc" id="L44">    mav.setViewName(&quot;../static/error/403&quot;);</span>
 <span class="fc" id="L45">    return mav;</span>
   }
 }

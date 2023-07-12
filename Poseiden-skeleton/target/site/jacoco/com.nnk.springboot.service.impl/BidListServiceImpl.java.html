@@ -89,7 +89,7 @@ public class BidListServiceImpl implements IBidListService {
 <span class="pc bpc" id="L89" title="1 of 2 branches missed.">    if (getBidListByBidListId(bidList.getBidListId()) != null) {</span>
 <span class="fc" id="L90">      logger.info(&quot;BidList with id : {} deleted&quot;, bidList.getBidListId());</span>
 <span class="fc" id="L91">      bidListRepository.delete(bidList);</span>
-<span class="fc" id="L92">    } else {</span>
+    } else {
 <span class="nc" id="L93">      logger.error(&quot;This bidList cannot be deleted because not founded&quot;);</span>
 <span class="nc" id="L94">      throw new Exception(&quot;BidList to delete not founded&quot;);</span>
     }

@@ -1,7 +1,5 @@
 package com.nnk.springboot.controllers;
 
-
-
 import javax.validation.Valid;
 
 import org.apache.logging.log4j.LogManager;
@@ -18,8 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.nnk.springboot.domain.User;
 import com.nnk.springboot.repositories.UserRepository;
-
-
 
 @Controller @RequestMapping("/user")
 public class UserController {
@@ -43,7 +39,7 @@ public class UserController {
 
   @PostMapping("/validate")
   public String validate(@Valid User user, BindingResult result, Model model) {
-    logger.debug("Posting request user/validate for user with id:{}",user.getId());
+    logger.debug("Posting request user/validate for user with id:{}", user.getId());
     if (!result.hasErrors()) {
       BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
       user.setPassword(encoder.encode(user.getPassword()));

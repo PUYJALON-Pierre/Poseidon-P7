@@ -14,6 +14,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.TestInstance.Lifecycle;
 import org.junit.jupiter.api.extension.ExtendWith;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -22,8 +23,9 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import com.nnk.springboot.domain.BidList;
 import com.nnk.springboot.repositories.BidListRepository;
 
-
-@ExtendWith(SpringExtension.class) @SpringBootTest @TestInstance(Lifecycle.PER_CLASS)
+@ExtendWith(SpringExtension.class)
+@SpringBootTest
+@TestInstance(Lifecycle.PER_CLASS)
 public class BidListServiceTest {
 
   @Autowired
@@ -126,9 +128,7 @@ public class BidListServiceTest {
     }
   }
 
-  
-  
-    @Test
+  @Test
     public void deleteBidListTest() throws Exception {
     
       when(bidListRepository.findById(bidList.getBidListId())).thenReturn(Optional.of(bidList));
@@ -139,24 +139,20 @@ public class BidListServiceTest {
       verify(bidListRepository, times(1)).delete(bidList);
 
     }
- 
 
-    @Test public void deleteBidListFailTest() throws Exception {
-    
-      try {
-        when(bidListRepository.findById(bidList.getBidListId())).thenReturn(Optional.empty());
-  
-        // when
-        iBidListService.deleteBidList(bidList);
+  @Test
+  public void deleteBidListFailTest() throws Exception {
 
-      } catch (Exception e) {
-        assertEquals(e.getMessage(), "BidList cannot be founded with this id");
-      }
-      
-    
+    try {
+      when(bidListRepository.findById(bidList.getBidListId())).thenReturn(Optional.empty());
+
+      // when
+      iBidListService.deleteBidList(bidList);
+
+    } catch (Exception e) {
+      assertEquals(e.getMessage(), "BidList cannot be founded with this id");
     }
-   
+
+  }
 
 }
-    
-

@@ -33,12 +33,12 @@ public class LoginControllerTest {
 
   @Autowired
   MockMvc mockMvc;
-  
+
   @MockBean
   private UserRepository userRepository;
-  
+
   List<User> userList = new ArrayList<>();
-  
+
   @Test
   @WithMockUser (roles = "ADMIN")
   public void getViewHomeUserModelTest() throws Exception {
@@ -47,17 +47,12 @@ public class LoginControllerTest {
     mockMvc.perform(get("/app/secure/article-details"))
            .andExpect(view().name("user/list"))
            .andExpect(model().attribute("users", userList));
-  }  
-  
-
-  @Test
-  @WithMockUser (roles = "ADMIN")
-  public void getViewErrorTest() throws Exception {
-      mockMvc.perform(get("/app/error"))
-             .andExpect(view().name("403"))
-             .andExpect(model().attributeExists("errorMsg"));
   }
-  
-  
-  
+
+  @Test @WithMockUser(roles = "ADMIN")
+  public void getViewErrorTest() throws Exception {
+    mockMvc.perform(get("/app/error")).andExpect(view().name("../static/error/403"))
+        .andExpect(model().attributeExists("errorMsg"));
+  }
+
 }

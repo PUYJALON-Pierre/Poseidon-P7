@@ -22,7 +22,9 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import com.nnk.springboot.domain.RuleName;
 import com.nnk.springboot.repositories.RuleNameRepository;
 
-@ExtendWith(SpringExtension.class) @SpringBootTest @TestInstance(Lifecycle.PER_CLASS)
+@ExtendWith(SpringExtension.class)
+@SpringBootTest
+@TestInstance(Lifecycle.PER_CLASS)
 public class RuleNameServiceTest {
 
   @Autowired
@@ -47,7 +49,6 @@ public class RuleNameServiceTest {
     ruleName.setSqlPart("SQL Part");
   }
 
-  
   @Test
   public void getRuleNamesTest() {
 
@@ -58,7 +59,7 @@ public class RuleNameServiceTest {
 
     assertEquals(iRuleNameService.getAllRuleNames().size(), 1);
 
-    assertEquals((int)iRuleNameService.getAllRuleNames().get(0).getId(), 1);
+    assertEquals((int) iRuleNameService.getAllRuleNames().get(0).getId(), 1);
     assertEquals(iRuleNameService.getAllRuleNames().get(0).getName(), "Rule Name");
     assertEquals(iRuleNameService.getAllRuleNames().get(0).getDescription(), "Description");
     assertEquals(iRuleNameService.getAllRuleNames().get(0).getJson(), "Json");

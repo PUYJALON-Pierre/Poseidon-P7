@@ -12,13 +12,11 @@ import com.nnk.springboot.domain.BidList;
 import com.nnk.springboot.repositories.BidListRepository;
 import com.nnk.springboot.service.IBidListService;
 
-
 @Service
 public class BidListServiceImpl implements IBidListService {
 
   final static Logger logger = LogManager.getLogger(BidListServiceImpl.class);
 
- 
   BidListRepository bidListRepository;
 
   public BidListServiceImpl(BidListRepository bidListRepository) {
@@ -52,20 +50,15 @@ public class BidListServiceImpl implements IBidListService {
 
   }
 
-
-  @Override
-  @Transactional
+  @Override @Transactional
   public BidList saveBidList(BidList bidList) throws Exception {
     logger.debug("Creating BidList");
-    
-    return bidListRepository.save(bidList);
 
+    return bidListRepository.save(bidList);
 
   }
 
-  
-  @Override
-  @Transactional
+  @Override @Transactional
   public BidList updateBidList(BidList bidList) throws Exception {
     logger.debug("Updating BidList with id : {}", bidList.getBidListId());
     // Checking if BidList already exist
@@ -81,8 +74,7 @@ public class BidListServiceImpl implements IBidListService {
 
   }
 
-  @Override
-  @Transactional
+  @Override @Transactional
   public void deleteBidList(BidList bidList) throws Exception {
     logger.debug("Deleting BidList with id : {}", bidList.getBidListId());
 

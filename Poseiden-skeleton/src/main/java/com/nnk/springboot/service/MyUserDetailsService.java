@@ -54,7 +54,7 @@ public class MyUserDetailsService implements UserDetailsService {
     // Search user by mail
     Optional<User> user = userRepository.findByUsername(username);
 
-    if (user.isPresent()!= true) {
+    if (user.isPresent() != true) {
       logger.error("username : {} not founded", username);
       throw new UsernameNotFoundException("Cannot find user from username : " + username);
     }

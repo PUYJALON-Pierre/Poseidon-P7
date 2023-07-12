@@ -12,20 +12,18 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import com.jparams.verifier.tostring.ToStringVerifier;
 
-
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
 public class RuleNameTest {
 
-  
   RuleName rule1 = new RuleName("Rule Name", "Description", "Json", "Template", "SQL", "SQL Part");
   RuleName rule2 = new RuleName("Rule Name", "Description", "Json", "Template", "SQL", "SQL Part");
-  
+
   @Test
   public void ruleNameHashCodeTest() {
-   
-    assertNotSame( rule1,  rule2);
-    assertEquals( rule1.hashCode(),  rule2.hashCode());
+
+    assertNotSame(rule1, rule2);
+    assertEquals(rule1.hashCode(), rule2.hashCode());
   }
 
   @Test
@@ -34,11 +32,10 @@ public class RuleNameTest {
     ToStringVerifier.forClass(RuleName.class).verify();
   }
 
-  
   @Test
   public void testEqualsSameObj() {
     assertThat(rule1).isEqualTo(rule2);
     assertFalse(rule1.equals(null));
   }
-  
+
 }

@@ -9,8 +9,6 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 
 
-
-
 /**
  *  Model class for User in Trading App UI (Poseidon inc)
  *

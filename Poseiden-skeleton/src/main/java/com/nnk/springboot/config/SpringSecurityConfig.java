@@ -1,7 +1,5 @@
 package com.nnk.springboot.config;
 
-
-
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -13,7 +11,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.nnk.springboot.service.MyUserDetailsService;
-
 
 /**
  * Class to configure Spring Security for for Trading App UI (Poseidon inc)
@@ -46,12 +43,12 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
   @Override
   protected void configure(HttpSecurity http) throws Exception {
 
-    http.csrf().disable().authorizeRequests().antMatchers("/css/**").permitAll()
-    .antMatchers("/")
-    .permitAll()
-    .antMatchers("/bidList/**", "/rating/**", "/ruleName/**", "/trade/**", "/curvePoint/**").hasAnyAuthority("ADMIN", "USER","ROLE_USER")
-        .anyRequest().authenticated().and()
-       .oauth2Login().defaultSuccessUrl("/bidList/list", true).and().formLogin().defaultSuccessUrl("/bidList/list", true).and().logout().logoutUrl("/app-logout")
+    http.csrf().disable().authorizeRequests().antMatchers("/css/**", "/", "error/**").permitAll()
+        .antMatchers("app/error").permitAll().antMatchers("/user/**").hasAuthority("ADMIN")
+        .antMatchers("/bidList/**", "/rating/**", "/ruleName/**", "/trade/**", "/curvePoint/**")
+        .hasAnyAuthority("ADMIN", "USER", "ROLE_USER").anyRequest().authenticated().and()
+        .oauth2Login().defaultSuccessUrl("/bidList/list", true).and().formLogin()
+        .defaultSuccessUrl("/bidList/list", true).and().logout().logoutUrl("/app-logout")
         .invalidateHttpSession(true).deleteCookies("JSESSIONID");
 
   }

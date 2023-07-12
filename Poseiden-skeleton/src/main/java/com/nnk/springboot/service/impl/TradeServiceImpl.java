@@ -17,7 +17,6 @@ public class TradeServiceImpl implements ITradeService {
 
   final static Logger logger = LogManager.getLogger(TradeServiceImpl.class);
 
-
   TradeRepository tradeRepository;
 
   public TradeServiceImpl(TradeRepository tradeRepository) {
@@ -51,7 +50,7 @@ public class TradeServiceImpl implements ITradeService {
   @Override @Transactional
   public Trade saveTrade(Trade trade) throws Exception {
     logger.debug("Creating trade");
- 
+
     return tradeRepository.save(trade);
   }
 

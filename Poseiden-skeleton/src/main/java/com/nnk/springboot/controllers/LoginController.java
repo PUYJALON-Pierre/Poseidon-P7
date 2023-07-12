@@ -10,6 +10,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.nnk.springboot.repositories.UserRepository;
 
+/**
+ * Controller class for Login view in Trading App UI (Poseidon inc)
+ *
+ */
 @Controller @RequestMapping("app")
 public class LoginController {
 
@@ -18,6 +22,12 @@ public class LoginController {
   @Autowired
   private UserRepository userRepository;
 
+  /**
+   * Get Login page model
+   *
+   * @param model - Model
+   * @return login
+   */
   @GetMapping("login")
   public ModelAndView login() {
     logger.debug("Getting request login");
@@ -26,6 +36,12 @@ public class LoginController {
     return mav;
   }
 
+  /**
+   * Get user/list page model
+   *
+   * @param model - Model
+   * @return list (html template)
+   */
   @GetMapping("secure/article-details")
   public ModelAndView getAllUserArticles() {
     logger.debug("Getting request secure/article-details");
@@ -35,13 +51,19 @@ public class LoginController {
     return mav;
   }
 
+  /**
+   * Get error 403 page model
+   *
+   * @param model - Model
+   * @return 403 (html template)
+   */
   @GetMapping("error")
   public ModelAndView error() {
     logger.debug("Getting request error");
     ModelAndView mav = new ModelAndView();
     String errorMessage = "You are not authorized for the requested data.";
     mav.addObject("errorMsg", errorMessage);
-    mav.setViewName("403");
+    mav.setViewName("../static/error/403");
     return mav;
   }
 }
