@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CurvePointController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">spring-boot-skeleton</a> &gt; <a href="index.source.html" class="el_package">com.nnk.springboot.controllers</a> &gt; <span class="el_source">CurvePointController.java</span></div><h1>CurvePointController.java</h1><pre class="source lang-java linenums">package com.nnk.springboot.controllers;
 
-
-
 import javax.validation.Valid;
 
 import org.apache.logging.log4j.LogManager;
@@ -18,8 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.nnk.springboot.domain.CurvePoint;
 import com.nnk.springboot.service.ICurvePointService;
 
-
-
 /**
  * Controller class for Curvepoint view in Trading App UI (Poseidon inc)
  *
@@ -27,14 +23,13 @@ import com.nnk.springboot.service.ICurvePointService;
  * @since 25/06/2023
  */
 @Controller @RequestMapping(&quot;/curvePoint&quot;)
-<span class="fc" id="L30">public class CurvePointController {</span>
+<span class="fc" id="L26">public class CurvePointController {</span>
 
   @Autowired
   ICurvePointService iCurvePointService;
 
-<span class="fc" id="L35">  final static Logger logger = LogManager.getLogger(CurvePointController.class);</span>
+<span class="fc" id="L31">  final static Logger logger = LogManager.getLogger(CurvePointController.class);</span>
 
-  
   /**
    * Get curvePoint/list page model
    *
@@ -43,22 +38,21 @@ import com.nnk.springboot.service.ICurvePointService;
    */
   @GetMapping(&quot;/list&quot;)
   public String home(Model model) {
-<span class="fc" id="L46">    logger.debug(&quot;Getting request curvePoint/list&quot;);</span>
-<span class="fc" id="L47">    model.addAttribute(&quot;curvePoints&quot;, iCurvePointService.getCurvePoints());</span>
-<span class="fc" id="L48">    return &quot;curvePoint/list&quot;;</span>
+<span class="fc" id="L41">    logger.debug(&quot;Getting request curvePoint/list&quot;);</span>
+<span class="fc" id="L42">    model.addAttribute(&quot;curvePoints&quot;, iCurvePointService.getCurvePoints());</span>
+<span class="fc" id="L43">    return &quot;curvePoint/list&quot;;</span>
   }
 
-  
- /**
-  * Get curvePoint/add page model
-  * 
-  * @param curvePoint - CurvePoint
-  * @return add (html template)
-  */
+  /**
+   * Get curvePoint/add page model
+   * 
+   * @param curvePoint - CurvePoint
+   * @return add (html template)
+   */
   @GetMapping(&quot;/add&quot;)
   public String addBidForm(CurvePoint curvePoint) {
-<span class="fc" id="L60">    logger.debug(&quot;Getting request curvePoint/add&quot;);</span>
-<span class="fc" id="L61">    return &quot;curvePoint/add&quot;;</span>
+<span class="fc" id="L54">    logger.debug(&quot;Getting request curvePoint/add&quot;);</span>
+<span class="fc" id="L55">    return &quot;curvePoint/add&quot;;</span>
   }
 
   /**
@@ -73,18 +67,17 @@ import com.nnk.springboot.service.ICurvePointService;
   @PostMapping(&quot;/validate&quot;)
   public String validate(@Valid CurvePoint curvePoint, BindingResult result, Model model)
       throws Exception {
-<span class="fc" id="L76">    logger.debug(&quot;Posting request curvePoint/validate for curvePoint with id:{}&quot;,</span>
-<span class="fc" id="L77">        curvePoint.getId());</span>
-<span class="pc bpc" id="L78" title="1 of 2 branches missed.">    if (!result.hasErrors()) {</span>
-<span class="fc" id="L79">      iCurvePointService.saveCurvePoint(curvePoint);</span>
-<span class="fc" id="L80">      model.addAttribute(&quot;curvePoints&quot;, iCurvePointService.getCurvePoints());</span>
-<span class="fc" id="L81">      return &quot;redirect:/curvePoint/list&quot;;</span>
+<span class="fc" id="L70">    logger.debug(&quot;Posting request curvePoint/validate for curvePoint with id:{}&quot;,</span>
+<span class="fc" id="L71">        curvePoint.getId());</span>
+<span class="pc bpc" id="L72" title="1 of 2 branches missed.">    if (!result.hasErrors()) {</span>
+<span class="fc" id="L73">      iCurvePointService.saveCurvePoint(curvePoint);</span>
+<span class="fc" id="L74">      model.addAttribute(&quot;curvePoints&quot;, iCurvePointService.getCurvePoints());</span>
+<span class="fc" id="L75">      return &quot;redirect:/curvePoint/list&quot;;</span>
     }
-<span class="nc" id="L83">    logger.error(&quot;Error during saving curvePoint : {}&quot;, result.getFieldError());</span>
-<span class="nc" id="L84">    return &quot;curvePoint/add&quot;;</span>
+<span class="nc" id="L77">    logger.error(&quot;Error during saving curvePoint : {}&quot;, result.getFieldError());</span>
+<span class="nc" id="L78">    return &quot;curvePoint/add&quot;;</span>
   }
 
-  
   /**
    * Get curvePoint/update page model
    * 
@@ -94,10 +87,10 @@ import com.nnk.springboot.service.ICurvePointService;
    */
   @GetMapping(&quot;/update/{id}&quot;)
   public String showUpdateForm(@PathVariable(&quot;id&quot;) Integer id, Model model) {
-<span class="fc" id="L97">    logger.debug(&quot;Getting request curvePoint/update/{id} for curvePoint with id:{}&quot;, id);</span>
-<span class="fc" id="L98">    CurvePoint newCurvePoint = iCurvePointService.getCurvePointById(id);</span>
-<span class="fc" id="L99">    model.addAttribute(&quot;curvePoint&quot;, newCurvePoint);</span>
-<span class="fc" id="L100">    return &quot;curvePoint/update&quot;;</span>
+<span class="fc" id="L90">    logger.debug(&quot;Getting request curvePoint/update/{id} for curvePoint with id:{}&quot;, id);</span>
+<span class="fc" id="L91">    CurvePoint newCurvePoint = iCurvePointService.getCurvePointById(id);</span>
+<span class="fc" id="L92">    model.addAttribute(&quot;curvePoint&quot;, newCurvePoint);</span>
+<span class="fc" id="L93">    return &quot;curvePoint/update&quot;;</span>
   }
 
   /**
@@ -113,16 +106,16 @@ import com.nnk.springboot.service.ICurvePointService;
   @PostMapping(&quot;/update/{id}&quot;)
   public String updateBid(@PathVariable(&quot;id&quot;) Integer id, @Valid CurvePoint curvePoint,
       BindingResult result, Model model) throws Exception {
-<span class="fc" id="L116">    logger.debug(&quot;Posting request curvePoint/update/{id} for curvePoint with id:{}&quot;, id);</span>
-<span class="pc bpc" id="L117" title="1 of 2 branches missed.">    if (result.hasErrors()) {</span>
-<span class="nc" id="L118">      logger.error(&quot;Error during updating curvePoint : {}&quot;, result.getFieldError());</span>
-<span class="nc" id="L119">      return &quot;curvePoint/update&quot;;</span>
+<span class="fc" id="L109">    logger.debug(&quot;Posting request curvePoint/update/{id} for curvePoint with id:{}&quot;, id);</span>
+<span class="pc bpc" id="L110" title="1 of 2 branches missed.">    if (result.hasErrors()) {</span>
+<span class="nc" id="L111">      logger.error(&quot;Error during updating curvePoint : {}&quot;, result.getFieldError());</span>
+<span class="nc" id="L112">      return &quot;curvePoint/update&quot;;</span>
     }
-<span class="fc" id="L121">    curvePoint.setId(id);</span>
-<span class="fc" id="L122">    iCurvePointService.updateCurvePoint(curvePoint);</span>
-<span class="fc" id="L123">    model.addAttribute(&quot;curvePoints&quot;, iCurvePointService.getCurvePoints());</span>
+<span class="fc" id="L114">    curvePoint.setId(id);</span>
+<span class="fc" id="L115">    iCurvePointService.updateCurvePoint(curvePoint);</span>
+<span class="fc" id="L116">    model.addAttribute(&quot;curvePoints&quot;, iCurvePointService.getCurvePoints());</span>
 
-<span class="fc" id="L125">    return &quot;redirect:/curvePoint/list&quot;;</span>
+<span class="fc" id="L118">    return &quot;redirect:/curvePoint/list&quot;;</span>
   }
 
   /**
@@ -135,12 +128,12 @@ import com.nnk.springboot.service.ICurvePointService;
    */
   @GetMapping(&quot;/delete/{id}&quot;)
   public String deleteBid(@PathVariable(&quot;id&quot;) Integer id, Model model) throws Exception {
-<span class="fc" id="L138">    logger.debug(&quot;Getting request curvePoint/delete/{id} for curvePoint with id:{}&quot;, id);</span>
-<span class="fc" id="L139">    CurvePoint newCurvePoint = iCurvePointService.getCurvePointById(id);</span>
-<span class="fc" id="L140">    iCurvePointService.deleteCurvePoint(newCurvePoint);</span>
-<span class="fc" id="L141">    model.addAttribute(&quot;curvePoints&quot;, iCurvePointService.getCurvePoints());</span>
+<span class="fc" id="L131">    logger.debug(&quot;Getting request curvePoint/delete/{id} for curvePoint with id:{}&quot;, id);</span>
+<span class="fc" id="L132">    CurvePoint newCurvePoint = iCurvePointService.getCurvePointById(id);</span>
+<span class="fc" id="L133">    iCurvePointService.deleteCurvePoint(newCurvePoint);</span>
+<span class="fc" id="L134">    model.addAttribute(&quot;curvePoints&quot;, iCurvePointService.getCurvePoints());</span>
 
-<span class="fc" id="L143">    return &quot;redirect:/curvePoint/list&quot;;</span>
+<span class="fc" id="L136">    return &quot;redirect:/curvePoint/list&quot;;</span>
   }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

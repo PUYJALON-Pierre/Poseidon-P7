@@ -17,72 +17,71 @@ public class TradeServiceImpl implements ITradeService {
 
 <span class="fc" id="L18">  final static Logger logger = LogManager.getLogger(TradeServiceImpl.class);</span>
 
-
   TradeRepository tradeRepository;
 
   public TradeServiceImpl(TradeRepository tradeRepository) {
-<span class="fc" id="L24">    super();</span>
-<span class="fc" id="L25">    this.tradeRepository = tradeRepository;</span>
-<span class="fc" id="L26">  }</span>
+<span class="fc" id="L23">    super();</span>
+<span class="fc" id="L24">    this.tradeRepository = tradeRepository;</span>
+<span class="fc" id="L25">  }</span>
 
   @Override
   public List&lt;Trade&gt; getAllTrades() {
-<span class="fc" id="L30">    logger.debug(&quot;Start finding all trades&quot;);</span>
-<span class="fc" id="L31">    logger.info(&quot;Getting all trades&quot;);</span>
+<span class="fc" id="L29">    logger.debug(&quot;Start finding all trades&quot;);</span>
+<span class="fc" id="L30">    logger.info(&quot;Getting all trades&quot;);</span>
 
-<span class="pc bpc" id="L33" title="1 of 2 branches missed.">    if (tradeRepository.findAll().isEmpty()) {</span>
-<span class="nc" id="L34">      logger.error(&quot;No trades founded&quot;);</span>
+<span class="pc bpc" id="L32" title="1 of 2 branches missed.">    if (tradeRepository.findAll().isEmpty()) {</span>
+<span class="nc" id="L33">      logger.error(&quot;No trades founded&quot;);</span>
     }
-<span class="fc" id="L36">    return tradeRepository.findAll();</span>
+<span class="fc" id="L35">    return tradeRepository.findAll();</span>
   }
 
   @Override
   public Trade getTradeById(int id) {
-<span class="fc" id="L41">    logger.debug(&quot;Finding trade with id : {}&quot;, id);</span>
-<span class="fc bfc" id="L42" title="All 2 branches covered.">    if (tradeRepository.findById(id).isPresent()) {</span>
-<span class="fc" id="L43">      logger.info(&quot;Founded trade with id : {}&quot;, id);</span>
-<span class="fc" id="L44">      return tradeRepository.findById(id).get();</span>
+<span class="fc" id="L40">    logger.debug(&quot;Finding trade with id : {}&quot;, id);</span>
+<span class="fc bfc" id="L41" title="All 2 branches covered.">    if (tradeRepository.findById(id).isPresent()) {</span>
+<span class="fc" id="L42">      logger.info(&quot;Founded trade with id : {}&quot;, id);</span>
+<span class="fc" id="L43">      return tradeRepository.findById(id).get();</span>
     } else {
-<span class="fc" id="L46">      logger.error(&quot;No trade founded with id : {}&quot;, id);</span>
-<span class="fc" id="L47">      return null;</span>
+<span class="fc" id="L45">      logger.error(&quot;No trade founded with id : {}&quot;, id);</span>
+<span class="fc" id="L46">      return null;</span>
     }
   }
 
   @Override @Transactional
   public Trade saveTrade(Trade trade) throws Exception {
-<span class="fc" id="L53">    logger.debug(&quot;Creating trade&quot;);</span>
- 
-<span class="fc" id="L55">    return tradeRepository.save(trade);</span>
+<span class="fc" id="L52">    logger.debug(&quot;Creating trade&quot;);</span>
+
+<span class="fc" id="L54">    return tradeRepository.save(trade);</span>
   }
 
   @Override @Transactional
   public Trade updateTrade(Trade trade) throws Exception {
-<span class="fc" id="L60">    logger.debug(&quot;Updating curvePoint with id : {}&quot;, trade.getTradeId());</span>
+<span class="fc" id="L59">    logger.debug(&quot;Updating curvePoint with id : {}&quot;, trade.getTradeId());</span>
     // Checking if trade already exist
-<span class="fc bfc" id="L62" title="All 2 branches covered.">    if (tradeRepository.findById(trade.getTradeId()).isPresent()) {</span>
-<span class="fc" id="L63">      logger.info(&quot;Trade with id : {} updated&quot;, trade.getTradeId());</span>
-<span class="fc" id="L64">      return tradeRepository.save(trade);</span>
+<span class="fc bfc" id="L61" title="All 2 branches covered.">    if (tradeRepository.findById(trade.getTradeId()).isPresent()) {</span>
+<span class="fc" id="L62">      logger.info(&quot;Trade with id : {} updated&quot;, trade.getTradeId());</span>
+<span class="fc" id="L63">      return tradeRepository.save(trade);</span>
     }
 
     else {
-<span class="fc" id="L68">      logger.error(&quot;This trade cannot be updated because not founded&quot;);</span>
-<span class="fc" id="L69">      throw new Exception(&quot;Trade to update not founded&quot;);</span>
+<span class="fc" id="L67">      logger.error(&quot;This trade cannot be updated because not founded&quot;);</span>
+<span class="fc" id="L68">      throw new Exception(&quot;Trade to update not founded&quot;);</span>
     }
   }
 
   @Override @Transactional
   public void deleteTrade(Trade trade) throws Exception {
 
-<span class="fc" id="L76">    logger.debug(&quot;Deleting trade with id : {}&quot;, trade.getTradeId());</span>
+<span class="fc" id="L75">    logger.debug(&quot;Deleting trade with id : {}&quot;, trade.getTradeId());</span>
 
-<span class="fc bfc" id="L78" title="All 2 branches covered.">    if (getTradeById(trade.getTradeId()) != null) {</span>
-<span class="fc" id="L79">      logger.info(&quot;Trade with id : {} deleted&quot;, trade.getTradeId());</span>
-<span class="fc" id="L80">      tradeRepository.delete(trade);</span>
+<span class="fc bfc" id="L77" title="All 2 branches covered.">    if (getTradeById(trade.getTradeId()) != null) {</span>
+<span class="fc" id="L78">      logger.info(&quot;Trade with id : {} deleted&quot;, trade.getTradeId());</span>
+<span class="fc" id="L79">      tradeRepository.delete(trade);</span>
     } else {
-<span class="fc" id="L82">      logger.error(&quot;This trade cannot be deleted because not founded&quot;);</span>
-<span class="fc" id="L83">      throw new Exception(&quot;Trade to delete not founded&quot;);</span>
+<span class="fc" id="L81">      logger.error(&quot;This trade cannot be deleted because not founded&quot;);</span>
+<span class="fc" id="L82">      throw new Exception(&quot;Trade to delete not founded&quot;);</span>
     }
-<span class="fc" id="L85">  }</span>
+<span class="fc" id="L84">  }</span>
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

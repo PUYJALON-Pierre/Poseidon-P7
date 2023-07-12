@@ -54,7 +54,7 @@ import com.nnk.springboot.repositories.UserRepository;
     // Search user by mail
 <span class="fc" id="L55">    Optional&lt;User&gt; user = userRepository.findByUsername(username);</span>
 
-<span class="fc bfc" id="L57" title="All 2 branches covered.">    if (user.isPresent()!= true) {</span>
+<span class="fc bfc" id="L57" title="All 2 branches covered.">    if (user.isPresent() != true) {</span>
 <span class="fc" id="L58">      logger.error(&quot;username : {} not founded&quot;, username);</span>
 <span class="fc" id="L59">      throw new UsernameNotFoundException(&quot;Cannot find user from username : &quot; + username);</span>
     }

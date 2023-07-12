@@ -9,15 +9,13 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 
 
-
-
 /**
  *  Model class for User in Trading App UI (Poseidon inc)
  *
  */
 @Entity
 @Table(name = &quot;users&quot;)
-<span class="fc" id="L20">public class User {</span>
+<span class="fc" id="L18">public class User {</span>
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Integer id;
@@ -32,43 +30,43 @@ import javax.validation.constraints.Pattern;
     private String role;
 
     public Integer getId() {
-<span class="fc" id="L35">        return id;</span>
+<span class="fc" id="L33">        return id;</span>
     }
 
     public void setId(Integer id) {
-<span class="fc" id="L39">        this.id = id;</span>
-<span class="fc" id="L40">    }</span>
+<span class="fc" id="L37">        this.id = id;</span>
+<span class="fc" id="L38">    }</span>
 
     public String getUsername() {
-<span class="fc" id="L43">        return username;</span>
+<span class="fc" id="L41">        return username;</span>
     }
 
     public void setUsername(String username) {
-<span class="fc" id="L47">        this.username = username;</span>
-<span class="fc" id="L48">    }</span>
+<span class="fc" id="L45">        this.username = username;</span>
+<span class="fc" id="L46">    }</span>
 
     public String getPassword() {
-<span class="fc" id="L51">        return password;</span>
+<span class="fc" id="L49">        return password;</span>
     }
 
     public void setPassword(String password) {
-<span class="fc" id="L55">        this.password = password;</span>
-<span class="fc" id="L56">    }</span>
+<span class="fc" id="L53">        this.password = password;</span>
+<span class="fc" id="L54">    }</span>
 
     public String getFullname() {
-<span class="fc" id="L59">        return fullname;</span>
+<span class="fc" id="L57">        return fullname;</span>
     }
 
     public void setFullname(String fullname) {
-<span class="fc" id="L63">        this.fullname = fullname;</span>
-<span class="fc" id="L64">    }</span>
+<span class="fc" id="L61">        this.fullname = fullname;</span>
+<span class="fc" id="L62">    }</span>
 
     public String getRole() {
-<span class="fc" id="L67">        return role;</span>
+<span class="fc" id="L65">        return role;</span>
     }
 
     public void setRole(String role) {
-<span class="fc" id="L71">        this.role = role;</span>
-<span class="fc" id="L72">    }</span>
+<span class="fc" id="L69">        this.role = role;</span>
+<span class="fc" id="L70">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

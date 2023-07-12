@@ -8,9 +8,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.DecimalMax;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
+import javax.validation.constraints.Size;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -21,40 +23,41 @@ import lombok.NoArgsConstructor;
  * Model class for CurvePoint in Trading App UI (Poseidon inc)
  *
  */
-<span class="pc bpc" id="L24" title="30 of 54 branches missed.">@NoArgsConstructor @Data @Entity @Table(name = &quot;curvepoint&quot;)</span>
+<span class="pc bpc" id="L26" title="30 of 54 branches missed.">@NoArgsConstructor @Data @Entity @Table(name = &quot;curvepoint&quot;)</span>
 public class CurvePoint {
 
   @Id @GeneratedValue(strategy = GenerationType.AUTO) @Column(name = &quot;Id&quot;)
-<span class="fc" id="L28">  private Integer id;</span>
+<span class="fc" id="L30">  private Integer id;</span>
 
   @NotNull(message = &quot;Curve Id is mandatory&quot;)
   @Positive
   @Digits(fraction =0, integer = 3)
+  @DecimalMax(value = &quot;127&quot;, message = &quot;Out of range&quot;)
   @Column(name = &quot;CurveId&quot;)
-<span class="fc" id="L34">  Integer curveId;</span>
+<span class="fc" id="L37">  Integer curveId;</span>
 
   @Column(name = &quot;asOfDate&quot;) @DateTimeFormat(pattern = &quot;yyyy-MM-dd&quot;)
-<span class="fc" id="L37">  LocalDateTime asOfDate;</span>
+<span class="fc" id="L40">  LocalDateTime asOfDate;</span>
 
   @NotNull(message = &quot;Term is mandatory&quot;)
   @Digits(fraction = 2, integer = 20)
   @Positive
   @Column(name = &quot;term&quot;)
-<span class="fc" id="L43">  Double term;</span>
+<span class="fc" id="L46">  Double term;</span>
 
   @NotNull(message = &quot;Value is mandatory&quot;)
   @Digits(fraction = 2, integer = 20)
   @Positive
   @Column(name = &quot;value&quot;)
-<span class="fc" id="L49">  Double value;</span>
+<span class="fc" id="L52">  Double value;</span>
 
   @Column(name = &quot;creationDate&quot;) @DateTimeFormat(pattern = &quot;yyyy-MM-dd&quot;)
-<span class="fc" id="L52">  LocalDateTime creationDate;</span>
+<span class="fc" id="L55">  LocalDateTime creationDate;</span>
 
-<span class="fc" id="L54">  public CurvePoint(int curveId, double term, double value) {</span>
-<span class="fc" id="L55">    this.curveId = curveId;</span>
-<span class="fc" id="L56">    this.term = term;</span>
-<span class="fc" id="L57">    this.value = value;</span>
-<span class="fc" id="L58">  }</span>
+<span class="fc" id="L57">  public CurvePoint(int curveId, double term, double value) {</span>
+<span class="fc" id="L58">    this.curveId = curveId;</span>
+<span class="fc" id="L59">    this.term = term;</span>
+<span class="fc" id="L60">    this.value = value;</span>
+<span class="fc" id="L61">  }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

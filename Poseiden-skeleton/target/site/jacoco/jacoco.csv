@@ -14,11 +14,11 @@ spring-boot-skeleton,com.nnk.springboot.service.impl,RuleNameServiceImpl,3,127,1
 spring-boot-skeleton,com.nnk.springboot.service.impl,BidListServiceImpl,11,122,2,6,3,27,2,9,0,7
 spring-boot-skeleton,com.nnk.springboot.service.impl,RatingServiceImpl,14,116,2,6,3,27,2,9,0,7
 spring-boot-skeleton,com.nnk.springboot.service,MyUserDetailsService,0,95,1,5,0,16,1,6,0,4
-spring-boot-skeleton,com.nnk.springboot.config,SpringSecurityConfig,0,124,0,0,0,16,0,5,0,5
+spring-boot-skeleton,com.nnk.springboot.config,SpringSecurityConfig,0,133,0,0,0,14,0,5,0,5
 spring-boot-skeleton,com.nnk.springboot,Application,5,3,0,0,2,1,1,1,1,1
 spring-boot-skeleton,com.nnk.springboot.domain,Rating,36,234,25,21,0,13,20,19,0,16
 spring-boot-skeleton,com.nnk.springboot.domain,RuleName,50,312,35,27,0,17,28,23,0,20
-spring-boot-skeleton,com.nnk.springboot.domain,BidList,263,735,110,72,0,29,106,35,18,32
+spring-boot-skeleton,com.nnk.springboot.domain,BidList,263,735,110,72,0,28,106,35,18,32
 spring-boot-skeleton,com.nnk.springboot.domain,Trade,250,706,105,69,0,28,101,34,17,31
 spring-boot-skeleton,com.nnk.springboot.domain,User,0,38,0,0,0,16,0,11,0,11
 spring-boot-skeleton,com.nnk.springboot.domain,CurvePoint,55,258,30,24,0,12,26,19,2,16

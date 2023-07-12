@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>TradeController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">spring-boot-skeleton</a> &gt; <a href="index.source.html" class="el_package">com.nnk.springboot.controllers</a> &gt; <span class="el_source">TradeController.java</span></div><h1>TradeController.java</h1><pre class="source lang-java linenums">package com.nnk.springboot.controllers;
 
-
 import javax.validation.Valid;
 
 import org.apache.logging.log4j.LogManager;
@@ -17,8 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.nnk.springboot.domain.Trade;
 import com.nnk.springboot.service.ITradeService;
 
-
-
 /**
  * Controller class for Trade view in Trading App UI (Poseidon inc)
  *
@@ -26,8 +23,8 @@ import com.nnk.springboot.service.ITradeService;
  * @since 25/06/2023
  */
 @Controller @RequestMapping(&quot;/trade&quot;)
-<span class="fc" id="L29">public class TradeController {</span>
-<span class="fc" id="L30">  final static Logger logger = LogManager.getLogger(TradeController.class);</span>
+<span class="fc" id="L26">public class TradeController {</span>
+<span class="fc" id="L27">  final static Logger logger = LogManager.getLogger(TradeController.class);</span>
 
   @Autowired
   ITradeService iTradeService;
@@ -40,9 +37,9 @@ import com.nnk.springboot.service.ITradeService;
    */
   @GetMapping(&quot;/list&quot;)
   public String home(Model model) {
-<span class="fc" id="L43">    logger.debug(&quot;Getting request trade/list&quot;);</span>
-<span class="fc" id="L44">    model.addAttribute(&quot;trades&quot;, iTradeService.getAllTrades());</span>
-<span class="fc" id="L45">    return &quot;trade/list&quot;;</span>
+<span class="fc" id="L40">    logger.debug(&quot;Getting request trade/list&quot;);</span>
+<span class="fc" id="L41">    model.addAttribute(&quot;trades&quot;, iTradeService.getAllTrades());</span>
+<span class="fc" id="L42">    return &quot;trade/list&quot;;</span>
   }
 
   /**
@@ -53,8 +50,8 @@ import com.nnk.springboot.service.ITradeService;
    */
   @GetMapping(&quot;/add&quot;)
   public String addUser(Trade bid) {
-<span class="fc" id="L56">    logger.debug(&quot;Getting request trade/add&quot;);</span>
-<span class="fc" id="L57">    return &quot;trade/add&quot;;</span>
+<span class="fc" id="L53">    logger.debug(&quot;Getting request trade/add&quot;);</span>
+<span class="fc" id="L54">    return &quot;trade/add&quot;;</span>
   }
 
   /**
@@ -69,15 +66,15 @@ import com.nnk.springboot.service.ITradeService;
   @PostMapping(&quot;/validate&quot;)
   public String validate(@Valid Trade trade, BindingResult result, Model model) throws Exception {
 
-<span class="fc" id="L72">    logger.debug(&quot;Posting request trade/validate for trade with id:{}&quot;, trade.getTradeId());</span>
-<span class="pc bpc" id="L73" title="1 of 2 branches missed.">    if (!result.hasErrors()) {</span>
-<span class="fc" id="L74">      iTradeService.saveTrade(trade);</span>
-<span class="fc" id="L75">      model.addAttribute(&quot;trades&quot;, iTradeService.getAllTrades());</span>
-<span class="fc" id="L76">      return &quot;redirect:/trade/list&quot;;</span>
+<span class="fc" id="L69">    logger.debug(&quot;Posting request trade/validate for trade with id:{}&quot;, trade.getTradeId());</span>
+<span class="pc bpc" id="L70" title="1 of 2 branches missed.">    if (!result.hasErrors()) {</span>
+<span class="fc" id="L71">      iTradeService.saveTrade(trade);</span>
+<span class="fc" id="L72">      model.addAttribute(&quot;trades&quot;, iTradeService.getAllTrades());</span>
+<span class="fc" id="L73">      return &quot;redirect:/trade/list&quot;;</span>
     }
-<span class="nc" id="L78">    logger.error(&quot;Error during saving trade : {}&quot;, result.getFieldError());</span>
+<span class="nc" id="L75">    logger.error(&quot;Error during saving trade : {}&quot;, result.getFieldError());</span>
 
-<span class="nc" id="L80">    return &quot;trade/add&quot;;</span>
+<span class="nc" id="L77">    return &quot;trade/add&quot;;</span>
   }
 
   /**
@@ -90,10 +87,10 @@ import com.nnk.springboot.service.ITradeService;
   @GetMapping(&quot;/update/{id}&quot;)
   public String showUpdateForm(@PathVariable(&quot;id&quot;) Integer id, Model model) {
 
-<span class="fc" id="L93">    logger.debug(&quot;Getting request trade/update/{id} for trade with id:{}&quot;, id);</span>
-<span class="fc" id="L94">    Trade newTrade = iTradeService.getTradeById(id);</span>
-<span class="fc" id="L95">    model.addAttribute(&quot;trade&quot;, newTrade);</span>
-<span class="fc" id="L96">    return &quot;trade/update&quot;;</span>
+<span class="fc" id="L90">    logger.debug(&quot;Getting request trade/update/{id} for trade with id:{}&quot;, id);</span>
+<span class="fc" id="L91">    Trade newTrade = iTradeService.getTradeById(id);</span>
+<span class="fc" id="L92">    model.addAttribute(&quot;trade&quot;, newTrade);</span>
+<span class="fc" id="L93">    return &quot;trade/update&quot;;</span>
   }
 
   /**
@@ -110,15 +107,15 @@ import com.nnk.springboot.service.ITradeService;
   public String updateTrade(@PathVariable(&quot;id&quot;) Integer id, @Valid Trade trade,
       BindingResult result, Model model) throws Exception {
 
-<span class="fc" id="L113">    logger.debug(&quot;Posting request trade/update/{id} for trade with id:{}&quot;, id);</span>
-<span class="pc bpc" id="L114" title="1 of 2 branches missed.">    if (result.hasErrors()) {</span>
-<span class="nc" id="L115">      logger.error(&quot;Error during updating trade : {}&quot;, result.getFieldError());</span>
-<span class="nc" id="L116">      return &quot;trade/update&quot;;</span>
+<span class="fc" id="L110">    logger.debug(&quot;Posting request trade/update/{id} for trade with id:{}&quot;, id);</span>
+<span class="pc bpc" id="L111" title="1 of 2 branches missed.">    if (result.hasErrors()) {</span>
+<span class="nc" id="L112">      logger.error(&quot;Error during updating trade : {}&quot;, result.getFieldError());</span>
+<span class="nc" id="L113">      return &quot;trade/update&quot;;</span>
     }
-<span class="fc" id="L118">    trade.setTradeId(id);</span>
-<span class="fc" id="L119">    iTradeService.updateTrade(trade);</span>
-<span class="fc" id="L120">    model.addAttribute(&quot;trades&quot;, iTradeService.getAllTrades());</span>
-<span class="fc" id="L121">    return &quot;redirect:/trade/list&quot;;</span>
+<span class="fc" id="L115">    trade.setTradeId(id);</span>
+<span class="fc" id="L116">    iTradeService.updateTrade(trade);</span>
+<span class="fc" id="L117">    model.addAttribute(&quot;trades&quot;, iTradeService.getAllTrades());</span>
+<span class="fc" id="L118">    return &quot;redirect:/trade/list&quot;;</span>
   }
 
   /**
@@ -132,12 +129,12 @@ import com.nnk.springboot.service.ITradeService;
   @GetMapping(&quot;/delete/{id}&quot;)
   public String deleteTrade(@PathVariable(&quot;id&quot;) Integer id, Model model) throws Exception {
 
-<span class="fc" id="L135">    logger.debug(&quot;Getting request trade/delete/{id} for trade with id:{}&quot;, id);</span>
-<span class="fc" id="L136">    Trade newTrade = iTradeService.getTradeById(id);</span>
-<span class="fc" id="L137">    iTradeService.deleteTrade(newTrade);</span>
-<span class="fc" id="L138">    model.addAttribute(&quot;trades&quot;, iTradeService.getAllTrades());</span>
+<span class="fc" id="L132">    logger.debug(&quot;Getting request trade/delete/{id} for trade with id:{}&quot;, id);</span>
+<span class="fc" id="L133">    Trade newTrade = iTradeService.getTradeById(id);</span>
+<span class="fc" id="L134">    iTradeService.deleteTrade(newTrade);</span>
+<span class="fc" id="L135">    model.addAttribute(&quot;trades&quot;, iTradeService.getAllTrades());</span>
 
-<span class="fc" id="L140">    return &quot;redirect:/trade/list&quot;;</span>
+<span class="fc" id="L137">    return &quot;redirect:/trade/list&quot;;</span>
   }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

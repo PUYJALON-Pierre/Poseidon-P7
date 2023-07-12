@@ -1,5 +1,6 @@
 com\nnk\springboot\service\BidListServiceTest.class
 com\nnk\springboot\service\TradeServiceTest.class
+com\nnk\springboot\service\PasswordEncoderTest.class
 com\nnk\springboot\controller\LoginControllerTest.class
 com\nnk\springboot\service\RatingServiceTest.class
 com\nnk\springboot\controller\CurvePointControllerTest.class
